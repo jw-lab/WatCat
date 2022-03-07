@@ -29,15 +29,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
-<<<<<<< HEAD
 	//api
 	implementation 'javax.xml.bind:jaxb-api'
 	implementation 'javax.activation:activation:1.1.1' 
 	implementation 'org.glassfish.jaxb:jaxb-runtime'
-=======
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
->>>>>>> 36326108dcc7c62f04a46b4c78ba1de04f071ba3
 }
 
 tasks.named('test') {
