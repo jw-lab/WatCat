@@ -11,20 +11,16 @@
     <!-- 헤더 영역 -->
     <header th:include="Header :: header">
     </header>
-    <div class="my-2 border border-dark border-1 p-3">
-            <div class="border border-dark border-1">
-                <!-- 네비게이션 영역 -->
-                <nav class="">
-                    <p>네비게이션 영역</p>
-                </nav>
-            </div>
-
-            <div class="border border-dark border-1">
-                <!-- 메인영역 -->
-                <p>메인 영역</p>
-            </div>
+    <!-- 네비게이션 영역 -->
+    <nav class="float-start bg2ndColor text-white leftSidePannel">
+        <div class="p-4">
+            네비 영역
         </div>
+    </nav>
+    <!-- 메인영역 -->
+    <main class="text-white bg-black mainPannel">
         
-    </div>
+        <p>메인 영역</p>
+    </main>
 </body>
 </html>
