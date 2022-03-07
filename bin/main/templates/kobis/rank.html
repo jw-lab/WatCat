@@ -25,7 +25,7 @@
  			$.ajax({
 				url:"/watcat/kobis",
 				type:"POST",
-				data:{startDt, startDt, endDt:endDt},
+				data:{date},
 				success:function(data){
 					var tbody = $("#ajaxTable> tbody").append(result);
 					tbody.empty();
