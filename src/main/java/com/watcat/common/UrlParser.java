@@ -13,10 +13,10 @@ public class UrlParser {
 	
 	private String endPoint = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?";
 	private String keyFunc = "key=";
-	private String targetDt = "&targetDt=";
+	private String targetDt = "&targetDt=20220301";
 	
-	public String getUrl(String date) {
-		String strUrl = endPoint + keyFunc + serviceKey + targetDt + date;
+	public String getUrl() {
+		String strUrl = endPoint + keyFunc + serviceKey + targetDt;
 		
 		return strUrl;
 	}

@@ -8,6 +8,5 @@ public interface KobisService {
 
 	List<DailyBoxOfficeDto> getDailyBoxOffice(String strUrl)throws Exception;
 
-//	List<DailyBoxOfficeDto> getItemList()throws Exception;
 
 }
