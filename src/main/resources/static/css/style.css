@@ -28,3 +28,7 @@ a:link{color:rgb(255, 255, 255)}
 .headerLink:hover{
 	color: black;
 }
+
+.mypageNav {
+	margin-top: 150px;
+}
