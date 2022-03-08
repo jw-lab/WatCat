@@ -1,17 +1,16 @@
-
 /* 캐러셀 이미지 */
 .carousel-item {
 	background-color: black;
 }
 
 .carousel-item img{
-	height: 300px;
+	height: 500px;
 	width: auto;
 	margin: auto;
 }
 
-/* 영화 이미지 */
- #movieImgBox {
+/* 영화 상세보기 이미지 */
+#movieImgBox {
 	overflow: hidden;
 }
 

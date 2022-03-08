@@ -24,4 +24,9 @@ public class MyPageController {
 	public String mypageReview() {
 		return "Mypage/MyPageReview";
 	}
+	
+	@RequestMapping("mypage/trash")
+	public String mypageTrash() {
+		return "Mypage/MyPageTrash";
+	}
 }
