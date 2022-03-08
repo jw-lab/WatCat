@@ -26,19 +26,19 @@
 </script>
 </head>
 <body class="bg2ndColor">
-    <div class="m-3 h-100">
+    <div class="h-100">
         <!-- 헤더 영역 -->
-        <header th:include="Header :: header" class="container-fluid fixed-top px-5">
+        <header th:include="Header :: header" class="fixed-top px-0 mx-0">
         </header>
         
-        <div class="row h-100 mypageMainMarginTop">
+        <div class="row h-100">
             <!-- 네비게이션 영역 -->
-            <nav th:include="/Mypage/nav :: nav" class="col-lg-3 mt-5 px-5">
+            <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5">
             </nav>
             <!-- 메인영역 -->
-            <main class="col-lg-9 bg-black text-white mainPannel h-100">    
+            <main class="col-lg-9 bg-black text-white h-100 p-0">    
                 <div class="h-100">
-                    <form action="/mypage/updatepw" method="post" class="w-50 mx-auto px-lg-5 mt-lg-5">
+                    <form action="/mypage/updatepw" method="post" class="w-50 mx-auto px-lg-5">
                         <h3 class="my-5">비밀번호 변경 하기</h3>
                         
                         <div class="form-floating bg-black">

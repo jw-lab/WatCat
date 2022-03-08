@@ -9,19 +9,19 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg2ndColor">
-    <div class="m-3">
+    <div>
         <!-- 헤더 영역 -->
-        <header th:include="Header :: header" class="container-fluid fixed-top px-5">
+        <header th:include="Header :: header" class="fixed-top px-0 mx-0">
         </header>
         
-        <div class="row mypageMainMarginTop">
+        <div class="row h-100">
             <!-- 네비게이션 영역 -->
-            <nav th:include="/Mypage/nav :: nav" class="col-lg-3 mt-5 px-5">
+            <nav th:include="/Mypage/nav :: nav" class="col-lg-3  px-5">
             </nav>
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white">    
                 <div>
-                    리뷰
+                    삭제한 리뷰
                 </div>
             </main>
         </div>
