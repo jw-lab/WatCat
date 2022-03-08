@@ -1,7 +1,6 @@
 html, body{
 	margin: 0;
     height: 100%;
-    overflow: hidden;
 }
 
 /* a 태그 세팅 */
@@ -11,20 +10,21 @@ a:link{color:rgb(255, 255, 255)}
 
 /* 약간 배경색  */
 .bg2ndColor {
-	background-color: rgb(39, 39, 39);
+	background-color: rgb(22, 22, 22);
 }
 
-.leftSidePannel {
-	width: 200px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    overflow: hidden;
+.MyPageListsfont{
+	font-size: larger;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.mainPannel{
-	height: 100%;
-	display: flex;
-    flex-direction: row;
-    overflow: hidden;
+.MyPageSmallListsfont{
+	font-size: smaller;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.headerLink:hover{
+	color: black;
 }

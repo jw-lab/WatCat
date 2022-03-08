@@ -6,12 +6,116 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/movieRec.css">
+<link rel="stylesheet" href="/css/style.css">
 <script>
 $(document).ready(()=>{
-	let title = $("#title").val();
-	let genre = $("#genre").val();
-	$("#movieBox").empty();
- 	$.ajax({
+	//tmdb api 활용
+	let qTitle = $("#title").val(); // recommend에서 get 방식으로 전달한 영화 제목
+	let searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=a1c25fa7fbd7117d8d4d73bf1892deae&query="+qTitle;
+	$.ajax({
+		type:"GET",
+		url:searchUrl,
+		success:(results)=>{
+			let result = results["results"][0];
+			let movieId = result.id;
+			let posterPath =result.poster_path;
+			let apiUrl = "https://api.themoviedb.org/3/movie/";
+			let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
+			let language = "&language=ko";
+			apiUrl += movieId; 
+			apiUrl += apiKey;
+			apiUrl += language;
+			$.ajax({
+				type:"GET",
+				url:apiUrl,
+				success:(response)=>{
+					// 포스터 이미지
+					let imageUrl ="https://image.tmdb.org/t/p/original";
+					//imageUrl += posterPath;
+					// 백드랍 이미지
+					let backdrop= response.backdrop_path;
+					imageUrl += backdrop;
+					
+					
+					// 영화 장르
+					let genres = response.genres;
+					let genre="";
+					for(let i=0;i<genres.length;i++){
+						genre += genres[i].name;
+						if(i<genres.length-1)
+							genre += ", ";
+					}
+					// 영화 제목
+					let title = response.title;
+					// 영화 소제목
+					let tagline = response.tagline;
+					// 영화 줄거리
+					let overview = response.overview;
+					// 영화 개봉일
+					let release = response.release_date;
+					$("#movieBox").empty();
+					let temp_html = `<div id="movieDataBox" class="col-sm-6">
+						<h1 class="fw-bold">${title}</h1>
+						<h4 class="fw-bold">${tagline}</h4>
+		                <ul class="list-unstyled">
+		                    <li class="mb-2"><span>${overview}</span></li>
+		                    <li class="me-3">장르 <span>${genre}</span></li>
+		                    <li class="me-3">개봉 <span>${release}</span></li>
+		                </ul>
+					</div>
+					<div id="movieImgBox" class="col-sm-6">
+						<img id="movieImg" alt="영화 이미지" src="${imageUrl}">
+					</div>`;
+					$("#movieBox").append(temp_html);
+					console.log(imageUrl);
+				},
+				error:()=>{
+					alert("get movie details 실패");
+				},
+				beforeSend: function () {
+		            var width = 0;
+		            var height = 0;
+		            var left = 0;
+		            var top = 200;
+
+		            width = 50;
+		            height = 50;
+
+
+		            /* top = ( $(window).height() - height ) / 2 + $(window).scrollTop(); */
+		            left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+
+
+		            if($("#div_ajax_load_image").length != 0) {
+		                   $("#div_ajax_load_image").css({
+		                          "top": top+"px",
+		                          "left": left+"px"
+		                   });
+		                   $("#div_ajax_load_image").show();
+		            }
+		            else {
+		                   $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="/images/ajax_loader.gif" style="width:50px; height:50px;"></div>');
+		            }
+
+		     }
+		     , complete: function () {
+		                   $("#div_ajax_load_image").hide();		    	 			
+		    	 		
+		     }
+		     
+			});
+		},
+		error:()=>{
+			alert("search 실패");
+		}
+
+	});
+	
+	
+	//let genre = $("#genre").val();
+ 	/* $.ajax({
 		type:"GET",
 		url:"/movie/detail/api",
 		data:{title:title,genre:genre},
@@ -41,26 +145,28 @@ $(document).ready(()=>{
 		error:()=>{
 			alert("ajax 통신 실패");
 		}
-	}); 
+	});  */
 })
 	
 </script> 
 </head>
-<body>
-    <div class="container">
+<body class="bg-black text-white">
+	<header th:include="header"></header>
+    <div class="container mt-3">
 		<input type="hidden" id="title" name="title" th:value="${title}">
 		<input type="hidden" id="genre" name="genre" th:value="${genre}">
 		
-		<div id="movieBox" class="d-flex justify-content-between col-sm-6 mx-auto">
-			<div id="movieDataBox">
-				<div id="movieTitle">제목</div>
+		<div id="movieBox" class="row">
+			<div id="movieDataBox" class="col-sm-6">
+				<h1>제목</h1>
+                <h3 id="movieTagline">소제목</h3>
                 <ul class="list-unstyled">
-                    <li>감독 <span>감독이름</span></li>
-                    <li>출연 <span>배우이름</span></li>
-                    <li>개요 <span>영화 설명</span></li>
+                    <li>줄거리<span>내용</span></li>
+                    <li>장르<span>장르</span></li>
+                    <li>개봉<span>2000-01-01</span></li>
                 </ul>
 			</div>
-			<div id="movieImgBox">
+			<div id="movieImgBox" class="col-sm-6">
 				<img alt="영화 이미지" src="">
 			</div>
 		</div>
