@@ -7,6 +7,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MyPageController {
 	@RequestMapping("mypage")
 	public String mypage() {
-		return "MyPage";
+		return "Mypage/MyPage";
+	}
+
+	@RequestMapping("mypage/pw")
+	public String mypagePw() {
+		return "Mypage/MyPagePW";
+	}
+	
+	@RequestMapping("mypage/interested")
+	public String mypageInterested() {
+		return "Mypage/MyPageinterested";
+	}
+	
+	@RequestMapping("mypage/review")
+	public String mypageReview() {
+		return "Mypage/MyPageReview";
 	}
 }

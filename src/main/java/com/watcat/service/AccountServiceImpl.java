@@ -10,4 +10,10 @@ public class AccountServiceImpl implements AccountService {
 
 	@Autowired
 	AccountMapper accountMapper;
+
+	@Override
+	public int loginCheck(String userId, String userPw) throws Exception {
+		
+		return accountMapper.loginCheck(userId,userPw);
+	}
 }

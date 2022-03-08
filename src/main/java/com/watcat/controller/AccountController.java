@@ -1,10 +1,18 @@
 package com.watcat.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.watcat.dto.userDto;
 import com.watcat.service.AccountService;
 
 @Controller
@@ -18,7 +26,26 @@ public class AccountController {
 		
 		return "account/loginPage";
 	}
-	
+	@ResponseBody
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public Object loginCheck(userDto user,HttpServletRequest request) throws Exception {
+		
+		Map<String,Object> map = new HashMap<>(); 
+		
+		int count = accountService.loginCheck(user.getUserId(),user.getUserPw());
+		
+		if(count==1) {
+			HttpSession session= request.getSession();
+			session.setAttribute("userId", user.getUserId());
+			session.setAttribute("adminPermission", user.getAdminPermission());
+			
+			map.put("result", "success");
+		}else {
+			map.put("result", "error");
+		}
+		
+		return map;
+	}
 	
 	
 }

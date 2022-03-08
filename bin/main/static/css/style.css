@@ -1,3 +1,7 @@
+html, body{
+	margin: 0;
+    height: 100%;
+}
 
 /* a 태그 세팅 */
 a{text-decoration: none}
@@ -6,6 +10,21 @@ a:link{color:rgb(255, 255, 255)}
 
 /* 약간 배경색  */
 .bg2ndColor {
-	background-color: rgb(71, 71, 71);
+	background-color: rgb(22, 22, 22);
 }
-    
+
+.MyPageListsfont{
+	font-size: larger;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.MyPageSmallListsfont{
+	font-size: smaller;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.headerLink:hover{
+	color: black;
+}

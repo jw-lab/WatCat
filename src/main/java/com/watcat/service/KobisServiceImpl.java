@@ -16,11 +16,14 @@ import com.watcat.dto.Kobis.DailyBoxOfficeListDto;
 @Service
 public class KobisServiceImpl implements KobisService {
 
+
 	@Override
 	public List<DailyBoxOfficeDto> getDailyBoxOffice(String strUrl) throws Exception {
 		List<DailyBoxOfficeDto> itemList = null;
 		
+//		URL : 외부 리소스 주소를 지정하는 클래스
 		URL url = null;
+//		HttpURLConnection : http 프로토콜을 이용하여 지정된 URL로 네트워크 접속
 		HttpURLConnection urlConn = null;
 		
 		try {
@@ -32,9 +35,9 @@ public class KobisServiceImpl implements KobisService {
 			Unmarshaller um = jc.createUnmarshaller();
 			
 			BoxOfficeResultDto officeResult = (BoxOfficeResultDto)um.unmarshal(url);
-			DailyBoxOfficeListDto officeList = officeResult.getDailyBoxOfficeList();
+			DailyBoxOfficeListDto list = officeResult.getDailyBoxOfficeList();
 			
-			itemList = officeList.getDailyBoxOffice();
+			itemList = list.getDailyBoxOffice();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -47,7 +50,5 @@ public class KobisServiceImpl implements KobisService {
 		
 		return itemList;
 	}
-
-	
 	
 }

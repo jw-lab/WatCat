@@ -17,24 +17,54 @@ import com.watcat.service.KobisService;
 public class KobisController {
 	
 	@Autowired
-	private KobisService KobisService;
+	private KobisService kobisService;
 	
 	@Autowired
 	private UrlParser urlParser;
-	
+
+//	@ResponseBody
+//	@GetMapping("/watcat/kobis")
+//	public String getMovieRank() throws Exception {
+//		StringBuilder result = new StringBuilder();
+//
+//		String strUrl = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?"
+//				+ "key=bb337acd8ff9a1fcda9c16e0d0550816" + "&targetDt=20220301";
+//
+//		URL url = null;
+//		HttpURLConnection urlConn = null;
+//
+//		url = new URL(strUrl);
+//		urlConn = (HttpURLConnection) url.openConnection();
+//		urlConn.setRequestMethod("GET");
+//
+//		BufferedReader br;
+//
+//		br = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
+//
+//		String returnLine;
+//
+//		while ((returnLine = br.readLine()) != null) {
+//			result.append(returnLine + "\n\r");
+//		}
+//
+//		urlConn.disconnect();
+//
+//		return result.toString();
+//	}
+
 	@RequestMapping(value = "/watcat/kobis", method = RequestMethod.GET)
-	public String covid19infoUrlAjax() throws Exception {
+	public String getMovieRank() throws Exception {
 		return "/kobis/rank";
 	}
 
 
 	@ResponseBody 
 	@RequestMapping(value = "/watcat/kobis", method = RequestMethod.POST) 
-	public Object getCovid19InfoAjax(@RequestParam("date") String date)
+	public Object getMovieRank(@RequestParam("date") String date)
 			throws Exception {
 
 		String strUrl = urlParser.getUrl(date);
-		List<DailyBoxOfficeDto> boxOffice = KobisService.getDailyBoxOffice(strUrl);
+		List<DailyBoxOfficeDto> boxOffice = kobisService.getDailyBoxOffice(strUrl);
 
 		return boxOffice;
 	}

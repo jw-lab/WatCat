@@ -23,41 +23,39 @@
                     $.ajax({
                         url: "/watcat/kobis",
                         type: "POST",
-                        data: date,
+                        data: {
+                            startDt,
+                            startDt,
+                            endDt: endDt
+                        },
                         success: function (data) {
-                            var div = $("#list").append(result);
-                            div.empty();
+                            var tbody = $("#ajaxTable> tbody").append(result);
+                            tbody.empty();
 
                             for (var i = 0; i < data.length; i++) {
-                                var result = "<ul>";
+                                var result = "<tr>";
+                                result += "<td>" + data[i].rank + "</td>";
+                                result += "<td>" + data[i].movieNm + "</td>";
+                                result += "<td>" + data[i].openDt + "</td>";
+                                result += "<td>" + data[i].audiAcc + "</td>";
 
-                                result += "<li class=\"h5\" id=\"rank\">" + data[i].rank + "</li>";
-                                result += "<li class=\"h4\" id=\"movieNm\">" + data[i].movieNm + "</li>";
-                                result += "<li><span id=\"openDt\">" + data[i].openDt + "</span><span> / </span><span id=" +
-                                        "\"audiAcc\">" + data[i].audiAcc + "</span></li>";
+                                result += "</tr>";
 
-                                result += "</ul>";
-
-                                div.append(result);
+                                tbody.append(result);
                             }
                         },
-                        error: function (request, status, error) {
-
-                            alert(
-                                "code:" + request.status + "\nmessage:" + request.responseText + "\nerror:" +
-                                error
-                            );
-
+                        error: function () {
+                            alert("ajax통신중 오류가 발생하였습니다.")
                         }
                     });
                 });
             });
 
-/*             function converDate(date) {
-                var temp;
+            function converDate(date) {
+                var temp = date.split("-");
                 return temp.join("");
 
-            } */
+            }
         </script>
     </head>
     <body>
@@ -68,7 +66,7 @@
                     <div class="row my-3 border-bottom">
                         <div class="col-sm-5">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="date" placeholder="날짜" value="2022-03-01">
+                                <input type="date" class="form-control" id="start-dt" placeholder="날짜">
                                 <label for="date">날짜</label>
                             </div>
                         </div>
@@ -77,18 +75,21 @@
                             <button type="button" id="btn-search" class="btn btn-primary">검색</button>
                         </div>
                     </div>
-                    <div class="list">
-                        <ul style="list-style-type: none">
-                            <li class="h5" id="rank">순위</li>
-                            <li class="h4" id="movieNm">영화 이름</li>
-                            <li>
-                                <span id="openDt">개봉일</span>
-                                <span>
-                                    /
-                                </span><span id="audiAcc">관객수</span>
-                            </li>
-                        </ul>
+                    <div class="row">
+                        <h5 class="col-1" id="rank">순위</h5>
+                        <div class="col
+					-11">
+                            <h4 id="title">제목</h4>
+                            <span id="openDt">개봉일</span>
+                            <span>
+                                /
+                            </span>
+                            <span id="audiAcc">누적 관객수</span>
+
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 
