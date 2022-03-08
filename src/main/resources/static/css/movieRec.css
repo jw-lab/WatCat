@@ -1,0 +1,11 @@
+
+/* 캐러셀 이미지 */
+.carousel-item {
+	background-color: black;
+}
+
+.carousel-item img{
+		height: 300px;
+	width: auto;
+	margin: auto;
+}
