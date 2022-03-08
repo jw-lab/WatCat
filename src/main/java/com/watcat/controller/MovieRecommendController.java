@@ -14,29 +14,46 @@ import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.watcat.dto.movie.MovieDataDto;
+import com.watcat.service.MovieRecommendService;
+
 @Controller
-@RequestMapping("/movie")
 public class MovieRecommendController {
 
-	@RequestMapping("/rec")
+	@Autowired
+	private MovieRecommendService movieRecommendService;
+	
+	@RequestMapping("/")
 	public String movieRecommend() throws Exception{
-		return "/movie/recommend";
+		return "movie/recommend";
 	}
 	
-	@RequestMapping("/detail")
+	@RequestMapping(value="/movie/detail", method = RequestMethod.GET)
 	public String movieDetail(String title, String genre, Model model) throws Exception {
 		model.addAttribute("title", title);
 		model.addAttribute("genre", genre);
-		return "/movie/detail";
+		return "movie/detail";
 	}
 	
+	//영화 정보 저장
 	@ResponseBody
-	@RequestMapping("/detail/api")
+	@RequestMapping(value = "/movie/detail", method = RequestMethod.POST)
+	public void movieDetailData(MovieDataDto movieData) throws Exception {
+		// 만약 정보가 이미 db에 저장되어 있으면 아무것도 하지 않는다 -- 정보가 없다면 동작으로 코딩
+//		if(movieRecommendService.getMovieData() != movieData.getMovieId())
+//			movieRecommendService.insertMovieData(movieData);
+	}
+	
+	//네이버 api 시작
+	@ResponseBody
+	@RequestMapping("/movie/detail/api")
 	public Object naverAPIRequest(String title,String genre) throws Exception {
 		String clientId = "wiu_SsXoI6q0Mhqd3BA_"; //애플리케이션 클라이언트 아이디값"
         String clientSecret = "G0xqILsT0L"; //애플리케이션 클라이언트 시크릿값"
@@ -121,5 +138,5 @@ public class MovieRecommendController {
         } catch (IOException e) {
             throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
         }
-    }
+    } //네이버 api 종료
 }
