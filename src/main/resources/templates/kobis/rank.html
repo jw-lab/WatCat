@@ -1,98 +1,119 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>박스오피스 순위</title>
+<head>
+<meta charset="UTF-8">
+<title>box office</title>
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-            rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+	
+<script>
+	$(document).ready(function() {
+		$("#btn-search").on("click", function() {
+			var search = $("#btn-search").val();
 
-        <script>
-            $(document).ready(function () {
-                $("#btn-search").on("click", function () {
-                    var date = $("#date").val();
+			$.ajax({
+				url : "/watcat/kobis",
+				type : "GET",
+				data : search,
+				success : function(data) {
 
-                    date = converDate(date);
+					var tbody = $("#memberTable> tbody").append(result);
+					tbody.empty();
+					for (var i = 0; i < data.length; i++) {
+						let rank = data[i]["rank"];
+						let movieNm = data[i]["movieNm"];
+						let openDt = data[i]["openDt"];
+						let audiAcc = data[i]["audiAcc"];
+					
+					
+						var result = "<tr>";
+						result += "<td>" + {rank} + "</td>";
+						result += "<td>" + {movieNm} + "</td>";
+						result += "<td>" + {openDt} + "</td>";
+						result += "<td>" + {audiAcc} + "</td>";
+						result += "</tr>";
 
-                    $.ajax({
-                        url: "/watcat/kobis",
-                        type: "POST",
-                        data: date,
-                        success: function (data) {
-                            var div = $("#list").append(result);
-                            div.empty();
+						tbody.append(result);
+					}
+				},
+			     error:function(request,status,error){
+			         log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			        }
 
-                            for (var i = 0; i < data.length; i++) {
-                                var result = "<ul>";
+			});
+		});
+	});
+</script>
+</head>
+<body>
 
-                                result += "<li class=\"h5\" id=\"rank\">" + data[i].rank + "</li>";
-                                result += "<li class=\"h4\" id=\"movieNm\">" + data[i].movieNm + "</li>";
-                                result += "<li><span id=\"openDt\">" + data[i].openDt + "</span><span> / </span><span id=" +
-                                        "\"audiAcc\">" + data[i].audiAcc + "</span></li>";
 
-                                result += "</ul>";
+		<header th:include="Header :: header"></header>
 
-                                div.append(result);
-                            }
-                        },
-                        error: function (request, status, error) {
 
-                            alert(
-                                "code:" + request.status + "\nmessage:" + request.responseText + "\nerror:" +
-                                error
-                            );
+	<main class="container mt-5 border-bottom">
+		<div class="row my-3">
+			<div class="col-sm px-3">
+				<div class="row my-3 border-bottom"></div>
+				<table class="table table-hover table-striped text-center"
+					id="memberTable">
+					<colgroup>
+					</colgroup>
+					<thead>
+						<tr>
+							<th>순위</th>
+							<th>영화 제목</th>
+							<th>개봉일</th>
+							<th>관객수</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						
+<!-- 							<th th:value="{boxOfficeResult.rank}"></th>
+							<th th:value="{boxOfficeResult.movieNm}"></th>
+							<th th:value="{boxOfficeResult.openDt}"></th>
+							<th th:value="{boxOfficeResult.audiAcc}"></th> -->
+						</tr>
+					</tbody>
+				</table>
+				<div class="float-end">
+					<button type="button" id="btn-search" class="btn btn-primary ">검색</button>
+				</div>
+			</div>
+		</div>
 
-                        }
-                    });
-                });
-            });
+	</main>
 
-/*             function converDate(date) {
-                var temp;
-                return temp.join("");
 
-            } */
-        </script>
-    </head>
-    <body>
 
-        <main class="container mt-5 border-bottom">
-            <div class="row my-3">
-                <div class="col-sm px-3">
-                    <div class="row my-3 border-bottom">
-                        <div class="col-sm-5">
-                            <div class="form-floating">
-                                <input type="date" class="form-control" id="date" placeholder="날짜" value="2022-03-01">
-                                <label for="date">날짜</label>
-                            </div>
-                        </div>
 
-                        <div class="col-sm-2 d-grid">
-                            <button type="button" id="btn-search" class="btn btn-primary">검색</button>
-                        </div>
-                    </div>
-                    <div class="list">
-                        <ul style="list-style-type: none">
-                            <li class="h5" id="rank">순위</li>
-                            <li class="h4" id="movieNm">영화 이름</li>
-                            <li>
-                                <span id="openDt">개봉일</span>
-                                <span>
-                                    /
-                                </span><span id="audiAcc">관객수</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </main>
-
-    </body>
+</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
