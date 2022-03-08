@@ -24,3 +24,7 @@ a:link{color:rgb(255, 255, 255)}
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+
+.headerLink:hover{
+	color: black;
+}

@@ -9,4 +9,19 @@ public class MyPageController {
 	public String mypage() {
 		return "Mypage/MyPage";
 	}
+
+	@RequestMapping("mypage/pw")
+	public String mypagePw() {
+		return "Mypage/MyPagePW";
+	}
+	
+	@RequestMapping("mypage/interested")
+	public String mypageInterested() {
+		return "Mypage/MyPageinterested";
+	}
+	
+	@RequestMapping("mypage/review")
+	public String mypageReview() {
+		return "Mypage/MyPageReview";
+	}
 }
