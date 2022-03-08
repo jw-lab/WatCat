@@ -21,9 +21,7 @@ public class KobisServiceImpl implements KobisService {
 	public List<DailyBoxOfficeDto> getDailyBoxOffice(String strUrl) throws Exception {
 		List<DailyBoxOfficeDto> itemList = null;
 		
-//		URL : 외부 리소스 주소를 지정하는 클래스
 		URL url = null;
-//		HttpURLConnection : http 프로토콜을 이용하여 지정된 URL로 네트워크 접속
 		HttpURLConnection urlConn = null;
 		
 		try {
@@ -50,5 +48,5 @@ public class KobisServiceImpl implements KobisService {
 		
 		return itemList;
 	}
-	
+
 }
