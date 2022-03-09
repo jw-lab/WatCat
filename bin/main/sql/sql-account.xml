@@ -11,4 +11,24 @@
 				user_id=#{userId} AND user_pw=#{userPw}		
 		]]>
 	</select >
+	
+	<insert id="signUp" parameterType="com.watcat.dto.userDto">
+		<![CDATA[ 
+			INSERT INTO
+				user(user_id,user_pw,admin_permission)
+			VALUES
+				(#{userId},#{userPw},'N')	
+		]]>
+	</insert>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		<![CDATA[ 
+			SELECT
+				COUNT(user_id) AS NUM
+			FROM
+				user
+			WHERE
+				user_id=#{userId}
+		]]>
+	</select>
 </mapper>

@@ -10,27 +10,68 @@
 <link rel="stylesheet" href="css/login.css">
 <title>WatCat</title>
 <script>
-	$(document).ready(function(){
-		$("#btn-login").on("click",function(){
+$(document).ready(function(){
+	
+	$("#btn-login").on("click",function(){
+		
+		
+		location.href="/signup";
+		
+	});
+	
+	$("#btn-signup").on("click",function(){	
+		
+		let userId = $("#email-input");
+		let userPw = $("#password-input");
+		
+		if(CheckEmail(userId.val())){
+			//아이디 비밀번호 체크
 			$.ajax({
-				url:"/login",
+				url:"/signup",
 				type:"post",
-				data:{userId:$("#email-input").val(),userPw:$("#password-input").val()},
+				data:{userId:userId.val(),userPw:userPw.val()},
 				success:function(data){
 					if (data.result == "success") {
 					
-						location.href="/movie/rec";
+						location.href="/login";
 						
 					}else{
-						$("#login-state").text("이메일 주소 혹은 비밀번호를 다시 확인해주세요");
+
+						$("#login-state").text("다른 유저가 사용중인 이메일입니다.");
 					}
 				},
 				error:function(request, status, error){
 					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
-		});
-	});	
+		
+		}else{
+
+			$("#login-state").text("이메일 형식을 확인해주세요");
+			
+		}
+	});
+	
+	
+	
+});	
+
+//이메일 형식 확인 함수
+function CheckEmail(str){     
+	
+     var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+
+     if(!reg_email.test(str)) {
+    	 
+          return false;         
+     }                            
+
+     else {                       
+          return true;         
+     }                            
+
+}                                
+
 </script>		
 </head>
 <body>
@@ -39,26 +80,27 @@
 			<nav class="container-fluid row">
 				<div class="h3 text-danger col-6" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WaTCaT</div>
 				<div class="col-6">
-					<button id="btn-signin"class="font-weight-bold btn btn-light float-end me-0">로그인</button>
+					<button id="btn-login"class="font-weight-bold btn btn-light float-end me-0">로그인</button>
 				</div>	
 			</nav>
+			
 			<main class="row container-fluid">
 				<div class="container col-4 mx-auto me-auto main-box">
-						<h4 class="text-white font-weight-bold">로그인</h4>
+						<h4 class="text-white font-weight-bold">회원가입</h4>
 						
 						<div id="email-box" class="p-3">
-							<input id="email-input" type="email" size="28" placeholder="이메일">
+							<input id="email-input" type="email" size="28" placeholder="이메일(example@gmail.com)">
 						</div>
 						
 						<div id="password-box" class="p-3">
-							<input id="password-input" type="password" size="28" >
+							<input id="password-input" type="password" size="28" placeholder="비밀번호">
 <!--  							<img src="images/check-2.png" style=" padding-left:15px; height:30px"> -->
 						</div>
 						<p id="login-state" class="text-danger pt-2"></p>
 						<div class="container-fluid mt-3 p-0">
-							<button id="btn-login"class="btn btn-danger" style='width:100%;'>로그인</button>
+							<button id="btn-sigiup"class="btn btn-danger" style='width:100%;'>계정 생성</button>
 						</div>
-						<hr style="border:1px solid gray;z-index:50;">
+				
 				</div>	
 			</main>
 			<footer>

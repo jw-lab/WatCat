@@ -47,5 +47,30 @@ public class AccountController {
 		return map;
 	}
 	
+	@RequestMapping(value="/signup",method=RequestMethod.GET)
+	public String signUpPage(){
+		return "account/signUpPage";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/signup",method=RequestMethod.POST)
+	public Object signUp(userDto user) throws Exception{
+		
+		Map<String,Object> map = new HashMap<>(); 
+		
+		int count = accountService.idCheck(user.getUserId());
+		
+		if(count==1) {
+			
+			map.put("result", "error");
+			
+		}else {
+accountService.signUp(user);
+			
+			map.put("result", "success");
+		}
+		
+		return map;
+	}
 	
 }
