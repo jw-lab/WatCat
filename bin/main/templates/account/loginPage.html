@@ -11,6 +11,7 @@
 <title>WatCat</title>
 <script>
 	$(document).ready(function(){
+<<<<<<< HEAD
 		
 		$("#btn-login").on("click",function(){	
 			
@@ -25,6 +26,17 @@
 					data:{userId:userId.val(),userPw:userPw.val()},
 					success:function(data){
 						if (data.result == "success") {
+=======
+		$("#btn-login").on("click",function(){
+			$.ajax({
+				url:"/login",
+				type:"post",
+				data:{userId:$("#email-input").val(),userPw:$("#password-input").val()},
+				success:function(data){
+					if (data.result == "success") {
+					
+						location.href="/";
+>>>>>>> ea562093714fdb24561696d143b2ba797e2c231c
 						
 							location.href="/";
 							
@@ -48,6 +60,7 @@
 		
 		
 	});	
+<<<<<<< HEAD
 	
 	//이메일 형식 확인 함수
 	function CheckEmail(str){     
@@ -67,6 +80,9 @@
 
 	
 </script>		
+=======
+</script>
+>>>>>>> ea562093714fdb24561696d143b2ba797e2c231c
 </head>
 <body>
 	
