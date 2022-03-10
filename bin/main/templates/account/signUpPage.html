@@ -11,18 +11,55 @@
 <title>WatCat</title>
 <script>
 $(document).ready(function(){
+
+	
+	let userId = $("#email-input");
+	let userPw = $("#password-input");
+	
+	//이메일 유효성 검사
+
+	
+	$(userId).on("propertychange change paste input",userId,function(){
+		if(CheckEmail(userId.val())){
+			
+			if($("span").hasClass("xMark")){
+				$("span").removeClass("xMark");
+				$("#email-box").append("<span class='checkIcon float-end'></span>");
+			}else if($("span").hasClass("checkIcon")){
+				
+			}else{
+				$("#email-box").append("<span class='checkIcon float-end'></span>");
+			}
+		}
+		else{
+			
+			if($("span").hasClass("checkIcon")){
+				$("span").removeClass("checkIcon");
+				$("#email-box").append("<span class='xMark float-end'></span>");	
+				
+			}else if(userId.val()==null||userId.val()==""){
+				$("span").removeClass("xMark")
+			}
+			else if($("span").hasClass("xMark")){
+				
+			}else if(!$("span").hasClass("checkIcon")&&!$("span").hasClass("xMark")){
+				
+				$("#email-box").append("<span class='xMark float-end'></span>");
+				
+			}
+		}	
+	});
+	
 	
 	$("#btn-login").on("click",function(){
 		
 		
-		location.href="/signup";
+		location.href="/login";
 		
 	});
 	
 	$("#btn-signup").on("click",function(){	
-		
-		let userId = $("#email-input");
-		let userPw = $("#password-input");
+	
 		
 		if(CheckEmail(userId.val())){
 			//아이디 비밀번호 체크

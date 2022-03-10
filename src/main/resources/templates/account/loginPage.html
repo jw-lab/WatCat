@@ -13,10 +13,45 @@
 	$(document).ready(function(){
 
 		
+		let userId = $("#email-input");
+		let userPw = $("#password-input");
+		
+		//이메일 유효성 검사
+		// test
+		
+		$(userId).on("propertychange change paste input",userId,function(){
+			if(CheckEmail(userId.val())){
+				
+				if($("span").hasClass("xMark")){
+					$("span").removeClass("xMark");
+					$("#email-box").append("<span class='checkIcon float-end'></span>");
+				}else if($("span").hasClass("checkIcon")){
+					
+				}else{
+					$("#email-box").append("<span class='checkIcon float-end'></span>");
+				}
+			}
+			else{
+				
+				if($("span").hasClass("checkIcon")){
+					$("span").removeClass("checkIcon");
+					$("#email-box").append("<span class='xMark float-end'></span>");	
+					
+				}else if(userId.val()==null||userId.val()==""){
+					$("span").removeClass("xMark")
+				}
+				else if($("span").hasClass("xMark")){
+					
+				}else if(!$("span").hasClass("checkIcon")&&!$("span").hasClass("xMark")){
+					
+					$("#email-box").append("<span class='xMark float-end'></span>");
+					
+				}
+			}	
+		});
+		
+
 		$("#btn-login").on("click",function(){	
-			
-			let userId = $("#email-input");
-			let userPw = $("#password-input");
 			
 			if(CheckEmail(userId.val())){
 				//아이디 비밀번호 체크
@@ -26,26 +61,20 @@
 					data:{userId:userId.val(),userPw:userPw.val()},
 					success:function(data){
 						if (data.result == "success") {
-		$("#btn-login").on("click",function(){
-			$.ajax({
-				url:"/login",
-				type:"post",
-				data:{userId:$("#email-input").val(),userPw:$("#password-input").val()},
-				success:function(data){
-					if (data.result == "success") {
-						location.href="/";
+					
+							location.href="/";
 							
-						}else{
-	
-							$("#login-state").text("이메일 주소 혹은 비밀번호를 다시 확인해주세요");
-						}
-					},
+							}else{
+		
+								$("#login-state").text("이메일 주소 혹은 비밀번호를 다시 확인해주세요");
+							}
+						},
 					error:function(request, status, error){
 						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					}
 				});
+
 			
-			});
 			}else{
 	
 				$("#login-state").text("이메일 형식을 확인해주세요");
@@ -55,8 +84,9 @@
 		
 		
 		
+
 	});	
-<<<<<<< HEAD
+
 	
 	//이메일 형식 확인 함수
 	function CheckEmail(str){     
@@ -74,16 +104,13 @@
 
 	}                                
 
-	
-</script>		
-=======
 </script>
->>>>>>> ea562093714fdb24561696d143b2ba797e2c231c
 </head>
 <body>
 	
 			<nav class="container-fluid row">
-				<h3 class="h3 text-danger col-6" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WaTCaT</h3>
+				<h1 class="text-danger col-6" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WaTCaT</h1>
+				
 				<div class="col-6">		
 						<button id="btn-signup" class="btn btn-light float-end" onclick="location.href='/signup'">회원가입</button>
 				</div>
@@ -93,13 +120,12 @@
 				<div class="container col-4 mx-auto me-auto main-box">
 						<h4 class="text-white font-weight-bold">로그인</h4>
 						
-						<div id="email-box" class="p-3">
-							<input id="email-input" type="email" size="28" placeholder="이메일(example@gmail.com)">
+						<div id="email-box" class="p-3 container-fluid">
+							<input id="email-input" type="email" placeholder="이메일(example@gmail.com)">
 						</div>
 						
 						<div id="password-box" class="p-3">
-							<input id="password-input" type="password" size="28" placeholder="비밀번호">
-<!--  							<img src="images/check-2.png" style=" padding-left:15px; height:30px"> -->
+							<input id="password-input" type="password"width="500px" placeholder="비밀번호">
 						</div>
 						<p id="login-state" class="text-danger pt-2"></p>
 						<div class="container-fluid mt-3 p-0">
