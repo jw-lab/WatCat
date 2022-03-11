@@ -17,7 +17,6 @@
 		let userPw = $("#password-input");
 		
 		//이메일 유효성 검사
-		// test
 		
 		$(userId).on("propertychange change paste input",userId,function(){
 			if(CheckEmail(userId.val())){
@@ -38,9 +37,11 @@
 					$("#email-box").append("<span class='xMark float-end'></span>");	
 					
 				}else if(userId.val()==null||userId.val()==""){
-					$("span").removeClass("xMark")
+					$("span").removeClass("xMark");
 				}
 				else if($("span").hasClass("xMark")){
+					
+					return;
 					
 				}else if(!$("span").hasClass("checkIcon")&&!$("span").hasClass("xMark")){
 					
@@ -49,12 +50,55 @@
 				}
 			}	
 		});
-		
 
+		//비밀번호 6자리이상
+		
+		$(userPw).on("propertychange change paste input",userPw,function(){
+			
+			if(userPw.val().length>=6){
+				if($("span").hasClass("xMarkPw")){
+					
+					$("span").removeClass("xMarkPw");
+					$("#password-box").append("<span class='checkIconPw float-end'></span>");
+				
+				}else if($("span").hasClass("checkIconPw")){
+					
+					return;
+						
+				}else{
+						
+					$("#password-box").append("<span class='checkIconPw float-end'></span>");
+					
+				}
+			}else{
+				
+				if($("span").hasClass("checkIconPw")){
+					
+					$("#password-box").append("<span class='xMarkPw float-end'></span>");
+					$("span").removeClass("checkIconPw");
+					
+				}else if(userPw.val()==null||userPw.val()==""){
+				
+					$("span").removeClass("xMarkPw");
+					
+				}else if($("span").hasClass("xMarkPw")){
+					
+					return;
+					
+				}else if(!$("span").hasClass("checkIconPw")&&!$("span").hasClass("xMarkPw")){
+					
+					$("#password-box").append("<span class='xMarkPw float-end'></span>");
+					
+				}
+				
+			}
+			
+		});
+
+		//아이디 비밀번호 체크
 		$("#btn-login").on("click",function(){	
 			
 			if(CheckEmail(userId.val())){
-				//아이디 비밀번호 체크
 				$.ajax({
 					url:"/login",
 					type:"post",
@@ -127,12 +171,13 @@
 						<div id="password-box" class="p-3">
 							<input id="password-input" type="password"width="500px" placeholder="비밀번호">
 						</div>
+						
 						<p id="login-state" class="text-danger pt-2"></p>
+						
 						<div class="container-fluid mt-3 p-0">
 							<button id="btn-login"class="btn btn-danger" style='width:100%;'>로그인</button>
 						</div>
-						<hr style="border:1px solid gray;z-index:50;">
-				</div>	
+					</div>	
 			</main>
 			<footer>
 			</footer>	
