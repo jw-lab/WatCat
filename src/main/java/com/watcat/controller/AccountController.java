@@ -26,6 +26,8 @@ public class AccountController {
 		
 		return "account/loginPage";
 	}
+	
+	//로그인
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public Object loginCheck(userDto user,HttpServletRequest request) throws Exception {
@@ -47,6 +49,18 @@ public class AccountController {
 		return map;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/login",method=RequestMethod.DELETE)
+	public void logOut(HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("userId");
+		session.removeAttribute("level");
+		session.invalidate();
+		
+		
+	}
 	@RequestMapping(value="/signup",method=RequestMethod.GET)
 	public String signUpPage(){
 		return "account/signUpPage";
