@@ -1,9 +1,8 @@
 package com.watcat.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
+import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
 
@@ -12,6 +11,8 @@ public interface MypageMapper {
 
 	void updatePw(userDto userdto) throws Exception;
 
-	List<reviewDto> MyreviewList(String userId) throws Exception;
+	Page<reviewDto> MyreviewList(String userId) throws Exception;
+
+	reviewDto reviewDetail(int idx) throws Exception;
 
 }

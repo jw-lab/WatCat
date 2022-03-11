@@ -1,7 +1,5 @@
 package com.watcat.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
 import com.watcat.service.MypageService;
@@ -42,11 +42,11 @@ public class MyPageController {
 	
 	//마이페이지 리뷰
 	@RequestMapping("mypage/review")
-	public ModelAndView mypageReview(HttpServletRequest httpServletRequest) throws Exception {
+	public ModelAndView mypageReview(HttpServletRequest httpServletRequest, @RequestParam(required=false, defaultValue = "1") int pageNum) throws Exception {
 		ModelAndView mv = new ModelAndView("Mypage/MypageReview");
 		HttpSession httpSession= httpServletRequest.getSession();
 		String userId = httpSession.getAttribute("userId").toString();
-		List<reviewDto> myreview =  mypageService.MyreviewList(userId);
+		PageInfo<reviewDto> myreview = new PageInfo<reviewDto>(mypageService.MyreviewList(pageNum, userId), 10);
 		mv.addObject("reviewList", myreview);
 		return mv;
 	}
@@ -65,4 +65,14 @@ public class MyPageController {
 		mypageService.updatePw(userdto);
 		return "Mypage/MyPage";
 	}
+	
+	// 리뷰 디테일
+	@RequestMapping("mypage/reviewDetail")
+	public ModelAndView reviewDetail(int idx) throws Exception{
+		ModelAndView mv = new ModelAndView("MyPage/MypageReviewDetail");
+		reviewDto reviewDetail = mypageService.reviewDetail(idx);
+		mv.addObject("reviewDetail",reviewDetail);
+		return mv;
+	}
+	
 }

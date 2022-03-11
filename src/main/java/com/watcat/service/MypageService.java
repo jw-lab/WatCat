@@ -1,7 +1,6 @@
 package com.watcat.service;
 
-import java.util.List;
-
+import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
 
@@ -9,5 +8,7 @@ public interface MypageService {
 
 	void updatePw(userDto userdto) throws Exception;
 
-	List<reviewDto> MyreviewList(String userId) throws Exception;
+	Page<reviewDto> MyreviewList(int pageNum, String userId) throws Exception;
+
+	reviewDto reviewDetail(int idx) throws Exception;
 }

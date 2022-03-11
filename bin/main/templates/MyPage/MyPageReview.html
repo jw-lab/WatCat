@@ -22,17 +22,38 @@
             <main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">    
                 <div class="w-75 mx-auto mt-3">
                     <h3>리뷰 리스트</h3>
-                    <div>
-                        <div th:each="list : ${reviewList}" class="border border-1 border-light rounded m-2 float-start p-2" style="width: 270px;">
-                            <div class="text-center">
-                                <img th:src="${list.poster}" width="200px"></td>
-                            </div>
-                            <div class="p-2">
-                                <p th:text="|제목 : ${list.title}|"></p>  
-                                <p th:text="|작성일 : ${list.createdDt}|"></p>
+                    <div class="w-100">
+                        <div class="w-100">
+                            <div th:each="list : ${reviewList.getList()}" class="border border-1 border-light rounded m-2 p-2 float-start" style="width: 270px;">
+                                <div class="text-center">
+                                    <a th:href="@{/mypage/reviewDetail(idx=${list.idx})}"><img th:src="${list.poster}" width="200px"></a>
+                                </div>
+                                <div class="p-2">
+                                    <p th:text="|제목 : ${list.title}|"></p>  
+                                    <p th:text="|작성일 : ${list.createdDt}|"></p>
+                                </div>
                             </div>
                         </div>
+                        <div th:unless="${#lists.size(reviewList.getList())} > 0" class="text-center border border-1 border-light rounded m-2 p-2 pt-2 mx-auto">
+                            <H1>작성한 리뷰가 없습니다.</H1>
+                            <H4>'영화 검색' 페이지에서 영화를 선택 후</H4>
+                            <H4>글을 작성해 주세요.</H4>
+                        </div>
+                        <div>
+                            <ul class="pagination justify-content-center w-100 mx-auto pt-5">
+                                <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'disabled'">
+                                <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()})}">Prev</a>
+                                </li>
+                                <li class="page-item" th:each="page: ${#numbers.sequence(reviewList.getNavigateFirstPage(), reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
+                                <a class="page-link text-black" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page})}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'disabled'">
+                                <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()})}">Next</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
+                    
                 </div>
             </main>
         </div>
