@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class reviewDto {
 	private int idx;
-	private int movie_id;
+	private int movieId;
 	private String title;
 	private String backdrop;
 	private String poster;
@@ -13,9 +13,10 @@ public class reviewDto {
 	private String actors;
 	private String overview;
 	private String tagline;
-	private String release_date;
+	private String releaseDate;
 	private int runtime;
-	private String user_id;
+	private String userId;
 	private String content;
 	private int rating;
+	private String deletedYn;
 }
