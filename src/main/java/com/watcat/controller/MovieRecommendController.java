@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONObject;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.watcat.dto.movie.MovieWishDto;
 import com.watcat.service.MovieRecommendService;
 
 @Controller
@@ -34,6 +36,7 @@ public class MovieRecommendController {
 		return "movie/recommend";
 	}
 	
+	//영화 상세보기 페이지 이동
 	@RequestMapping(value="/movie/detail", method = RequestMethod.GET)
 	public String movieDetail(int movieId, Model model) throws Exception {
 		model.addAttribute("movieId", movieId);
@@ -47,7 +50,25 @@ public class MovieRecommendController {
 		return "movie/search";
 	}
 	
-	
+	//찜하기 추가
+	@ResponseBody
+	@RequestMapping(value = "/movie/wish", method = RequestMethod.POST)
+	public void insertMovieWish(MovieWishDto movieWish) throws Exception {
+		movieRecommendService.insertMovieWish(movieWish);
+	}
+	//찜하기 해제
+	@ResponseBody
+	@RequestMapping(value = "/movie/wish", method = RequestMethod.DELETE)
+	public void deleteMovieWish(MovieWishDto movieWish) throws Exception {
+		movieRecommendService.deleteMovieWish(movieWish);
+	}
+	//찜하기 list 정보
+	@ResponseBody
+	@RequestMapping(value = "/movie/wish", method = RequestMethod.GET)
+	public Object selectMovieWish(MovieWishDto movieWish) throws Exception {
+		List<MovieWishDto> movieWishList = movieRecommendService.selectMovieWish(movieWish);
+		return movieWishList;
+	}
 	//네이버 api 시작
 	@ResponseBody
 	@RequestMapping("/movie/detail/api")
