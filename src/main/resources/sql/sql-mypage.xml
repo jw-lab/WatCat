@@ -3,7 +3,17 @@
 <mapper namespace="com.watcat.mapper.MypageMapper">
 	<select id="updatePw" parameterType="com.watcat.dto.userDto">
 		<![CDATA[ 
-		update user set user_pw = #{userPw} where user_id = #{userId}
+			UPDATE user 
+			SET user_pw = #{userPw} 
+			WHERE user_id = #{userId}
+		]]>
+	</select>
+	
+	<select id="MyreviewList" parameterType="String" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[
+			SELECT * 
+			FROM review 
+			WHERE user_id = #{userId} AND deleted_yn = 'N'
 		]]>
 	</select>
 </mapper>
