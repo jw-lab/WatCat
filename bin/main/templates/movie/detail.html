@@ -11,118 +11,113 @@
 <script>
 $(document).ready(()=>{
 	//tmdb api 활용
-	let qTitle = $("#title").val(); // recommend에서 get 방식으로 전달한 영화 제목
-	let searchUrl = "https://api.themoviedb.org/3/search/movie?api_key=a1c25fa7fbd7117d8d4d73bf1892deae&query="+qTitle;
+	let movieId = $("#movieId").val();
+	let apiUrl = "https://api.themoviedb.org/3/movie/";
+	let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
+	let language = "&language=ko&append_to_response=credits";
+	apiUrl += movieId; 
+	apiUrl += apiKey;
+	apiUrl += language;
+	// 영화 상세정보 get
 	$.ajax({
 		type:"GET",
-		url:searchUrl,
-		success:(results)=>{
-			let resultArray = results["results"];
-			let index=0;
-			for(let i=0;i<resultArray.length;i++){
-				if(resultArray[i].title == qTitle){
-					index=i;
-					break;
-				}
+		url:apiUrl,
+		success:(response)=>{
+			// 이미지
+			let imageUrl ="https://image.tmdb.org/t/p/original";
+			// 포스터 이미지
+			let poster = response.poster_path;
+			imageUrl += poster;
+			// 백드랍 이미지
+			let backdrop= response.backdrop_path;
+			//imageUrl += backdrop;
+			
+			
+			// 영화 장르
+			let genres = response.genres;
+			let genre="";
+			for(let i=0;i<genres.length;i++){
+				genre += genres[i].name;
+				if(i<genres.length-1)
+					genre += ", ";
 			}
-			let result = resultArray[index];
-			let movieId = result.id;
-			let posterPath =result.poster_path;
-			let apiUrl = "https://api.themoviedb.org/3/movie/";
-			let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
-			let language = "&language=ko";
-			apiUrl += movieId; 
-			apiUrl += apiKey;
-			apiUrl += language;
-			
-			// 영화 제목에 해당하는 movieId 서버로 전송
-			/* $.ajax({
-				type:"POST",
-				url:"",
-				data:{title:qTitle,movieId:movieId},
-				success:(response)=>{
-					alert("데이터 전송 성공");
-				},
-				error:()=>{
-					alert("영화 데이터 서버 전송 에러");
-				}
-			}); */
-			
-			// 영화 상세정보 get
-			$.ajax({
-				type:"GET",
-				url:apiUrl,
-				success:(response)=>{
-					// 포스터 이미지
-					let imageUrl ="https://image.tmdb.org/t/p/original";
-					//imageUrl += posterPath;
-					// 백드랍 이미지
-					let backdrop= response.backdrop_path;
-					imageUrl += backdrop;
-					
-					
-					// 영화 장르
-					let genres = response.genres;
-					let genre="";
-					for(let i=0;i<genres.length;i++){
-						genre += genres[i].name;
-						if(i<genres.length-1)
-							genre += ", ";
+			// 영화 제목
+			let title = response.title;
+			// 영화 소개
+			let tagline = response.tagline;
+			// 영화 시놉시스
+			let overview = response.overview;
+			// 영화 개봉일
+			let release = response.release_date;
+			// 영화 캐스팅
+			let cast = response.credits.cast;
+			let arrActor =new Array();
+			let actors = "";
+			for(let i=0;i<3 ;i++) {
+				let personId = cast[i].id;
+				$.ajax({
+					type:"get",
+					url:"https://api.themoviedb.org/3/person/"+personId+"?api_key=a1c25fa7fbd7117d8d4d73bf1892deae",
+					async:false,
+					success:(response)=>{
+						arrActor[i] = response.name;
+						console.log(arrActor[i]);
+						let aka = response.also_known_as;
+						for(let j=0;j<aka.length;j++){
+							let regex = /([\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F]+)/g;
+							if(regex.test(aka[j])){
+								arrActor[i] = aka[j];
+								break;
+							}
+						}
+						actors += arrActor[i];
+						if(i<2)
+							actors += ", ";
+					},
+					error:()=>{
+						alert("person 에러");
 					}
-					// 영화 제목
-					let title = response.title;
-					// 영화 소제목
-					let tagline = response.tagline;
-					// 영화 줄거리
-					let overview = response.overview;
-					// 영화 개봉일
-					let release = response.release_date;
-					
-					$("#movieBox").empty();
-					let temp_html = `<div id="movieDataBox" class="col-sm-6">
-						<h1 class="fw-bold">${title}</h1>
-						<h4 class="fw-bold">${tagline}</h4>
-						<div class="mb-3"><span>${overview}</span></div>
-						<div class="d-flex justify-content-between">
-			                <ul class="list-unstyled">	
-			                    <li class="text-secondary fw-bold"><span class="me-3">장르</span><span>${genre}</span></li>
-			                    <li class="text-secondary fw-bold"><span class="me-3">개봉</span><span>${release}</span></li>
-			                </ul>
-			                <div>
-			                	<button class="add-wish btn btn-secondary">
-			                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-		                	    		<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-		                		  	</svg>
-		                		  	<span>찜하기</span>
-		                		</button>
-	                		    <button class="cancel-wish btn btn-danger">
-	                		    	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
-			                		    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-			                		</svg>
-			                		<span>찜하기</span>
-		                		</button>
-			                </div>
-		                </div>
-					</div>
-					<div id="movieImgBox" class="col-sm-6">
-						<img id="movieImg" alt="영화 이미지" src="${imageUrl}">
-					</div>`;
-					$("movieBox").css('display','none');
-					let imgs = $("#movieBox").append(temp_html).find("#movieImg");
-					imgs.onload = ()=>{
-						$("movieBox").css('display','block');	
-					}
-					console.log(imageUrl);
-				},
-				error:()=>{
-					alert("get movie details 실패");
-				}
-			});
+				});
+			}
+			$("#movieBox").empty();
+			let temp_html = `<div id="movieDataBox" class="col-sm-6">
+				<h1 class="fw-bold">${title}</h1>
+				<h4 class="fw-bold">${tagline}</h4>
+				<div class="mb-3"><span>${overview}</span></div>
+				<div class="d-flex justify-content-between">
+	                <ul class="list-unstyled">	
+	                    <li class="text-secondary fw-bold"><span class="me-3">출연</span><span>${actors}</span></li>
+	                    <li class="text-secondary fw-bold"><span class="me-3">장르</span><span>${genre}</span></li>
+	                    <li class="text-secondary fw-bold"><span class="me-3">개봉</span><span>${release}</span></li>
+	                </ul>
+	                <div>
+	                	<button class="add-wish btn btn-secondary">
+	                		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                	    		<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                		  	</svg>
+                		  	<span>찜하기</span>
+                		</button>
+               		    <button class="cancel-wish btn btn-danger">
+               		    	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16">
+	                		    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+	                		</svg>
+	                		<span>찜하기</span>
+                		</button>
+	                </div>
+                </div>
+			</div>
+			<div id="movieImgBox" class="col-sm-6">
+				<img id="movieImg" alt="영화 이미지" src="${imageUrl}">
+			</div>`;
+			$("movieBox").css('display','none');
+			let imgs = $("#movieBox").append(temp_html).find("#movieImg");
+			imgs.onload = ()=>{
+				$("movieBox").css('display','block');	
+			}
 		},
 		error:()=>{
-			alert("search 실패");
+			alert("get movie details 실패");
 		}
-
 	});
 	let userId = $("#userId").val();// 임시데이터 3
 	// 서버에서 찜하기 정보 획득
@@ -132,7 +127,7 @@ $(document).ready(()=>{
 		//data:{title:title,userId:userId}, //영화제목, 사용자 id
 		success:(response)=>{
 			//response(wishList)에는 찜하기 목록(영화제목들)이 들어있을 것임
-			for(let i=0;i>response.length;i++){
+			for(let i=0;i<response.length;i++){
 				if(response.wishListTitle != title) {// 들고온 찜하기 목록 제목과 title이 일치하지 않는다면(찜하기 목록에 없다면)
 						$(".add-wish").css('display','block');
 						$(".cancel-wish").css('display','none');
@@ -218,10 +213,8 @@ $(document).ready(()=>{
 <body class="bg-black text-white">
 	<header th:include="header"></header>
     <div class="container mt-3">
-		<input type="hidden" id="title" name="title" th:value="${title}">
+		<input type="hidden" id="movieId" name="movieId" th:value="${movieId}">
 		<!-- <input type="hidden" id="userId" name="userId" th:value="${session.userId}"> 사용자 id-->
-		<input type="hidden" id="userId" name="userId" value="3">
-		<input type="hidden" id="genre" name="genre" th:value="${genre}">
 		
 		<div id="movieBox" class="row">
 			<div id="movieImgBox" class="col-sm-4 mx-auto">

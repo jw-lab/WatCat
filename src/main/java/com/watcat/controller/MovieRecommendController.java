@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.watcat.dto.movie.MovieDataDto;
 import com.watcat.service.MovieRecommendService;
 
 @Controller
@@ -36,20 +35,18 @@ public class MovieRecommendController {
 	}
 	
 	@RequestMapping(value="/movie/detail", method = RequestMethod.GET)
-	public String movieDetail(String title, String genre, Model model) throws Exception {
-		model.addAttribute("title", title);
-		model.addAttribute("genre", genre);
+	public String movieDetail(int movieId, Model model) throws Exception {
+		model.addAttribute("movieId", movieId);
 		return "movie/detail";
 	}
+
 	
-	//영화 정보 저장
-	@ResponseBody
-	@RequestMapping(value = "/movie/detail", method = RequestMethod.POST)
-	public void movieDetailData(MovieDataDto movieData) throws Exception {
-		// 만약 정보가 이미 db에 저장되어 있으면 아무것도 하지 않는다 -- 정보가 없다면 동작으로 코딩
-//		if(movieRecommendService.getMovieData() != movieData.getMovieId())
-//			movieRecommendService.insertMovieData(movieData);
+	//영화 검색 페이지
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String movieSearch() throws Exception {
+		return "movie/search";
 	}
+	
 	
 	//네이버 api 시작
 	@ResponseBody
