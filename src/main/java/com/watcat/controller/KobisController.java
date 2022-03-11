@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.watcat.common.UrlParser;
 import com.watcat.dto.Kobis.DailyBoxOfficeDto;
 import com.watcat.service.KobisService;
 
@@ -19,8 +18,6 @@ public class KobisController {
 	@Autowired
 	private KobisService kobisService;
 
-	@Autowired
-	private UrlParser urlParser;
 
 	@ResponseBody
 	@RequestMapping(value = "watcat/kobis/api", method = RequestMethod.POST)
