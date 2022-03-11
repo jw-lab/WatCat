@@ -11,21 +11,94 @@
 <title>WatCat</title>
 <script>
 $(document).ready(function(){
+
 	
-	$("#btn-login").on("click",function(){
+	let userId = $("#email-input");
+	let userPw = $("#password-input");
+	
+	//이메일 유효성 검사
+	
+	$(userId).on("propertychange change paste input",userId,function(){
+		if(CheckEmail(userId.val())){
+			
+			if($("span").hasClass("xMark")){
+				$("span").removeClass("xMark");
+				$("#email-box").append("<span class='checkIcon float-end'></span>");
+			}else if($("span").hasClass("checkIcon")){
+				
+			}else{
+				$("#email-box").append("<span class='checkIcon float-end'></span>");
+			}
+		}
+		else{
+			
+			if($("span").hasClass("checkIcon")){
+				$("span").removeClass("checkIcon");
+				$("#email-box").append("<span class='xMark float-end'></span>");	
+				
+			}else if(userId.val()==null||userId.val()==""){
+				$("span").removeClass("xMark");
+			}
+			else if($("span").hasClass("xMark")){
+				
+				return;
+				
+			}else if(!$("span").hasClass("checkIcon")&&!$("span").hasClass("xMark")){
+				
+				$("#email-box").append("<span class='xMark float-end'></span>");
+				
+			}
+		}	
+	});
+
+	//비밀번호 6자리이상
+	
+	$(userPw).on("propertychange change paste input",userPw,function(){
 		
-		
-		location.href="/signup";
+		if(userPw.val().length>=6){
+			if($("span").hasClass("xMarkPw")){
+				
+				$("span").removeClass("xMarkPw");
+				$("#password-box").append("<span class='checkIconPw float-end'></span>");
+			
+			}else if($("span").hasClass("checkIconPw")){
+				
+				return;
+					
+			}else{
+					
+				$("#password-box").append("<span class='checkIconPw float-end'></span>");
+				
+			}
+		}else{
+			
+			if($("span").hasClass("checkIconPw")){
+				
+				$("#password-box").append("<span class='xMarkPw float-end'></span>");
+				$("span").removeClass("checkIconPw");
+				
+			}else if(userPw.val()==null||userPw.val()==""){
+			
+				$("span").removeClass("xMarkPw");
+				
+			}else if($("span").hasClass("xMarkPw")){
+				
+				return;
+				
+			}else if(!$("span").hasClass("checkIconPw")&&!$("span").hasClass("xMarkPw")){
+				
+				$("#password-box").append("<span class='xMarkPw float-end'></span>");
+				
+			}
+			
+		}
 		
 	});
 	
-	$("#btn-signup").on("click",function(){	
-		
-		let userId = $("#email-input");
-		let userPw = $("#password-input");
-		
+	$("#btn-ajax-signup").on("click",function(){	
+	
 		if(CheckEmail(userId.val())){
-			//아이디 비밀번호 체크
+			//아이디 체크
 			$.ajax({
 				url:"/signup",
 				type:"post",
@@ -46,14 +119,12 @@ $(document).ready(function(){
 			});
 		
 		}else{
-
+	
 			$("#login-state").text("이메일 형식을 확인해주세요");
-			
+				
 		}
 	});
-	
-	
-	
+			
 });	
 
 //이메일 형식 확인 함수
@@ -76,14 +147,14 @@ function CheckEmail(str){
 </head>
 <body>
 	
+		<nav class="container-fluid row">
+			<div class="h3 text-danger col-6" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WaTCaT</div>
+			<div class="col-6">
+				<button id="btn-login"class="font-weight-bold btn btn-light float-end me-0"
+				 style="border-radius:50px;font-size: 16px;"onclick="location.href='/login'">로그인</button>
+			</div>	
+		</nav>
 		<div id="login-background" >
-			<nav class="container-fluid row">
-				<div class="h3 text-danger col-6" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WaTCaT</div>
-				<div class="col-6">
-					<button id="btn-login"class="font-weight-bold btn btn-light float-end me-0">로그인</button>
-				</div>	
-			</nav>
-			
 			<main class="row container-fluid">
 				<div class="container col-4 mx-auto me-auto main-box">
 						<h4 class="text-white font-weight-bold">회원가입</h4>
@@ -93,12 +164,11 @@ function CheckEmail(str){
 						</div>
 						
 						<div id="password-box" class="p-3">
-							<input id="password-input" type="password" size="28" placeholder="비밀번호">
-<!--  							<img src="images/check-2.png" style=" padding-left:15px; height:30px"> -->
+							<input id="password-input" type="password" size="28" placeholder="비밀번호(6글자이상)">
 						</div>
 						<p id="login-state" class="text-danger pt-2"></p>
 						<div class="container-fluid mt-3 p-0">
-							<button id="btn-sigiup"class="btn btn-danger" style='width:100%;'>계정 생성</button>
+							<button id="btn-ajax-signup"class="btn btn-danger">계정 생성</button>
 						</div>
 				
 				</div>	
