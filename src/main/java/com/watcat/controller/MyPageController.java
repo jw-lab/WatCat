@@ -53,8 +53,12 @@ public class MyPageController {
 	
 	//마이페이지 리뷰 휴지통
 	@RequestMapping("mypage/trash")
-	public ModelAndView mypageTrash() throws Exception{
+	public ModelAndView mypageTrash(HttpServletRequest httpServletRequest, @RequestParam(required = false, defaultValue = "1") int pageNum) throws Exception{
 		ModelAndView mv = new ModelAndView("Mypage/MypageTrash");
+		HttpSession httpSession= httpServletRequest.getSession();
+		String userId = httpSession.getAttribute("userId").toString();
+		PageInfo<reviewDto> myreviewTrash = new PageInfo<reviewDto>(mypageService.MyreviewTrashList(pageNum, userId), 10);
+		mv.addObject("reviewTrashList", myreviewTrash);
 		return mv;
 	}
 	
