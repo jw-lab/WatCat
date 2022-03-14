@@ -71,7 +71,7 @@
 						</a>
 					</div>
 					<div th:if="${session.userId != null}" class="float-end mx-1">
-						<span th:text="${session.userId}"> 님 </span>
+						<span th:text="${session.userId}+' 님'"></span>
 						<a href="#" class="headerLink">
 							<button id="btn-logout"class="btn btn-outline-light">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
@@ -83,7 +83,7 @@
 						
 						<!-- 로그아웃 ajax -->
 						<input type="hidden"  id="userId" th:value="${session.userId}">
-						<input type="hidden"  id="adminPermission" value="${session.adminPermission}">
+						<input type="hidden"  id="adminPermission" th:value="${session.adminPermission}">
 						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 						
 						<script>
@@ -95,7 +95,7 @@
 									success:function(data){
 										
 										console.log("로그아웃됨");
-										location.reload();
+										location.href="/";
 										
 									},
 									error:function(request, status, error){
