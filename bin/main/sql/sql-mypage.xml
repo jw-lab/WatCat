@@ -26,4 +26,25 @@
 			SELECT * FROM review WHERE idx = ${idx}
 		]]>
 	</select>
+	
+	<!-- 리뷰 업데이트-->
+	<select id="myReviewUpdate" parameterType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			UPDATE review 
+			SET poster = '${poster}', title = '${title}', genres = '${genres}', 
+				actors = '${actors}', release_date = '${releaseDate}',  overview = '${overview}', 
+				tagline = '${tagline}', runtime = ${runtime}, rating = ${rating}, 
+				content = '${content}'
+			WHERE idx = ${idx}
+		]]>
+	</select>
+	
+	<!-- 마이 리뷰 삭제-->
+	<update id="myReviewDelete" parameterType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			UPDATE review
+			SET deleted_yn = 'Y'
+			WHERE idx = ${idx}
+		]]>
+	</update>
 </mapper>

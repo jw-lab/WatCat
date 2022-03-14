@@ -75,4 +75,21 @@ public class MyPageController {
 		return mv;
 	}
 	
+	// my리뷰 업데이트
+	@RequestMapping("mypage/reviewUpdate")
+	public String myReviewUpdate(reviewDto reviewdto) throws Exception {
+		mypageService.myReviewUpdate(reviewdto);
+		return "redirect:/mypage/review";
+	}
+	
+	// my리뷰 삭제
+	@RequestMapping("mypage/reviewDelete")
+	public String myReviewDelete(reviewDto reviewdto) throws Exception{
+		mypageService.myReviewDelete(reviewdto);
+		return "redirect:/mypage/review";
+	}
+	
+	
+	// 리뷰trash 삭제
+	
 }

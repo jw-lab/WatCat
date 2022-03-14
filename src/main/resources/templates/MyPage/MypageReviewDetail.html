@@ -6,7 +6,68 @@
 <title>Mypage</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
+<script>
+    $(document).ready(function() {
+		$("#btn-editOK").hide();
+		$("#btn-cancel").hide();
+        
+        document.getElementById("poster").readOnly = true;
+        document.getElementById("title").readOnly = true;
+        document.getElementById("genres").readOnly = true;
+        document.getElementById("actors").readOnly = true;
+        document.getElementById("releaseDate").readOnly = true;
+        document.getElementById("overview").readOnly = true;
+        document.getElementById("tagline").readOnly = true;
+        document.getElementById("content").readOnly = true;
+        document.getElementById("rating").readOnly = true;
+        document.getElementById("runtime").readOnly = true;
+
+		$("#btn-cancel").on("click", function(){
+			location.reload();
+		});
+		
+		$("#btn-edit").on("click", function(){
+			$("#btn-editOK").show();
+			$("#btn-edit").hide();
+			$("#btn-delete").hide();
+			$("#btn-cancel").show();
+			
+			$("#head").text("리뷰 수정하기");
+			
+			document.getElementById("poster").readOnly = false;
+            document.getElementById("title").readOnly = false;
+            document.getElementById("genres").readOnly = false;
+            document.getElementById("actors").readOnly = false;
+            document.getElementById("releaseDate").readOnly = false;
+            document.getElementById("overview").readOnly = false;
+            document.getElementById("tagline").readOnly = false;
+            document.getElementById("content").readOnly = false;
+            document.getElementById("runtime").readOnly = false;
+            document.getElementById("rating").readOnly = false;
+		});
+		
+		$("#btn-editOK").on("click", function(){
+			if(confirm("수정 하시겠습니까?"))
+            {
+                var frm = $("#frm")[0];
+				frm.action = "/mypage/reviewUpdate";
+				frm.submit();
+            }
+		});
+		
+		
+		$("#btn-delete").on("click", function(){
+			if(confirm("삭제 하시겠습니까?"))
+			{
+				var frm = $("#frm")[0];
+				frm.action = "/mypage/reviewDelete";
+				frm.submit();
+			}
+		});
+	});
+</script>
 </head>
 <body class="bg-black">
     <div class="h-100">
@@ -21,20 +82,66 @@
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
                 <div class="w-75 mx-auto mt-3">
-                    <h3>리뷰 상세 보기</h3>
-                    <form action="#" method="post" class="mt-3 p-3">
-                        <input type="hidden" id="idx" th:value="${reviewDetail.idx}" readonly><!-- idx 비활성화-->
-                        <div class="p-2">
-                            <img th:src="${reviewDetail.poster}" width="200px"> 
+                    <h3 id="head">리뷰 상세 보기</h3>
+                    <form action="#" id="frm" method="post" class="mt-3 p-3">
+                        <input type="text" id="idx" name="idx" th:value="${reviewDetail.idx}" readonly><!-- idx 비활성화-->
+                        <div class="row">
+                            <div class="col p-2">
+                                <img th:src="${reviewDetail.poster}" width="200px"> 
+                            </div>
+                            <div class="col text-end align-text-bottom">
+                                <button type="button" class="btn btn-outline-success" id="btn-editOK">확인</button>
+                                <button type="button" class="btn btn-outline-success" id="btn-edit">수정</button>
+                                <button type="button" class="btn btn-outline-danger" id="btn-delete">삭제</button>
+                                <button type="button" class="btn btn-outline-danger" id="btn-cancel">취소</button>
+                            </div>
                         </div>
                         <div>
-                            <div class="bg-black p-1">
-                                <label>영화 제목</label>
-                                <input th:value="${reviewDetail.title}" type="text" id="title" class="form-control bg-black text-white" autocomplete="off">
+                            <div class="bg-black p-1 form-floating">
+                                <input th:value="${reviewDetail.poster}" type="text" id="poster" name="poster" class="form-control bg-black text-white" autocomplete="off">
+                                <label>포스터 이미지 경로</label>
                             </div>
-                            <div class="bg-black p-1">
-                                <label>장르</label>
-                                <input type="text" id="userPw" name="userPw" class="form-control bg-black text-white" autocomplete="off">
+                            <div class="row p-2">
+                                <div class="col bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.title}" type="text" id="title" name="title" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>영화 제목</label>
+                                </div>
+                                <div class="col bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.genres}" type="text" id="genres" name="genres" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>장르</label>
+                                </div>
+                            </div>
+                            <div class="row px-2">
+                                <div class="col bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.actors}" type="text" id="actors" name="actors" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>출연배우</label>
+                                </div>
+                                <div class="col bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.releaseDate}" type="text" id="releaseDate" name="releaseDate" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>제작년도</label>
+                                </div>
+                            </div>
+                            <div class="bg-black p-1 form-floating">
+                                <textarea th:text="${reviewDetail.overview}" type="text" id="overview" name="overview" class="form-control bg-black text-white" autocomplete="off"  style="height: 200px;"></textarea>
+                                <label>줄거리</label>
+                            </div>
+                            <div class="bg-black p-1 form-floating">
+                                <input th:value="${reviewDetail.tagline}" type="text" id="tagline" name="tagline" class="form-control bg-black text-white" autocomplete="off">
+                                <label>tagline</label>
+                            </div>
+                            <div class="row px-2">
+                                <div class="col bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.runtime}" type="number" id="runtime" name="runtime" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>상영 시간<small>(분)</small></label>
+                                </div>
+                                <div class="col bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.rating}" type="number" max="10" id="rating" name="rating" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>개인 평점 <small>(최대 10점 입니다.)</small></label>
+                                </div>
+                            </div>
+                            <div class="bg-black p-1 form-floating">
+                                <textarea th:text="${reviewDetail.content}" type="text" id="content" name="content" class="form-control bg-black text-white" autocomplete="off"  style="height: 200px;"></textarea>
+                                <label>리뷰 내용</label>
                             </div>
                         </div>
                     </form>
