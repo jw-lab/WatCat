@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Kobis</title>
+<style>
+.ui-datepicker {
+    margin-left: 100px;
+    z-index: 1000;
+}
+</style>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -40,16 +46,15 @@
                 document
                     .getElementById("selDate")
                     .setAttribute("max", today);
+                
+                var now = new Date();
 
                 document
-                    .getElementById('selDate')
-                    .value = new Date()
-                    .toISOString()
-                    .substring(0, 10); //오늘날짜=기본날짜
-
-                /* if($("#selDate").val!=" "){
-				    	 $("#btn-search").removeAttr("disabled");
-				    }  */
+                .getElementById('selDate')
+                .value = new Date(now.setDate(now.getDate() - 1))
+                .toISOString()
+                .substring(0, 10);//오늘날짜=기본날짜
+                
 
                 $("#btn-search").on("click", function () {
                 	var date = $("#selDate").val();  //날짜 
@@ -106,7 +111,7 @@
         </script>
 
 </head>
-<body style="">
+<body>
 
 	<header th:replace="Header :: header"></header>
 
@@ -129,10 +134,9 @@
 					</div>
 
 				</div>
-				<br>
 				<hr class="mt-5">
 				<br>
-				<div id="kobisList" class="text-center">
+				<div id="kobisList" class="text-center ">
 					<!-- 리스트 출력 -->
 				</div>
 
