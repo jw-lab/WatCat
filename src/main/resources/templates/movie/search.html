@@ -7,6 +7,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/search.css">
+
 <script>
 $(document).ready(()=>{
 	$("#btn-search").on("click",()=>{
@@ -21,31 +23,16 @@ $(document).ready(()=>{
 					if(resultArray.length==0){
 						$("#search-list").append("검색 결과가 없습니다");
 					} else {
-						let temp_html = `<colgroup>
-											<col width="10%" />
-											<col width="70%" />
-											<col width="20%" />
-										</colgroup>
-										<thead>
-											<tr>
-												<th class="text-center">포스터</th>
-												<th class="text-center">제목</th>
-												<th class="text-center">개봉</th>
-											</tr>
-										</thead>
-										<tbody>`;
-						
+						let temp_html="";
 						for(let i=0;i<resultArray.length;i++){
 							let title = resultArray[i].title;
 							let movieId = resultArray[i].id;
 							let poster = "https://image.tmdb.org/t/p/original"+resultArray[i].poster_path;
 							let releaseDate = resultArray[i].release_date;
-							console.log(resultArray[i]);
-							temp_html +=`<tr>
-											<td><a href="/movie/detail?movieId=${movieId}"><img src="${poster}" class="d-block w-100"></a></td>
-											<td><a href="/movie/detail?movieId=${movieId}" class="text-decoration-none">${title}</a></td>
-											<td>${releaseDate}</td>
-										</tr>`;
+							temp_html +=`<div class="my-3 text-center img-container">
+											<a href="/movie/detail?movieId=${movieId}" class="img-wrapper d-block"><img src="${poster}"></a>
+											<a href="/movie/detail?movieId=${movieId}" class="text-decoration-none clamp">${title}</a>
+										</div>`;
 						}
 						temp_html += `</tbody>`;
 						$("#search-list").append(temp_html);
@@ -61,21 +48,25 @@ $(document).ready(()=>{
 })
 </script>
 </head>
-<body class="bg-black text-white">
+<body class="bg-black">
 	<header th:include="header"></header>
-	<div class="container">
-		<div class="input-group my-3">
-			<input type="text" id="search-bar" class="form-control" placeholder="영화 제목을 입력하세요">
-			<button type="button" id="btn-search" class="btn btn-outline-light">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-					<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-				</svg>
-			</button>
-		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 mx-auto">
+					<div class="input-group my-3">
+						<input type="text" id="search-bar" class="form-control" placeholder="영화 제목을 입력하세요">
+						<button type="button" id="btn-search" class="btn btn-outline-light">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+			
+			<div id="search-list" class="masonry pb-5">
 		
-		<table id="search-list" class="table table-dark">
-	
-		</table>
-	</div>
+			</div>
+		</div>
 </body>
 </html>

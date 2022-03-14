@@ -60,4 +60,16 @@ public class AccountServiceImpl implements AccountService {
 		accountMapper.pardonUser(idx);
 		
 	}
+
+	@Override
+	public int banCheck(String userId) throws Exception {
+		// TODO Auto-generated method stub
+		return accountMapper.banCheck(userId);
+	}
+
+	@Override
+	public int getPermission(String userId) throws Exception {
+		
+		return accountMapper.getPermission(userId);
+	}
 }

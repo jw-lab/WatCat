@@ -20,8 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
+import com.watcat.dto.reviewDto;
 import com.watcat.dto.movie.MovieWishDto;
 import com.watcat.service.MovieRecommendService;
 
@@ -31,9 +35,22 @@ public class MovieRecommendController {
 	@Autowired
 	private MovieRecommendService movieRecommendService;
 	
-	@RequestMapping("/")
-	public String movieRecommend() throws Exception{
-		return "movie/recommend";
+	//추천영화 페이지
+	@RequestMapping(value="/", method = RequestMethod.GET)
+	public ModelAndView movieRecommend(@RequestParam(required = false,defaultValue = "1") int pageNum) throws Exception{
+		ModelAndView mv = new ModelAndView("movie/recommend");
+		PageInfo<reviewDto> reviewList = new PageInfo<>(movieRecommendService.selectReviewList(pageNum),5); 
+		mv.addObject("reviewList", reviewList);
+		return mv;
+	}
+	
+	//영화 리뷰 상세보기 페이지
+	@RequestMapping(value="/review/detail", method = RequestMethod.GET)
+	public ModelAndView reviewDetail(int idx) throws Exception{
+		ModelAndView mv = new ModelAndView("movie/reviewDetail");
+		reviewDto review = movieRecommendService.getReviewDetail(idx);
+		mv.addObject("review", review);
+		return mv;
 	}
 	
 	//영화 상세보기 페이지 이동
@@ -68,6 +85,13 @@ public class MovieRecommendController {
 	public Object selectMovieWish(MovieWishDto movieWish) throws Exception {
 		List<MovieWishDto> movieWishList = movieRecommendService.selectMovieWish(movieWish);
 		return movieWishList;
+	}
+	
+	//리뷰 등록 post
+	@RequestMapping(value = "/review", method = RequestMethod.POST)
+	public String insertReview(reviewDto reviewDto) throws Exception {
+		movieRecommendService.insertReview(reviewDto);
+		return "redirect:/";
 	}
 	//네이버 api 시작
 	@ResponseBody
