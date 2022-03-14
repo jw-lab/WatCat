@@ -53,10 +53,12 @@ public class MyPageController {
 	
 	//마이페이지 리뷰 휴지통
 	@RequestMapping("mypage/trash")
-	public String mypageTrash() {
-		return "Mypage/MypageTrash";
+	public ModelAndView mypageTrash() throws Exception{
+		ModelAndView mv = new ModelAndView("Mypage/MypageTrash");
+		return mv;
 	}
 	
+	// 마이페이지 비밀번호 변경
 	@RequestMapping(value="mypage/updatepw", method = RequestMethod.POST)
 	public String updatePw(HttpServletRequest httpServletRequest, userDto userdto ) throws Exception {
 		

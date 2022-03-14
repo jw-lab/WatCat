@@ -15,30 +15,36 @@ public class MypageServiceImpl implements MypageService {
 	@Autowired
 	MypageMapper mypageMapper;
 	
-	@Override
+	@Override //비밀번호 변
 	public void updatePw(userDto userdto) throws Exception {
 		mypageMapper.updatePw(userdto);
 	}
 
-	@Override
+	@Override //마이페이지 리뷰 리스트
 	public Page<reviewDto> MyreviewList(int pageNum, String userId) throws Exception {
 		PageHelper.startPage(pageNum, 9);
 		return mypageMapper.MyreviewList(userId);
 	}
 
-	@Override
+	@Override //마이페이지 리뷰 디테일
 	public reviewDto reviewDetail(int idx) throws Exception {
 		return mypageMapper.reviewDetail(idx);
 	}
 
-	@Override
+	@Override // 마이페이지 리뷰 업데이트
 	public void myReviewUpdate(reviewDto reviewdto) throws Exception {
 		mypageMapper.myReviewUpdate(reviewdto);
 	}
 
-	@Override
+	@Override //마이페이지 리뷰 삭제
 	public void myReviewDelete(reviewDto reviewdto) throws Exception {
 		mypageMapper.myReviewDelete(reviewdto);
+	}
+
+	@Override //마이페이지 리뷰 휴지통 리스트
+	public Page<reviewDto> MyreviewTrashList(int pageNum, String userId) throws Exception {
+		PageHelper.startPage(pageNum, 10);
+		return mypageMapper.MyreviewTrashList(userId);
 	}
 
 }

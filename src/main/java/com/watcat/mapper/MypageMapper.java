@@ -19,4 +19,6 @@ public interface MypageMapper {
 
 	void myReviewDelete(reviewDto reviewdto) throws Exception;
 
+	Page<reviewDto> MyreviewTrashList(String userId) throws Exception;
+
 }
