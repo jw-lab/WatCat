@@ -31,4 +31,50 @@
 				user_id=#{userId}
 		]]>
 	</select>
+	
+	<select id="requestUserList" resultType="com.watcat.dto.userDto">
+		<![CDATA[ 
+			SELECT
+				idx,user_id,user_pw,admin_permission,deleted_yn
+			FROM
+				user	
+		]]>
+	</select>
+	
+	
+	<!-- 유저정지-->
+	<update id="banUser" parameterType="int">
+		<![CDATA[ 
+			UPDATE
+				user
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				idx=#{idx}	
+		]]>
+	</update>
+	
+	<!-- 유저정지해제-->
+	<update id="pardonUser" parameterType="int">
+		<![CDATA[ 
+			UPDATE
+				user
+			SET
+				deleted_yn = 'N'
+			WHERE
+				idx=#{idx}	
+		]]>
+	</update>
+	
+	<!-- 유저삭제-->
+	<delete id="deleteUser" parameterType="int">
+		<![CDATA[ 
+			DELETE
+			FROM
+				user
+			WHERE
+				idx=#{idx}		
+			
+		]]>
+	</delete>
 </mapper>

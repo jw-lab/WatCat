@@ -33,7 +33,7 @@ public class KobisController {
 
 	@RequestMapping(value = "/watcat/kobis", method = RequestMethod.GET)
 	public String memberAjax() throws Exception {
-		return "/kobis/rank";
+		return "/kobis/rank_list";
 	}
 
 	
