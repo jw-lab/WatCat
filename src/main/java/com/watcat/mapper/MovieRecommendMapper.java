@@ -1,10 +1,13 @@
-package com.watcat.service;
+package com.watcat.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.watcat.dto.movie.MovieWishDto;
 
-public interface MovieRecommendService {
+@Mapper
+public interface MovieRecommendMapper {
 
 	void insertMovieWish(MovieWishDto movieWish) throws Exception;
 
