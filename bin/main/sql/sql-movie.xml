@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.watcat.mapper.MovieRecommendMapper">
+	
+	<!--찜하기 추가-->
+	<insert id="insertMovieWish" parameterType="com.watcat.dto.movie.MovieWishDto">
+		<![CDATA[
+			INSERT INTO
+				wishlist(movie_id,user_id)
+			VALUES
+				(#{movieId},#{userId})
+		]]>
+	</insert>
+	
+	<!--찜하기 해제-->
+	<delete id="deleteMovieWish" parameterType="com.watcat.dto.movie.MovieWishDto">
+		<![CDATA[
+			DELETE FROM
+				wishlist
+			WHERE
+				movie_id = #{movieId}
+			AND
+				user_id = #{userId}
+		]]>
+	</delete>
+	
+	<!--찜하기 list 정보-->
+	<select id="selectMovieWish" parameterType="com.watcat.dto.movie.MovieWishDto" resultType="com.watcat.dto.movie.MovieWishDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				wishlist
+			WHERE
+				user_id = #{userId}
+		]]>
+	</select>
+</mapper>

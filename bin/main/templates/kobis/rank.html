@@ -20,15 +20,27 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/style.css">
-<!-- <link rel="stylesheet" href="/css/jquery.datetimepicker.css" type="text/css" />
-<script type="text/javascript" src="/js/jquery.datetimepicker.js"></script> -->
-<!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- -->
 
 <script>
+
             $(document).ready(() => {
+            	 var today = new Date();
+            	 today.setDate(today.getDate()-1);
+				    var dd = today.getDate();
+				    var mm = today.getMonth() + 1; //January is 0!
+				    var yyyy = today.getFullYear();
+
+				    if (dd < 10) {
+				       dd = '0' + dd;
+				    }
+
+				    if (mm < 10) {
+				       mm = '0' + mm;
+				    } 
+				        
+				    today = yyyy + '-' + mm + '-' + dd;
+				    document.getElementById("selDate").setAttribute("max", today);
+            	
                 $("#btn-search").on("click", function () {
                     var search = $("#btn-search").val(); //클릭시 검색
                     var date = $("#selDate").val();  //날짜 
@@ -36,7 +48,7 @@
                     var title = $("title").val(); //제목
                     date = converDate(date); //날짜에서 '-' 제외하는 메소드
                     
-                    var today = new Date();
+                    $("#title").text(date+"일자 박스오피스");
                     
                             $.ajax({
                 				type:"POST",
@@ -45,13 +57,15 @@
                 				success:(response)=>{
                 				    $("#kobisList").empty();
                 				    
+                				   
+                				    
                 					 for(var i = 0; i < response.length; i++) { 
                 						 
                                     var result = "<div id=\"kobisList\">";
                                     result += "<div><b>"+response[i].movieNm+"</b></div>";
                                     result += " <ul class=\"list-unstyled\">";
                                     result += "<li>개봉일: <span>"+response[i].openDt+"</span></li>";
-                                    result += " <li>누적관객수: <span>"+response[i].audiAcc+"</span></li>";
+                                    result += " <li>누적관객수: <span>"+response[i].audiAcc+"명</span></li>";
                                     result += "<li>순위: <span>"+response[i].rank+"위</span></li>";
                                     result += "</ul>";
                                     result += "</div>";
@@ -70,16 +84,6 @@
         		var temp = date.split("-");
         		return temp.join("");
         	}
-        	
-
-        	$(document).ready(function(){
-        			$('#selDate').datetimepicker({
-        				  lang:'ko',
-        				  timepicker:false,
-        				  /* format:'Y-m-d', */
-        				  minDate: new Date
-        			});
-        		});
         </script>
 
 </head>
@@ -93,7 +97,8 @@
 				<h1 class="text-center" id="title">박스오피스</h1>
 				<div class="row my-3 border-bottom"></div>
 
-				<input type="date" class="form-control text-center" id="selDate" name="selDate">
+				<input type="date" class="form-control text-center" id="selDate"
+					name="selDate">
 				<div class="float-end mt-2 ">
 					<button type="button" id="btn-search" class="btn btn-primary ">검색</button>
 				</div>
