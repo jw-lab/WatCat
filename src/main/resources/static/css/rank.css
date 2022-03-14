@@ -22,5 +22,6 @@
 }
 
 body{
-	background : rgb(26, 26, 26);
+	/* background : rgb(26, 26, 26); */
+    background: url(/images/back.jpg) ;
 }

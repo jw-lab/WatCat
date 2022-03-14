@@ -31,4 +31,14 @@ public class MypageServiceImpl implements MypageService {
 		return mypageMapper.reviewDetail(idx);
 	}
 
+	@Override
+	public void myReviewUpdate(reviewDto reviewdto) throws Exception {
+		mypageMapper.myReviewUpdate(reviewdto);
+	}
+
+	@Override
+	public void myReviewDelete(reviewDto reviewdto) throws Exception {
+		mypageMapper.myReviewDelete(reviewdto);
+	}
+
 }
