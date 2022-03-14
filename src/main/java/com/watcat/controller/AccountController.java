@@ -44,18 +44,35 @@ public class AccountController {
 		
 		int ban = accountService.banCheck(user.getUserId());
 		
+		int check = accountService.getPermission(user.getUserId());
+		String permission;
+		
+			if(check==1) {
+				permission="Y";
+			}else {
+				permission="N";
+			}
+		
 		if(count==1) {
-			HttpSession session= request.getSession();
-			session.setAttribute("userId", user.getUserId());
-			session.setAttribute("adminPermission", user.getAdminPermission());
+
 			
 			if(ban==1) {
+				
 				map.put("result", "banned");
+				
 			}else {
+				
+				HttpSession session= request.getSession();
+				session.setAttribute("userId", user.getUserId());
+				session.setAttribute("adminPermission", permission);
+				
 				map.put("result", "success");
+				
 			}
 		}else {
+			
 			map.put("result", "error");
+			
 		}
 		
 		return map;
@@ -69,7 +86,7 @@ public class AccountController {
 		HttpSession session = request.getSession();
 		
 		session.removeAttribute("userId");
-		session.removeAttribute("level");
+		session.removeAttribute("adminPermission");
 		session.invalidate();
 		
 		

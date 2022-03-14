@@ -22,5 +22,7 @@ public interface AccountService {
 
 	public int banCheck(String userId) throws Exception;
 
+	public int getPermission(String userId) throws Exception;
+
 	
 }

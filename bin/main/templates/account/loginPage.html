@@ -51,11 +51,11 @@
 			}	
 		});
 
-		//비밀번호 6자리이상
+		//비밀번호 4자리이상
 		
 		$(userPw).on("propertychange change paste input",userPw,function(){
 			
-			if(userPw.val().length>=6){
+			if(userPw.val().length>=4){
 				if($("span").hasClass("xMarkPw")){
 					
 					$("span").removeClass("xMarkPw");
@@ -96,7 +96,7 @@
 		});
 
 		//아이디 비밀번호 체크
-		$("#btn-login").on("click",function(){	
+		$("#btn-ajax-login").on("click",function(){	
 			
 			if(CheckEmail(userId.val())){
 				$.ajax({
@@ -179,7 +179,7 @@
 						<p id="login-state" style="font-size:14px"class="text-size text-danger pt-2"></p>
 						
 						<div class="container-fluid mt-3 p-0">
-							<button id="btn-login"class="btn btn-danger" style='width:100%;'>로그인</button>
+							<button id="btn-ajax-login"class="btn btn-danger">로그인</button>
 						</div>
 					</div>	
 			</main>

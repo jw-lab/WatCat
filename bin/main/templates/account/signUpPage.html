@@ -50,12 +50,12 @@ $(document).ready(function(){
 			}
 		}	
 	});
-
-	//비밀번호 6자리이상
+	
+	//비밀번호 4자리이상
 	
 	$(userPw).on("propertychange change paste input",userPw,function(){
 		
-		if(userPw.val().length>=6){
+		if(userPw.val().length>=4){
 			if($("span").hasClass("xMarkPw")){
 				
 				$("span").removeClass("xMarkPw");
@@ -127,6 +127,7 @@ $(document).ready(function(){
 			
 });	
 
+
 //이메일 형식 확인 함수
 function CheckEmail(str){     
 	
@@ -164,7 +165,7 @@ function CheckEmail(str){
 						</div>
 						
 						<div id="password-box" class="p-3">
-							<input id="password-input" type="password" size="28" placeholder="비밀번호(6글자이상)">
+							<input id="password-input" type="password" onkeyup="enterkey()" size="28" placeholder="비밀번호(4글자이상)">
 						</div>
 						<p id="login-state" class="text-danger pt-2"></p>
 						<div class="container-fluid mt-3 p-0">

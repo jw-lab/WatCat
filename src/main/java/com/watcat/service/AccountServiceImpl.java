@@ -66,4 +66,10 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountMapper.banCheck(userId);
 	}
+
+	@Override
+	public int getPermission(String userId) throws Exception {
+		
+		return accountMapper.getPermission(userId);
+	}
 }
