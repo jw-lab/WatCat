@@ -11,4 +11,8 @@ public interface MypageService {
 	Page<reviewDto> MyreviewList(int pageNum, String userId) throws Exception;
 
 	reviewDto reviewDetail(int idx) throws Exception;
+
+	void myReviewUpdate(reviewDto reviewdto) throws Exception;
+
+	void myReviewDelete(reviewDto reviewdto) throws Exception;
 }

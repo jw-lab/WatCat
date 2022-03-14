@@ -1,5 +1,7 @@
 package com.watcat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,33 @@ public class AccountServiceImpl implements AccountService {
 	public int idCheck(String userId) throws Exception {
 		
 		return accountMapper.idCheck(userId);
+		
+	}
+
+	@Override
+	public List<userDto> requestUserList() throws Exception {
+		
+		return accountMapper.requestUserList();
+	}
+
+	@Override
+	public void banUser(int idx) throws Exception {
+	
+		accountMapper.banUser(idx);
+		
+	}
+
+	@Override
+	public void deleteUser(int idx) throws Exception {
+		
+		accountMapper.deleteUser(idx);
+		
+	}
+
+	@Override
+	public void pardonUser(int idx) throws Exception {
+		
+		accountMapper.pardonUser(idx);
 		
 	}
 }

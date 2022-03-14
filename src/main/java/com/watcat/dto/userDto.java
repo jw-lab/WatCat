@@ -9,4 +9,5 @@ public class userDto {
 	String userId;
 	String userPw;
 	String adminPermission;
+	String deletedYn;
 }
