@@ -42,12 +42,18 @@ public class AccountController {
 		
 		int count = accountService.loginCheck(user.getUserId(),user.getUserPw());
 		
+		int ban = accountService.banCheck(user.getUserId());
+		
 		if(count==1) {
 			HttpSession session= request.getSession();
 			session.setAttribute("userId", user.getUserId());
 			session.setAttribute("adminPermission", user.getAdminPermission());
 			
-			map.put("result", "success");
+			if(ban==1) {
+				map.put("result", "banned");
+			}else {
+				map.put("result", "success");
+			}
 		}else {
 			map.put("result", "error");
 		}

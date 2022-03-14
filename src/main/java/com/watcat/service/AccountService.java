@@ -20,5 +20,7 @@ public interface AccountService {
 
 	public void pardonUser(int idx) throws Exception;
 
+	public int banCheck(String userId) throws Exception;
+
 	
 }

@@ -108,6 +108,10 @@
 					
 							location.href="/";
 							
+							}else if(data.result=="banned"){
+								
+								$("#login-state").text("정지된 계정입니다 관리자에게 문의해주세요");
+								
 							}else{
 		
 								$("#login-state").text("이메일 주소 혹은 비밀번호를 다시 확인해주세요");
@@ -161,7 +165,7 @@
 			</nav>
 			<div id="login-background" >
 			<main class="row container-fluid">
-				<div class="container col-4 mx-auto me-auto main-box">
+				<div class="container col-4 mx-auto main-box">
 						<h4 class="text-white font-weight-bold">로그인</h4>
 						
 						<div id="email-box" class="p-3 container-fluid">
@@ -172,7 +176,7 @@
 							<input id="password-input" type="password"width="500px" placeholder="비밀번호">
 						</div>
 						
-						<p id="login-state" class="text-danger pt-2"></p>
+						<p id="login-state" style="font-size:14px"class="text-size text-danger pt-2"></p>
 						
 						<div class="container-fluid mt-3 p-0">
 							<button id="btn-login"class="btn btn-danger" style='width:100%;'>로그인</button>

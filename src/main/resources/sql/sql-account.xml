@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.watcat.mapper.AccountMapper">
+
+	<!-- id,pw체크 -->
 	<select id="loginCheck" parameterType="String" resultType="int">
 		<![CDATA[ 
 			SELECT
@@ -11,7 +13,17 @@
 				user_id=#{userId} AND user_pw=#{userPw}		
 		]]>
 	</select >
-	
+	<select id="banCheck" parameterType="String" resultType="int">
+		<![CDATA[ 
+			SELECT
+				COUNT(user_id) AS NUM
+			FROM
+				user
+			WHERE
+				user_id=#{userId} AND deleted_yn='Y'		
+		]]>
+	</select>
+	<!-- 회원가입-->
 	<insert id="signUp" parameterType="com.watcat.dto.userDto">
 		<![CDATA[ 
 			INSERT INTO
@@ -20,7 +32,7 @@
 				(#{userId},#{userPw},'N')	
 		]]>
 	</insert>
-	
+	<!-- id체크-->
 	<select id="idCheck" parameterType="String" resultType="int">
 		<![CDATA[ 
 			SELECT
@@ -32,6 +44,7 @@
 		]]>
 	</select>
 	
+	<!--유저 리스트보기 -->
 	<select id="requestUserList" resultType="com.watcat.dto.userDto">
 		<![CDATA[ 
 			SELECT
