@@ -35,4 +35,39 @@
 				user_id = #{userId}
 		]]>
 	</select>
+	
+	<!--리뷰 등록하기-->
+	<insert id="insertReview" parameterType="com.watcat.dto.reviewDto">
+		<![CDATA[
+			INSERT INTO
+				review(movie_id,title,backdrop,poster,genres,actors,overview,tagline,release_date,runtime,user_id,content,rating)
+			VALUES
+				(#{movieId},#{title},#{backdrop},#{poster},#{genres},#{actors},#{overview},#{tagline},#{releaseDate},#{runtime},#{userId},#{content},#{rating})
+		]]>
+	</insert>
+	
+	<!--리뷰 목록-->
+	<select id="selectReviewList" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[
+			SELECT
+				idx,movie_id,title,content,user_id,created_dt
+			FROM
+				review
+			ORDER BY
+				idx
+			DESC
+		]]>
+	</select>
+	
+	<!--리뷰 상세보기-->
+	<select id="getReviewDetail" resultType="com.watcat.dto.reviewDto" parameterType="int">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				review
+			WHERE
+				idx = #{idx}
+		]]>
+	</select>
 </mapper>

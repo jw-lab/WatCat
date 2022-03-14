@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/movieRec.css">
 <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="bg-black text-white">
+<body class="bg-black">
 	<header th:include="header"></header>
     <div id="div-carousel" class="carousel slide" data-bs-ride="carousel">
             <!-- 인디케이터 -->
@@ -41,6 +41,49 @@
             <button type="button" class="carousel-control-next" data-bs-target="#div-carousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon"></span>
             </button>
+    </div>
+    <div class="container">
+		<div class="table-responsive">
+			<table class="table text-white">
+				<colgroup>
+					<col width="7%" />
+					<col width="60%" />
+					<col width="18%" />
+					<col width="15%" />
+				</colgroup>
+				<thead class="text-center">
+					<tr>
+						<th>번호</th>
+						<th>감상평</th>
+						<th>글쓴이</th>
+						<th>날짜</th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					<tr th:each="item : ${reviewList.getList()}">
+						<td th:text="${item.idx}"></td>
+						<td class="text-start">
+							<a class="movieTitle text-decoration-none fw-bold fs-4" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
+							<p th:text="${item.content}"></p>
+						</td>
+						<td th:text="${item.userId}"></td>
+						<td th:text="${item.createdDt}"></td>
+					</tr>
+				</tbody>
+			</table>
+			
+ 			<ul class="pagination d-flex justify-content-center">
+				<li class="page-item" th:classappend="${reviewList.getPrePage()} == 0 ? 'disabled'">
+					<a class="page-link text-black" th:href="@{/(pageNum=${reviewList.getPrePage()})}">&lt;</a>
+				</li>
+				<li class="page-item" th:each="page : ${#numbers.sequence(reviewList.getNavigateFirstPage(),reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
+					<a class="page-link text-black" th:text="${page}" th:href="@{/(pageNum=${page})}"></a>
+				</li>
+				<li class="page-item" th:classappend="${reviewList.getNextPage()} == 0 ? 'disabled'">
+					<a class="page-link text-black" th:href="@{/(pageNum=${reviewList.getNextPage()})}">&gt;</a>
+				</li>
+			</ul>
+		</div>
     </div>
 </body>
 </html>
