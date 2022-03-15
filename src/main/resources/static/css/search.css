@@ -4,14 +4,18 @@ body{
 	background:url('../images/movie_search.jpeg') center center no-repeat;
 }
 
+.movieTitle:hover{
+	color: white;
+}
 .masonry {
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
 }
 .masonry .img-container {
-  width: 250px;
+  width: 180px;
   height: 250px;
+  margin: 10px;
 }
 .masonry .img-wrapper {
   width: inherit;
@@ -26,7 +30,7 @@ body{
 }
 
 .clamp {
-	width:250px;
+	width:inherit;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
