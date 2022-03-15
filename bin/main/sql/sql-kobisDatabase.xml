@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.watcat.mapper.KobisDatabaseMapper">
+	<!-- 빅데이터 수집 -->
+	<insert id="BigDatabaseInsert" parameterType="com.watcat.dto.Kobis.DailyBoxOfficeDto" >
+		<![CDATA[ 
+			INSERT INTO kobis_movie 
+			VALUES (#{searchDt}, 
+				#{movieCd}, 
+				#{rnum}, 
+				#{rank}, 
+				#{rankInten},
+				#{rankOldAndNew}, 
+				#{movieNm}, 
+				#{openDt}, 
+				#{salesAmt}, 
+				#{salesShare}, 
+				#{salesInten}, 
+				#{salesChange}, 
+				#{salesAcc}, 
+				#{audiCnt}, 
+				#{audiInten}, 
+				#{audiChange}, 
+				#{audiAcc},  
+				#{scrnCnt}, 
+				#{showCnt} );
+		]]>
+	</insert>
+	
+	<!-- 수집된 데이터 리스트-->
+	<select id="CollectionResult" resultType="com.watcat.dto.Kobis.DailyBoxOfficeDto">
+		<![CDATA[ 
+			SELECT SUBSTR(search_dt, 1, 7) AS search_dt,  Count(movie_cd) as show_cnt
+			FROM kobis_movie
+			GROUP BY SUBSTR(search_dt, 1, 7);
+		]]>
+	</select>
+</mapper>
