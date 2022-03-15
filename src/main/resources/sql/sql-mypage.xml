@@ -47,4 +47,32 @@
 			WHERE idx = ${idx}
 		]]>
 	</update>
+	
+	<!--삭제된 리뷰 리스트 불러오기-->
+		<select id="MyreviewTrashList" parameterType="String" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[
+			SELECT * 
+			FROM review 
+			WHERE user_id = #{userId} 
+			AND deleted_yn = 'Y'
+		]]>
+	</select>
+	
+	<!--휴지통 리뷰 영구 삭제-->
+		<update id="MyreviewTrashDelete" parameterType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			DELETE FROM review
+			WHERE idx = ${idx}
+		]]>
+	</update>
+	
+	<!--휴지통 리뷰 복구-->
+	<update id="MyreviewTrashRe" parameterType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			UPDATE review
+			SET deleted_yn = 'N'
+			WHERE idx = ${idx}
+		]]>
+	</update>
+	
 </mapper>

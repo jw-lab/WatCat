@@ -21,6 +21,12 @@ public interface MypageService {
 	//마이페이지 리뷰 삭제
 	void myReviewDelete(reviewDto reviewdto) throws Exception;
 
-	// 마이페이지 리뷰 휴지통 리스트
+	// 휴지통 : 마이페이지 리뷰  리스트
 	Page<reviewDto> MyreviewTrashList(int pageNum, String userId) throws Exception;
+
+	// 휴지통:마이페이지 리뷰 영구 삭제	
+	void MyreviewTrashDelete(int idx) throws Exception;
+
+	// 휴지통:마이페이지 리뷰 복구 
+	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
 }
