@@ -11,9 +11,18 @@
 
 <script>
 $(document).ready(()=>{
+	let isEmpty = function(value){ 
+		if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+			return true 
+		}
+		else{ 
+			return false 
+			} 
+		};
+
 	function getSearch() {
 		let search = $("#search-bar").val();
-		if(search != undefined && search != ""){
+		if(!isEmpty(search)){
 			$.ajax({
 				type:"get",
 				url:"https://api.themoviedb.org/3/search/movie?api_key=a1c25fa7fbd7117d8d4d73bf1892deae&query="+search+"&language=ko",
@@ -28,7 +37,12 @@ $(document).ready(()=>{
 						for(let i=0;i<resultArray.length;i++){
 							let title = resultArray[i].title;
 							let movieId = resultArray[i].id;
-							let poster = "https://image.tmdb.org/t/p/original"+resultArray[i].poster_path;
+							let poster ="";
+							if(isEmpty(resultArray[i].poster_path)){
+								poster = "../images/noimage.png";
+							} else {
+								poster = "https://image.tmdb.org/t/p/original"+resultArray[i].poster_path;
+							}
 							let releaseDate = resultArray[i].release_date;
 							temp_html +=`<div class="my-3 text-center img-container">
 											<a href="/movie/detail?movieId=${movieId}" class="img-wrapper d-block"><img src="${poster}"></a>
