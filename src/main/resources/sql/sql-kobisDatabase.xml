@@ -32,7 +32,8 @@
 		<![CDATA[ 
 			SELECT SUBSTR(search_dt, 1, 7) AS search_dt,  Count(movie_cd) as show_cnt
 			FROM kobis_movie
-			GROUP BY SUBSTR(search_dt, 1, 7);
+			GROUP BY SUBSTR(search_dt, 1, 7)
+			ORDER BY search_dt desc;
 		]]>
 	</select>
 </mapper>
