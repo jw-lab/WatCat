@@ -5,8 +5,8 @@
 <title>Kobis</title>
 <style>
 .ui-datepicker {
-	margin-left: 100px;
-	z-index: 1000;
+    margin-left: 100px;
+    z-index: 1000;
 }
 </style>
 
@@ -63,19 +63,11 @@
                     var title = $("title").val(); //제목
                     var d_ate = converDate(date); //날짜에서 '-' 제외하는 메소드
                     var ymdate = yearMonthDate(d_ate); //----년--월--일 메소드
-                    
-                    //영화 검색을 위한 주소
                     let naverMv = "\"https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=영화+";
                     let tmdbMv = "\"https://www.themoviedb.org/search?query=";
 					let cgvMv = "\"http://www.cgv.co.kr/search/?query=";
 					let megaMv = "\"https://www.megabox.co.kr/movie?searchText=";
                     
-					//movieDB api
-					let apiUrl = "https://api.themoviedb.org/3/movie/550";
-					let apiKey = "?api_key=63d97b41cb0c807e0febf2f8f4f2be9d";
-					apiUrl += apiKey;
-					
-					
                     $("#title").text(ymdate+" 박스오피스 순위");
                     
                     $.ajax({
@@ -86,45 +78,24 @@
                         },
                         success: (response) => {
                             $("#kobisList").empty(); 
-                            
-                            
-                            $.ajax ({  
-                                type: "GET",  
-                                url: apiUrl,
-                                success: (db)=>{
-                                	
-                                	
-                                
-                                for (var i = j; i < response.length; i++) {
-                                    let temp_html =  " <ul class=\"list-unstyled\">";
-                                    temp_html += "<li class=\"h4\"><b>" + response[i].rank + "위</b></li>";
-                                    //temp_html += "<li class=\"h5\"><b><a href="+ naverMv+ response[i].movieNm+"\" target='_blank'>"+  response[i].movieNm +"</a></b></li>";
-                                    temp_html += "<li class=\"h5\"><b><a href="+ tmdbMv+ response[i].movieNm+"\" target='_blank'>"+  response[i].movieNm +"</a></b></li>";
-                                   /*  temp_html += "<li class=\"h5\"><b>"+ response[i].movieNm+"</b></li>"; */
-                                   
-                                    for (var j = 0; j < db.length; j++){
-                                    	if (response[i].movieNm == db[j].title){
-                                    		temp_html += "<li>ㅇㅇ: " + db[j].id + "</li>";
-                                    		}
-                                    	}
-                                   
-                                    temp_html += "<li>개봉일: " + response[i].openDt + "</li>";
-                                    temp_html += " <li>누적관객수: " + response[i].audiAcc + "명</li>";
-                                    temp_html += "<li><a href="+ megaMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/m.png\" style=\" height:60px;\"  alt=\"메가박스\" title=\"메가박스에서 예매\"></img></a>"; 
-                                    temp_html += "<a href="+ cgvMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/cgv.svg\" style=\"height:30px;\"  alt=\"cgv\" title=\"cgv에서 예매\"></img></a></li>";
-                                    temp_html += "</ul>";
-                                    $("#kobisList").append(temp_html);
-                                }
-                                	
-                                }
-                                
-                              });
-                            
 
-
+                            for (var i = 0; i < response.length; i++) {
+                                let temp_html =  " <ul class=\"list-unstyled\">";
+                                temp_html += "<li class=\"h4\"><b>" + response[i].rank + "위</b></li>";
+                                //temp_html += "<li class=\"h5\"><b><a href="+ naverMv+ response[i].movieNm+"\" target='_blank'>"+  response[i].movieNm +"</a></b></li>";
+                                temp_html += "<li class=\"h5\"><b><a href="+ tmdbMv+ response[i].movieNm+"\" target='_blank'>"+  response[i].movieNm +"</a></b></li>";
+                               /*  temp_html += "<li class=\"h5\"><b>"+ response[i].movieNm+"</b></li>"; */
+                                temp_html += "<li>ㅇㅇ: " + response[i].movieCd + "</li>";
+                                temp_html += "<li>개봉일: " + response[i].openDt + "</li>";
+                                temp_html += " <li>누적관객수: " + response[i].audiAcc + "명</li>";
+                                temp_html += "<li><a href="+ megaMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/m.png\" style=\" height:60px;\"  alt=\"메가박스\" title=\"메가박스에서 예매\"></img></a>"; 
+                                temp_html += "<a href="+ cgvMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/cgv.svg\" style=\"height:30px;\"  alt=\"cgv\" title=\"cgv에서 예매\"></img></a></li>";
+                                temp_html += "</ul>";
+                                $("#kobisList").append(temp_html);
+                            }
                         },
                         error: function (request, error) {
-                            console.log("\nmessage:" + request.responseText + "\nerror:" + error);
+                            alert("\nmessage:" + request.responseText + "\nerror:" + error);
                         }
 
                     });

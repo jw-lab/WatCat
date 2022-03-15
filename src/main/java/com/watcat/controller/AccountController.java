@@ -137,6 +137,7 @@ public class AccountController {
 		return mv;
 	}
 	
+	//계정 정지,해제
 	@ResponseBody
 	@RequestMapping(value="/admin/account",method=RequestMethod.PUT)
 	public void banUser(@RequestParam("idx") int idx,@RequestParam("account") String account) throws Exception{
@@ -149,6 +150,7 @@ public class AccountController {
 		
 	}
 	
+	//계정영구삭제
 	@ResponseBody
 	@RequestMapping(value="/admin/account",method=RequestMethod.DELETE)
 	public void deleteUser(int idx) throws Exception{

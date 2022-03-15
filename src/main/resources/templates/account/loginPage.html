@@ -98,43 +98,48 @@
 		//아이디 비밀번호 체크
 		$("#btn-ajax-login").on("click",function(){	
 			
-			if(CheckEmail(userId.val())){
-				$.ajax({
-					url:"/login",
-					type:"post",
-					data:{userId:userId.val(),userPw:userPw.val()},
-					success:function(data){
-						if (data.result == "success") {
-					
-							location.href="/";
-							
-							}else if(data.result=="banned"){
-								
-								$("#login-state").text("정지된 계정입니다 관리자에게 문의해주세요");
-								
-							}else{
-		
-								$("#login-state").text("이메일 주소 혹은 비밀번호를 다시 확인해주세요");
-							}
-						},
-					error:function(request, status, error){
-						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}
-				});
-
+			loginFunction(userId.val(),userPw.val());
 			
+		});
+		
+		$(".main-box").on("keypress",function(e){	
+			if(e.keyCode=='13'){
+				loginFunction(userId.val(),userPw.val());
+			}
+			
+		});
+
+		
+		function loginFunction(id,pw){
+			if(CheckEmail(id)){
+					$.ajax({
+						url:"/login",
+						type:"post",
+						data:{userId:id,userPw:pw},
+						success:function(data){
+							if (data.result == "success") {
+						
+								location.href="/";
+								
+								}else if(data.result=="banned"){
+									
+									$("#login-state").text("정지된 계정입니다 관리자에게 문의해주세요");
+									
+								}else{
+			
+									$("#login-state").text("이메일 주소 혹은 비밀번호를 다시 확인해주세요");
+								}
+							},
+						error:function(request, status, error){
+							console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+						}
+					});
 			}else{
 	
 				$("#login-state").text("이메일 형식을 확인해주세요");
 				
 			}
-		});
-		
-		
-		
-
-	});	
-
+		}
 	
 	//이메일 형식 확인 함수
 	function CheckEmail(str){     
@@ -151,7 +156,7 @@
 	     }                            
 
 	}                                
-
+	});
 </script>
 </head>
 <body>
