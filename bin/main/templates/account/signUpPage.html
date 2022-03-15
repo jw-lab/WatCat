@@ -125,8 +125,38 @@ $(document).ready(function(){
 		}
 	});
 			
-});	
 
+	$(".main-box").on("keypress",function(e){
+		if(e.keyCode=='13'){
+			if(CheckEmail(userId.val())){
+				//아이디 체크
+				$.ajax({
+					url:"/signup",
+					type:"post",
+					data:{userId:userId.val(),userPw:userPw.val()},
+					success:function(data){
+						if (data.result == "success") {
+						
+							location.href="/login";
+							
+						}else{
+	
+							$("#login-state").text("다른 유저가 사용중인 이메일입니다.");
+						}
+					},
+					error:function(request, status, error){
+						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
+				});
+			
+			}else{
+		
+				$("#login-state").text("이메일 형식을 확인해주세요");
+					
+			}
+	}
+	});
+});
 
 //이메일 형식 확인 함수
 function CheckEmail(str){     
