@@ -47,4 +47,19 @@ public class MypageServiceImpl implements MypageService {
 		return mypageMapper.MyreviewTrashList(userId);
 	}
 
+	@Override // 마이페이지 리뷰 영구 삭제	
+	public void MyreviewTrashDelete(int idx) throws Exception {
+		mypageMapper.MyreviewTrashDelete(idx);
+		
+	}
+
+	@Override // 휴지통 리뷰 복구	
+	public void MyreviewTrashRe(reviewDto reviewdto) throws Exception {
+		mypageMapper.MyreviewTrashRe(reviewdto);
+		
+	}
+	
+	
+
+
 }
