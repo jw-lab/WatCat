@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="/css/style.css">
 <script>
 $(document).ready(()=>{
+	let isEmpty = function(value){ 
+		if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+			return true 
+		}
+		else{ 
+			return false 
+			} 
+		};
 	//tmdb api 활용
 	let movieId = $("#movieId").val();
 	let apiUrl = "https://api.themoviedb.org/3/movie/";
@@ -27,8 +35,13 @@ $(document).ready(()=>{
 			// 이미지
 			let imageUrl ="https://image.tmdb.org/t/p/original";
 			// 포스터 이미지
+			let poster ="";
 			let posterPath = response.poster_path;
-			let poster = imageUrl + posterPath;
+			if(isEmpty(posterPath)){
+				poster = "../images/noimage.png";
+			} else {
+				poster = imageUrl + posterPath;
+			}
 			// 백드랍 이미지
 			let backdropPath= response.backdrop_path;
 			let backdrop = imageUrl + backdropPath;
@@ -58,7 +71,7 @@ $(document).ready(()=>{
 			let cast = response.credits.cast;
 			let arrActor =new Array();
 			let actors = "";
-			for(let i=0;i<3 ;i++) {
+			for(let i=0;i<3 && i<cast.length;i++) {
 				let personId = cast[i].id;
 				$.ajax({
 					type:"get",
@@ -75,7 +88,7 @@ $(document).ready(()=>{
 							}
 						}
 						actors += arrActor[i];
-						if(i<2)
+						if(i<2 && i<cast.length-1)
 							actors += ", ";
 					},
 					error:()=>{
@@ -186,7 +199,7 @@ $(document).ready(()=>{
 				$("movieBox").css('display','block');	
 			}
 			//사용자가 로그인되어 있으면 실행
-			if(userId != "")
+			if(!isEmpty(userId))
 				getWish();
 			
 			addWish();
@@ -224,7 +237,7 @@ $(document).ready(()=>{
 	//찜하기 추가 버튼 클릭 이벤트
 	function addWish() {
 		$("#add-wish").on("click",()=>{
-			if(userId == "") {
+			if(isEmpty(userId)) {
 				alert("로그인이 필요합니다");
 			}
 			else
@@ -247,7 +260,7 @@ $(document).ready(()=>{
 	//찜하기 해제 클릭 이벤트
 	function cancelWish() {
 		$("#cancel-wish").on("click",()=>{
-			if(userId == "") {
+			if(isEmpty(userId)) {
 				alert("로그인이 필요합니다");
 			}
 			else
@@ -270,7 +283,7 @@ $(document).ready(()=>{
 	function insertReview() {
 		const modal = $("#modal");
 		$("#insert-review").on("click",()=>{
-			if(userId == "") {
+			if(isEmpty(userId)) {
 				alert("로그인이 필요합니다");
 			} else {
 				modal.css('display','flex');
