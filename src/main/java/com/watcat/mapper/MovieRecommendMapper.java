@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.movie.MovieWishDto;
+import com.watcat.dto.review.ReviewRecDto;
 
 @Mapper
 public interface MovieRecommendMapper {
@@ -22,5 +23,15 @@ public interface MovieRecommendMapper {
 	Page<reviewDto> selectReviewList() throws Exception;
 
 	reviewDto getReviewDetail(int idx) throws Exception;
+
+	void updateHitCnt(int idx) throws Exception;
+
+	void insertReviewRec(ReviewRecDto reviewRec) throws Exception;
+
+	void deleteReviewRec(ReviewRecDto reviewRec) throws Exception;
+
+	List<ReviewRecDto> selectReviewRec(ReviewRecDto reviewRec) throws Exception;
+
+	List<reviewDto> selectReviewRecList() throws Exception;
 
 }
