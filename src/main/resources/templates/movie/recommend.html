@@ -68,7 +68,7 @@
 						<td th:text="${item.idx}"></td>
 						<td class="text-start">
 							<a class="movieTitle text-decoration-none fw-bold fs-4" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
-							<p th:text="${item.content}"></p>
+							<p th:text="${item.content}" class="clamp"></p>
 						</td>
 						<td th:text="${item.userId}"></td>
 						<td th:text="${item.createdDt}"></td>
@@ -79,7 +79,7 @@
 						<td th:text="${item.idx}"></td>
 						<td class="text-start">
 							<a class="movieTitle text-decoration-none fw-bold fs-4" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
-							<p th:text="${item.content}"></p>
+							<p th:text="${item.content}" class="clamp"></p>
 						</td>
 						<td th:text="${item.userId}"></td>
 						<td th:text="${item.createdDt}"></td>
