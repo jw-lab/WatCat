@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,9 +59,11 @@ public class MyPageController {
 		HttpSession httpSession= httpServletRequest.getSession();
 		String userId = httpSession.getAttribute("userId").toString();
 		PageInfo<reviewDto> myreviewTrash = new PageInfo<reviewDto>(mypageService.MyreviewTrashList(pageNum, userId), 10);
-		mv.addObject("reviewTrashList", myreviewTrash);
+		mv.addObject("trash", myreviewTrash);
 		return mv;
 	}
+	
+
 	
 	// 마이페이지 비밀번호 변경
 	@RequestMapping(value="mypage/updatepw", method = RequestMethod.POST)
@@ -97,5 +100,30 @@ public class MyPageController {
 	
 	
 	// 리뷰trash 삭제
+	@RequestMapping(value = "mypage/trash/del/{idx}", method = RequestMethod.DELETE)
+	public String mypageTrashDel(@PathVariable("idx") int idx) throws Exception {
+		mypageService.MyreviewTrashDelete(idx);
+		return "redirect:/mypage/trash";
+	}
+	
+	@RequestMapping(value = "mypage/trash/del/{idx}", method = RequestMethod.GET)
+	public String mypageTrashDelG(@PathVariable("idx") int idx) throws Exception {
+		mypageService.MyreviewTrashDelete(idx);
+		return "redirect:/mypage/trash";
+	}
+	
+	
+	// 리뷰 trash 복구
+	
+	@RequestMapping(value = "mypage/trash/re/{idx}", method = RequestMethod.PUT)
+	public String mypageTrashRe(reviewDto reviewdto) throws Exception {
+		mypageService.MyreviewTrashRe(reviewdto);
+		return "redirect:/mypage/trash";
+	} 
+	@RequestMapping(value = "mypage/trash/re/{idx}", method = RequestMethod.GET)
+	public String mypageTrashReG(reviewDto reviewdto) throws Exception {
+		mypageService.MyreviewTrashRe(reviewdto);
+		return "redirect:/mypage/trash";
+	}
 	
 }

@@ -69,6 +69,8 @@ public class DailyBoxOfficeDto {
 	@XmlElement(name = "showCnt")
 	private String showCnt;
 	
+	private String searchDt;
+	
 
 
 }

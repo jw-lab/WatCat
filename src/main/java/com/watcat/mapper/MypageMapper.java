@@ -21,4 +21,10 @@ public interface MypageMapper {
 
 	Page<reviewDto> MyreviewTrashList(String userId) throws Exception;
 
+	//마이-휴지통 영구 삭제
+	void MyreviewTrashDelete(int idx) throws Exception;
+
+	//마이-휴지통 복구
+	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
+
 }

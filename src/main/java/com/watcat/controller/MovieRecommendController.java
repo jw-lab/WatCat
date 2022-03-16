@@ -13,6 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.PageInfo;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.movie.MovieWishDto;
+import com.watcat.dto.review.ReviewRecDto;
 import com.watcat.service.MovieRecommendService;
 
 @Controller
@@ -39,19 +44,78 @@ public class MovieRecommendController {
 	@RequestMapping(value="/", method = RequestMethod.GET)
 	public ModelAndView movieRecommend(@RequestParam(required = false,defaultValue = "1") int pageNum) throws Exception{
 		ModelAndView mv = new ModelAndView("movie/recommend");
-		PageInfo<reviewDto> reviewList = new PageInfo<>(movieRecommendService.selectReviewList(pageNum),5); 
+		// 최신순 목록
+		PageInfo<reviewDto> reviewList = new PageInfo<>(movieRecommendService.selectReviewList(pageNum),5);
+		
+		// 추천순 목록
+		List<reviewDto> reviewRecList = movieRecommendService.selectReviewRecList();
 		mv.addObject("reviewList", reviewList);
+		mv.addObject("reviewRecList",reviewRecList);
 		return mv;
 	}
 	
-	//영화 리뷰 상세보기 페이지
+	//영화 리뷰 상세보기 페이지 이동
 	@RequestMapping(value="/review/detail", method = RequestMethod.GET)
-	public ModelAndView reviewDetail(int idx) throws Exception{
+	public ModelAndView reviewDetail(int idx, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ModelAndView mv = new ModelAndView("movie/reviewDetail");
-		reviewDto review = movieRecommendService.getReviewDetail(idx);
-		mv.addObject("review", review);
+		mv.addObject("idx", idx);
+		
+		//조회수 중복 방지
+		Cookie oldCookie = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies !=null) {
+			for(Cookie cookie:cookies) {
+				if (cookie.getName().equals("reviewBoard")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if (oldCookie != null) {
+			if (!oldCookie.getValue().contains("["+idx+"]")) {
+				movieRecommendService.updateHitCnt(idx);
+				oldCookie.setValue(oldCookie.getValue()+ "["+idx+"]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(60*60*24);
+				response.addCookie(oldCookie);
+			}
+		} else {
+			movieRecommendService.updateHitCnt(idx);
+			Cookie newCookie = new Cookie("reviewBoard", "["+idx+"]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge(60*60*24);
+			response.addCookie(newCookie);
+		}
 		return mv;
 	}
+	//영화 리뷰 상세페이지 데이터 ajax
+	@ResponseBody
+	@RequestMapping(value = "/review/detail/data", method= RequestMethod.GET)
+	public Object reviewDetailData(int idx) throws Exception {
+		HashMap<Object, Object> review = movieRecommendService.getReviewDetail(idx);
+		return review;
+	}
+	
+	//리뷰 추천 추가
+	@ResponseBody
+	@RequestMapping(value = "/review/detail/rec", method = RequestMethod.POST)
+	public void insertReviewRec(ReviewRecDto reviewRec) throws Exception {
+		movieRecommendService.insertReviewRec(reviewRec);
+	}
+	//리뷰 추천 해제
+	@ResponseBody
+	@RequestMapping(value = "/review/detail/rec", method = RequestMethod.DELETE)
+	public void deleteReviewRec(ReviewRecDto reviewRec) throws Exception {
+		movieRecommendService.deleteReviewRec(reviewRec);
+	}
+	//리뷰 추천 list 정보
+	@ResponseBody
+	@RequestMapping(value = "/review/detail/rec", method = RequestMethod.GET)
+	public Object selectReviewRec(ReviewRecDto reviewRec) throws Exception {
+		List<ReviewRecDto> reviewRecList= movieRecommendService.selectReviewRec(reviewRec);
+		return reviewRecList;
+	}
+	
 	
 	//영화 상세보기 페이지 이동
 	@RequestMapping(value="/movie/detail", method = RequestMethod.GET)
