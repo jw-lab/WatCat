@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
 import com.watcat.mapper.AccountMapper;
 
@@ -63,7 +66,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public int banCheck(String userId) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return accountMapper.banCheck(userId);
 	}
 
@@ -72,4 +75,39 @@ public class AccountServiceImpl implements AccountService {
 		
 		return accountMapper.getPermission(userId);
 	}
+
+	@Override
+	public Page<reviewDto> requestReviewList(int pageNum) throws Exception {
+		PageHelper.startPage(pageNum,5);
+		return accountMapper.requestReviewList();
+	}
+
+	@Override
+	public void deleteReview(int idx) throws Exception {
+		
+		accountMapper.deleteReview(idx);
+		
+	}
+
+	@Override
+	public void repostReview(int idx) throws Exception {
+	
+		accountMapper.repostReview(idx);
+		
+	}
+	
+	@Override
+	public void permenentlyDeleteReview(int idx) throws Exception {
+		
+		accountMapper.permenentlyDeleteReview(idx);
+		
+	}
+
+	@Override
+	public void banReviewUser(String account) throws Exception {
+		
+		accountMapper.banReviewUser(account);
+		
+	}
+
 }
