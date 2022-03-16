@@ -2,7 +2,6 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<!-- <style> *{ color:black; } -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mypage</title>
@@ -81,11 +80,11 @@
 						</h3>
 					</div>
 					<div>
-						<form method="POST" id="frm">
+						<form method="POST" id="frm" style="color: white;">
 							<div class="row">
 								<!-- th:if="${#lists.size(trash)}>0" -->
 								<div class="mt-5" th:each="list : ${trash.getList()}"
-									style="background-color: rgb(38, 38, 38); color: white; border-radius: 9px;">
+									style="background-color: rgb(38, 38, 38); border-radius: 9px;">
 
 									<div class="row">
 										<input type="hidden" id="method" name="_method">
@@ -167,6 +166,26 @@
 								</div>
 							</div>
 						</form>
+						<div class="mt-5" style="color: black;" id="paging">
+							<ul class="pagination justify-content-center">
+								<li class="page-item"
+									th:classappend="${trash.getPrePage() == 0} ? 'disabled'">
+									<a class="page-link text-black"
+									th:href="@{/mypage/trash(pageNum=${trash.getPrePage()})}">&lt;</a>
+								</li>
+								<li class="page-item"
+									th:each="page : ${#numbers.sequence(trash.getNavigateFirstPage(), trash.getNavigateLastPage())}"
+									th:classappend="${page == trash.getPageNum()} ? 'active'">
+									<a class="page-link text-black" th:text="${page}"
+									th:href="@{/mypage/trash(pageNum=${page})}"></a>
+								</li>
+								<li class="page-item"
+									th:classappend="${trash.getNextPage() == 0} ? 'disabled'">
+									<a class="page-link text-black"
+									th:href="@{/mypage/trash(pageNum=${trash.getNextPage()})}">&gt;</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</main>
