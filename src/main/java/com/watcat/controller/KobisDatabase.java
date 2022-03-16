@@ -26,7 +26,7 @@ public class KobisDatabase {
 	
 	@RequestMapping("kobis/requestInput")
 	public String requestInput() {
-		return "Mypage/requestInput";
+		return "Mypage/KobisRequestInput";
 	}
 	
 	@ResponseBody
