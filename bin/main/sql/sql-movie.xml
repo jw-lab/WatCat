@@ -152,6 +152,7 @@
 			SELECT 
 			    idx,
 			    movie_id,
+			    poster,
 			    title,
 			    content,
 			    user_id,
