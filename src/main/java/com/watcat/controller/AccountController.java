@@ -142,12 +142,12 @@ public class AccountController {
 	//계정 정지,해제
 	@ResponseBody
 	@RequestMapping(value="/admin/account",method=RequestMethod.PUT)
-	public void banUser(@RequestParam("idx") int idx,@RequestParam("account") String account) throws Exception{
+	public void banUser(@RequestParam("userId") String userId,@RequestParam("account") String account) throws Exception{
 		
 		if(account.equals("no")) {
-			accountService.banUser(idx);
+			accountService.banUser(userId);
 		}else{
-			accountService.pardonUser(idx);
+			accountService.pardonUser(userId);
 		}
 		
 	}
@@ -155,9 +155,9 @@ public class AccountController {
 	//계정영구삭제
 	@ResponseBody
 	@RequestMapping(value="/admin/account",method=RequestMethod.DELETE)
-	public void deleteUser(int idx) throws Exception{
+	public void deleteUser(String userId) throws Exception{
 		
-		accountService.deleteUser(idx);
+		accountService.deleteUser(userId);
 		
 	}
 	

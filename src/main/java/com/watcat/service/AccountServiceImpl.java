@@ -44,23 +44,23 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void banUser(int idx) throws Exception {
+	public void banUser(String userId) throws Exception {
 	
-		accountMapper.banUser(idx);
+		accountMapper.banUser(userId);
 		
 	}
 
 	@Override
-	public void deleteUser(int idx) throws Exception {
+	public void deleteUser(String userId) throws Exception {
 		
-		accountMapper.deleteUser(idx);
+		accountMapper.deleteUser(userId);
 		
 	}
 
 	@Override
-	public void pardonUser(int idx) throws Exception {
+	public void pardonUser(String userId) throws Exception {
 		
-		accountMapper.pardonUser(idx);
+		accountMapper.pardonUser(userId);
 		
 	}
 

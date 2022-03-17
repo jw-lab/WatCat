@@ -20,11 +20,11 @@ public interface AccountMapper {
 
 	public List<userDto> requestUserList()throws Exception;
 
-	public void banUser(int idx)throws Exception;
+	public void banUser(String userId)throws Exception;
 
-	public void deleteUser(int idx)throws Exception;
+	public void deleteUser(String userId)throws Exception;
 
-	public void pardonUser(int idx)throws Exception;
+	public void pardonUser(String userId)throws Exception;
 
 	public int banCheck(String userId)throws Exception;
 

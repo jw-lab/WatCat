@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class userDto {
 
-	int idx;
 	String userId;
 	String userPw;
 	String adminPermission;

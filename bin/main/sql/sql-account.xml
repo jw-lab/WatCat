@@ -62,7 +62,7 @@
 	<select id="requestUserList" resultType="com.watcat.dto.userDto">
 		<![CDATA[ 
 			SELECT
-				idx,user_id,user_pw,admin_permission,deleted_yn
+				user_id,user_pw,admin_permission,deleted_yn
 			FROM
 				user	
 		]]>
@@ -70,37 +70,37 @@
 	
 	
 	<!-- 유저정지-->
-	<update id="banUser" parameterType="int">
+	<update id="banUser" parameterType="String">
 		<![CDATA[ 
 			UPDATE
 				user
 			SET
 				deleted_yn = 'Y'
 			WHERE
-				idx=#{idx}	
+				user_id=#{userId}
 		]]>
 	</update>
 	
 	<!-- 유저정지해제-->
-	<update id="pardonUser" parameterType="int">
+	<update id="pardonUser" parameterType="String">
 		<![CDATA[ 
 			UPDATE
 				user
 			SET
 				deleted_yn = 'N'
 			WHERE
-				idx=#{idx}	
+				user_id=#{userId}
 		]]>
 	</update>
 	
 	<!-- 유저삭제-->
-	<delete id="deleteUser" parameterType="int">
+	<delete id="deleteUser" parameterType="String">
 		<![CDATA[ 
 			DELETE
 			FROM
 				user
 			WHERE
-				idx=#{idx}		
+				user_id=#{userId}		
 			
 		]]>
 	</delete>
