@@ -15,6 +15,7 @@ $(document).ready(function(){
 	
 	let userId = $("#email-input");
 	let userPw = $("#password-input");
+	let userPwCheck=$("#password-check-input");
 	
 	//이메일 유효성 검사
 	
@@ -49,6 +50,9 @@ $(document).ready(function(){
 				
 			}
 		}	
+		
+		checkLoginForm();
+		
 	});
 	
 	//비밀번호 4자리이상
@@ -59,7 +63,7 @@ $(document).ready(function(){
 			if($("span").hasClass("xMarkPw")){
 				
 				$("span").removeClass("xMarkPw");
-				$("#password-box").append("<span class='checkIconPw float-end'></span>");
+				$("#password-input-box").append("<span class='checkIconPw float-end'></span>");
 			
 			}else if($("span").hasClass("checkIconPw")){
 				
@@ -67,14 +71,14 @@ $(document).ready(function(){
 					
 			}else{
 					
-				$("#password-box").append("<span class='checkIconPw float-end'></span>");
+				$("#password-input-box").append("<span class='checkIconPw float-end'></span>");
 				
 			}
 		}else{
 			
 			if($("span").hasClass("checkIconPw")){
 				
-				$("#password-box").append("<span class='xMarkPw float-end'></span>");
+				$("#password-input-box").append("<span class='xMarkPw float-end'></span>");
 				$("span").removeClass("checkIconPw");
 				
 			}else if(userPw.val()==null||userPw.val()==""){
@@ -87,29 +91,98 @@ $(document).ready(function(){
 				
 			}else if(!$("span").hasClass("checkIconPw")&&!$("span").hasClass("xMarkPw")){
 				
-				$("#password-box").append("<span class='xMarkPw float-end'></span>");
+				$("#password-input-box").append("<span class='xMarkPw float-end'></span>");
 				
 			}
 			
 		}
 		
+		checkLoginForm();
+		
+	});
+	
+	//비밀번호 재확인
+	
+	$(userPwCheck).on("propertychange change paste input",userPwCheck,function(){
+		
+		if(userPwCheck.val().length>=4){
+			if($("span").hasClass("xMarkPwC")){
+				
+				$("span").removeClass("xMarkPwC");
+				$("#password-check-box").append("<span class='checkIconPwC float-end'></span>");
+			
+			}else if($("span").hasClass("checkIconPwC")){
+				
+				return;
+					
+			}else{
+					
+				$("#password-check-box").append("<span class='checkIconPwC float-end'></span>");
+				
+			}
+		}else{
+			
+			if($("span").hasClass("checkIconPwC")){
+				
+				$("#password-check-box").append("<span class='xMarkPwC float-end'></span>");
+				$("span").removeClass("checkIconPwC");z
+				
+			}else if(userPwCheck.val()==null||userPwCheck.val()==""){
+			
+				$("span").removeClass("xMarkPwC");
+				
+			}else if($("span").hasClass("xMarkPwC")){
+				
+				return;
+				
+			}else if(!$("span").hasClass("checkIconPwC")&&!$("span").hasClass("xMarkPwC")){
+				
+				$("#password-check-box").append("<span class='xMarkPwC float-end'></span>");
+				
+			}
+			
+		}
+		
+		checkLoginForm();
+		
 	});
 	
 	$("#btn-ajax-signup").on("click",function(){	
 	
-		if(CheckEmail(userId.val())){
-			//아이디 체크
+		signupFunction(userId.val(),userPw.val(),userPwCheck.val());
+		
+	});
+			
+
+	$(".main-box").on("keypress",function(e){
+		if(e.keyCode=='13'){
+			
+			if($("#btn-ajax-signup").attr("disabled")){
+				alert("이메일과 비밀번호를 형식에 맞게 입력해주세요.");
+			}else{
+				signupFunction(userId.val(),userPw.val(),userPwCheck.val());
+			}
+	}
+	});
+});
+
+//회원가입 프로세스
+function signupFunction(id,pw,pwc){
+	
+	if(CheckEmail(id)){
+		//아이디 체크
+		if(pw===pwc){
 			$.ajax({
 				url:"/signup",
 				type:"post",
-				data:{userId:userId.val(),userPw:userPw.val()},
+				data:{userId:id,userPw:pw},
 				success:function(data){
 					if (data.result == "success") {
-					
+				
 						location.href="/login";
 						
 					}else{
-
+	
 						$("#login-state").text("다른 유저가 사용중인 이메일입니다.");
 					}
 				},
@@ -117,46 +190,32 @@ $(document).ready(function(){
 					console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
-		
 		}else{
-	
-			$("#login-state").text("이메일 형식을 확인해주세요");
-				
+			
+			$("#login-state").text("비밀번호가 일치하지 않습니다 ");
+			
 		}
-	});
-			
-
-	$(".main-box").on("keypress",function(e){
-		if(e.keyCode=='13'){
-			if(CheckEmail(userId.val())){
-				//아이디 체크
-				$.ajax({
-					url:"/signup",
-					type:"post",
-					data:{userId:userId.val(),userPw:userPw.val()},
-					success:function(data){
-						if (data.result == "success") {
-						
-							location.href="/login";
-							
-						}else{
 	
-							$("#login-state").text("다른 유저가 사용중인 이메일입니다.");
-						}
-					},
-					error:function(request, status, error){
-						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}
-				});
+	}else{
+
+		$("#login-state").text("이메일 형식을 확인해주세요");
 			
-			}else{
-		
-				$("#login-state").text("이메일 형식을 확인해주세요");
-					
-			}
 	}
-	});
-});
+	
+}
+
+//형식확인 함수
+function checkLoginForm(){
+	if($("span").hasClass("checkIcon")&&$("span").hasClass("checkIconPw")&&$("span").hasClass("checkIconPwC")){
+		
+		$("#btn-ajax-signup").attr("disabled", false);
+	
+	}else{
+		
+		$("#btn-ajax-signup").attr("disabled",true);
+		
+	}
+}	
 
 //이메일 형식 확인 함수
 function CheckEmail(str){     
@@ -194,12 +253,15 @@ function CheckEmail(str){
 							<input id="email-input" type="email" size="28" placeholder="이메일(example@gmail.com)">
 						</div>
 						
-						<div id="password-box" class="p-3">
-							<input id="password-input" type="password" onkeyup="enterkey()" size="28" placeholder="비밀번호(4글자이상)">
+						<div id="password-input-box" class="p-3">
+							<input id="password-input" type="password" size="28" placeholder="비밀번호(4글자이상)">
+						</div>
+						<div id="password-check-box" class="p-3">
+							<input id="password-check-input" type="password" placeholder="비밀번호 재확인">
 						</div>
 						<p id="login-state" class="text-danger pt-2"></p>
 						<div class="container-fluid mt-3 p-0">
-							<button id="btn-ajax-signup"class="btn btn-danger">계정 생성</button>
+							<button id="btn-ajax-signup"class="btn btn-danger" disabled>계정 생성</button>
 						</div>
 				
 				</div>	

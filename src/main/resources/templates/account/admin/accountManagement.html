@@ -12,11 +12,11 @@
 	let N = "no";
 	let Y = "yes";
 	//계정영구삭제
-	function deleteUser(idx){
+	function deleteUser(userId){
 		$.ajax({
 			url:"/admin/account",
 			type:"DELETE",
-			data:{idx:idx},
+			data:{userId:userId},
 			success:function(){
 				location.reload();
 				alert("계정이 삭제 되었습니다");
@@ -28,11 +28,11 @@
 	};	
 	
 	//계정정지
-	function banUser(idx,account){
+	function banUser(userId,account){
 		$.ajax({
 			url:"/admin/account",
 			type:"PUT",
-			data:{idx:idx,account:account},
+			data:{userId:userId,account:account},
 			success:function(){
 				location.reload();
 				alert("계정이 정지 되었습니다");
@@ -58,28 +58,26 @@
             </nav>
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
-                <div class="m-3">
+                <div class="m-5">
                    <h2 class="text-white my-3">유저계정관리</h2>
                    <hr class="text-white">
                    <table class="table text-white">
                    		<colgroup>
-                   			<col width="5%">
-                   			<col width="25%">
+                   			<col width="35%">
                    			<col width="20%">
                    			<col width="10%">
                    			<col width="10%">
                    			<col width="20%">
                    		</colgroup>
 						<tr>
-							<td>번호</td>
+
 							<td>ID</td>
 							<td>PW</td>
 							<td>관리자 권한</td>
 							<td>계정 상태</td>
 							<td></td>
 						</tr>
-						<tr th:if="${#lists.size(userList)}>0" th:each ="item : ${userList}">
-							<td th:text="${item.idx}"></td>					
+						<tr th:if="${#lists.size(userList)}>0" th:each ="item : ${userList}">			
 							<td th:text="${item.userId}"></td>					
 							<td th:text="${item.userPw}"></td>					
 							<td th:if="${item.adminPermission}=='Y'">관리자</td>					
@@ -87,9 +85,9 @@
 							<td th:if="${item.deletedYn}=='Y'">정지</td>
 							<td th:if="${item.deletedYn}=='N'">활성</td>
 							<td>
-								<button th:if="${item.deletedYn}=='N'" class="btn btn-danger" th:onclick="|javascript:banUser('${item.idx}','no')|">계정정지</button>
-								<button th:if="${item.deletedYn}=='Y'" class="btn btn-primary" th:onclick="|javascript:banUser('${item.idx}','yes')|">계정활성</button>
-								<button class="btn btn-warning" th:onclick="'deleteUser('+${item.idx}+')'">계정삭제</button>
+								<button th:if="${item.deletedYn}=='N'" class="btn btn-danger" th:onclick="banUser([[${item.userId}]],'no')">계정정지</button>
+								<button th:if="${item.deletedYn}=='Y'" class="btn btn-primary" th:onclick="banUser([[${item.userId}]],'yes')">계정활성</button>
+								<button class="btn btn-warning" th:onclick="deleteUser([[${item.userId}]])">계정삭제</button>
 							</td>					
 						</tr>                 
                    </table>

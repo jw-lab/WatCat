@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
 import com.watcat.mapper.AccountMapper;
 
@@ -41,29 +44,29 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public void banUser(int idx) throws Exception {
+	public void banUser(String userId) throws Exception {
 	
-		accountMapper.banUser(idx);
+		accountMapper.banUser(userId);
 		
 	}
 
 	@Override
-	public void deleteUser(int idx) throws Exception {
+	public void deleteUser(String userId) throws Exception {
 		
-		accountMapper.deleteUser(idx);
+		accountMapper.deleteUser(userId);
 		
 	}
 
 	@Override
-	public void pardonUser(int idx) throws Exception {
+	public void pardonUser(String userId) throws Exception {
 		
-		accountMapper.pardonUser(idx);
+		accountMapper.pardonUser(userId);
 		
 	}
 
 	@Override
 	public int banCheck(String userId) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return accountMapper.banCheck(userId);
 	}
 
@@ -72,4 +75,39 @@ public class AccountServiceImpl implements AccountService {
 		
 		return accountMapper.getPermission(userId);
 	}
+
+	@Override
+	public Page<reviewDto> requestReviewList(int pageNum) throws Exception {
+		PageHelper.startPage(pageNum,5);
+		return accountMapper.requestReviewList();
+	}
+
+	@Override
+	public void deleteReview(int idx) throws Exception {
+		
+		accountMapper.deleteReview(idx);
+		
+	}
+
+	@Override
+	public void repostReview(int idx) throws Exception {
+	
+		accountMapper.repostReview(idx);
+		
+	}
+	
+	@Override
+	public void permenentlyDeleteReview(int idx) throws Exception {
+		
+		accountMapper.permenentlyDeleteReview(idx);
+		
+	}
+
+	@Override
+	public void banReviewUser(String account) throws Exception {
+		
+		accountMapper.banReviewUser(account);
+		
+	}
+
 }

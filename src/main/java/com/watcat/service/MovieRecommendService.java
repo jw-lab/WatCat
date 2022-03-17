@@ -1,10 +1,12 @@
 package com.watcat.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.movie.MovieWishDto;
+import com.watcat.dto.review.ReviewRecDto;
 
 public interface MovieRecommendService {
 
@@ -18,6 +20,16 @@ public interface MovieRecommendService {
 
 	Page<reviewDto> selectReviewList(int pageNum) throws Exception;
 
-	reviewDto getReviewDetail(int idx) throws Exception;
+	HashMap<Object, Object> getReviewDetail(int idx) throws Exception;
+
+	void insertReviewRec(ReviewRecDto reviewRec) throws Exception;
+
+	void deleteReviewRec(ReviewRecDto reviewRec) throws Exception;
+
+	List<ReviewRecDto> selectReviewRec(ReviewRecDto reviewRec) throws Exception;
+
+	List<reviewDto> selectReviewRecList() throws Exception;
+
+	void updateHitCnt(int idx) throws Exception;
 
 }

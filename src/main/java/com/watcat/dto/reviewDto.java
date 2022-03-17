@@ -20,4 +20,6 @@ public class reviewDto {
 	private int rating;
 	private String deletedYn;
 	private String createdDt;
+	private int hitCnt;
+	private int reviewRecommend;
 }

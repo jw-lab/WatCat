@@ -19,6 +19,9 @@
 		//이메일 유효성 검사
 		
 		$(userId).on("propertychange change paste input",userId,function(){
+			
+
+			
 			if(CheckEmail(userId.val())){
 				
 				if($("span").hasClass("xMark")){
@@ -49,6 +52,10 @@
 					
 				}
 			}	
+			
+			
+			checkLoginForm();
+			
 		});
 
 		//비밀번호 4자리이상
@@ -93,6 +100,8 @@
 				
 			}
 			
+			checkLoginForm();
+			
 		});
 
 		//아이디 비밀번호 체크
@@ -104,12 +113,16 @@
 		
 		$(".main-box").on("keypress",function(e){	
 			if(e.keyCode=='13'){
-				loginFunction(userId.val(),userPw.val());
+				if($("#btn-ajax-login").attr("disabled")){
+					alert("이메일과 비밀번호를 형식에 맞게 입력해주세요.");
+				}else{
+					loginFunction(userId.val(),userPw.val());
+				}
 			}
 			
 		});
 
-		
+		//로그인 프로세스
 		function loginFunction(id,pw){
 			if(CheckEmail(id)){
 					$.ajax({
@@ -141,6 +154,20 @@
 			}
 		}
 	
+	//형식확인 함수
+	function checkLoginForm(){
+		if($("span").hasClass("checkIcon")&&$("span").hasClass("checkIconPw")){
+			
+			$("#btn-ajax-login").attr("disabled", false);
+
+
+			
+		}else{
+			
+			$("#btn-ajax-login").attr("disabled",true);
+			
+		}
+	}	
 	//이메일 형식 확인 함수
 	function CheckEmail(str){     
 		
@@ -184,7 +211,7 @@
 						<p id="login-state" style="font-size:14px"class="text-size text-danger pt-2"></p>
 						
 						<div class="container-fluid mt-3 p-0">
-							<button id="btn-ajax-login"class="btn btn-danger">로그인</button>
+							<button id="btn-ajax-login"class="btn btn-danger" disabled>로그인</button>
 						</div>
 					</div>	
 			</main>

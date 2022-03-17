@@ -28,7 +28,7 @@
 	<select id="selectMovieWish" parameterType="com.watcat.dto.movie.MovieWishDto" resultType="com.watcat.dto.movie.MovieWishDto">
 		<![CDATA[
 			SELECT
-				*
+				movie_id
 			FROM
 				wishlist
 			WHERE
@@ -49,25 +49,127 @@
 	<!--리뷰 목록-->
 	<select id="selectReviewList" resultType="com.watcat.dto.reviewDto">
 		<![CDATA[
-			SELECT
-				idx,movie_id,title,content,user_id,created_dt
+			SELECT 
+			    idx,
+			    movie_id,
+			    title,
+			    content,
+			    user_id,
+			    created_dt,
+			    hit_cnt,
+			    IFNULL(review_recommend, 0) AS review_recommend
 			FROM
-				review
-			ORDER BY
-				idx
-			DESC
+			    review r
+			        LEFT OUTER JOIN
+			    (SELECT 
+			        review_idx, COUNT(user_id) AS review_recommend
+			    FROM
+			        review_recommend
+			    GROUP BY review_idx) AS rec ON r.idx = rec.review_idx
+		    WHERE deleted_yn = 'N'
+			ORDER BY idx DESC
 		]]>
 	</select>
 	
-	<!--리뷰 상세보기-->
+	<!--리뷰 상세보기(추천수 포함)-->
 	<select id="getReviewDetail" resultType="com.watcat.dto.reviewDto" parameterType="int">
 		<![CDATA[
-			SELECT
-				*
+			SELECT 
+			    idx,
+			    movie_id,
+			    title,
+			    poster,
+			    genres,
+			    actors,
+			    overview,
+			    tagline,
+			    release_date,
+			    runtime,
+			    r.user_id as user_id,
+			    content,
+			    rating,
+			    created_dt,
+			    COUNT(rec.review_idx) as review_recommend,
+			    hit_cnt
 			FROM
-				review
+			    review r
+			LEFT OUTER JOIN
+			    review_recommend rec ON r.idx = rec.review_idx
 			WHERE
-				idx = #{idx}
+			    idx = #{idx}
+		    AND
+				deleted_yn='N'
+		]]>
+	</select>
+	<!--조회수 추가-->
+	<update id="updateHitCnt" parameterType="int">
+		<![CDATA[
+			UPDATE review 
+			SET 
+			    hit_cnt = hit_cnt + 1
+			WHERE
+			    idx = #{idx}
+		]]>
+	</update>
+	
+	<!--추천하기-->
+	<insert id="insertReviewRec" parameterType="com.watcat.dto.review.ReviewRecDto">
+		<![CDATA[
+			INSERT INTO
+				review_recommend(review_idx,user_id)
+			VALUES
+				(#{reviewIdx},#{userId})
+		]]>
+	</insert>
+	
+	<!--추천 취소-->
+	<delete id="deleteReviewRec" parameterType="com.watcat.dto.review.ReviewRecDto">
+		<![CDATA[
+			DELETE FROM
+				review_recommend
+			WHERE
+				review_idx = #{reviewIdx}
+			AND
+				user_id = #{userId}
+		]]>
+	</delete>
+	
+	<!--추천 list 정보-->
+	<select id="selectReviewRec" parameterType="com.watcat.dto.review.ReviewRecDto" resultType="com.watcat.dto.review.ReviewRecDto">
+		<![CDATA[
+			SELECT
+				review_idx
+			FROM
+				review_recommend
+			WHERE
+				user_id = #{userId}
+		]]>
+	</select>
+	
+	<!--추천수 순으로 리뷰 목록 정렬-->
+	<select id="selectReviewRecList" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[
+			SELECT 
+			    idx,
+			    movie_id,
+			    poster,
+			    title,
+			    content,
+			    user_id,
+			    created_dt,
+			    hit_cnt,
+			    IFNULL(review_recommend, 0) AS review_recommend
+			FROM
+			    review r
+			        LEFT OUTER JOIN
+			    (SELECT 
+			        review_idx, COUNT(user_id) AS review_recommend
+			    FROM
+			        review_recommend
+			    GROUP BY review_idx) AS rec ON r.idx = rec.review_idx
+		    WHERE deleted_yn = 'N'
+			ORDER BY review_recommend DESC
+			LIMIT 5;
 		]]>
 	</select>
 </mapper>

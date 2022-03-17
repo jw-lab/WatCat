@@ -62,7 +62,7 @@
 	<select id="requestUserList" resultType="com.watcat.dto.userDto">
 		<![CDATA[ 
 			SELECT
-				idx,user_id,user_pw,admin_permission,deleted_yn
+				user_id,user_pw,admin_permission,deleted_yn
 			FROM
 				user	
 		]]>
@@ -70,38 +70,96 @@
 	
 	
 	<!-- 유저정지-->
-	<update id="banUser" parameterType="int">
+	<update id="banUser" parameterType="String">
 		<![CDATA[ 
 			UPDATE
 				user
 			SET
 				deleted_yn = 'Y'
 			WHERE
-				idx=#{idx}	
+				user_id=#{userId}
 		]]>
 	</update>
 	
 	<!-- 유저정지해제-->
-	<update id="pardonUser" parameterType="int">
+	<update id="pardonUser" parameterType="String">
 		<![CDATA[ 
 			UPDATE
 				user
 			SET
 				deleted_yn = 'N'
 			WHERE
-				idx=#{idx}	
+				user_id=#{userId}
 		]]>
 	</update>
 	
 	<!-- 유저삭제-->
-	<delete id="deleteUser" parameterType="int">
+	<delete id="deleteUser" parameterType="String">
 		<![CDATA[ 
 			DELETE
 			FROM
 				user
 			WHERE
-				idx=#{idx}		
+				user_id=#{userId}		
 			
 		]]>
 	</delete>
+	
+	<!-- 리뷰 관리하기-->
+	<select id="requestReviewList" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			SELECT
+				idx,movie_id,title,content,user_id,created_dt,deleted_yn
+			FROM
+				review
+			ORDER BY
+				idx
+			DESC
+		]]>
+	</select>
+	
+	<!-- 리뷰 삭제-->
+	<update id="deleteReview" parameterType="int">
+		<![CDATA[ 
+			UPDATE
+				review
+			SET
+				deleted_yn='Y'
+			WHERE
+				idx=#{idx}	
+		]]>
+	</update>
+	
+	<!-- 리뷰 재게시-->
+	<update id="repostReview" parameterType="int">
+		<![CDATA[ 
+			UPDATE
+				review
+			SET
+				deleted_yn='N'
+			WHERE
+				idx=#{idx}	
+		]]>
+	</update>
+	<!-- 리뷰 영구삭제-->
+	<delete id="permenentlyDeleteReview" parameterType="int">
+		<![CDATA[ 
+			DELETE
+			FROM
+				review
+			WHERE
+				idx=#{idx}		
+		]]>
+	</delete>
+	
+	<update id="banReviewUser" parameterType="String">
+		<![CDATA[ 
+			UPDATE
+				user
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				user_id=#{userId}
+		]]>
+	</update>
 </mapper>

@@ -179,7 +179,7 @@ $(document).ready(()=>{
 				                  	</span>
 				                  	<span class="score text-black"><span id="score">0</span>점</span>
 				                </div>
-				                <textarea id="content" name="content" rows=8 class="form-control my-3" placeholder="리뷰를 작성해주세요"></textarea>
+				                <textarea id="content" name="content" rows=8 class="form-control my-3" placeholder="리뷰를 작성해주세요" required></textarea>
 				                <div class="d-flex justify-content-end">
 				                	<button type="submit" class="btn btn-success">등록하기</button>
 				                </div>
@@ -193,11 +193,8 @@ $(document).ready(()=>{
 					<img id="movieImg" alt="영화 이미지" src="${poster}">
 				</div>
 			</div>`;
-			$("movieBox").css('display','none');
-			let imgs = $("#movieBox").append(temp_html).find("#movieImg");
-			imgs.onload = ()=>{
-				$("movieBox").css('display','block');	
-			}
+			$("#movieBox").append(temp_html);
+
 			//사용자가 로그인되어 있으면 실행
 			if(!isEmpty(userId))
 				getWish();
@@ -222,10 +219,11 @@ $(document).ready(()=>{
 				if(response[i].movieId != movieId) {// 들고온 찜하기 목록 id와 movieId가 일치하지 않는다면(찜하기 목록에 없다면)
 					$("#add-wish").css('display','block');
 					$("#cancel-wish").css('display','none');
-				} else {
+				} else {//찜하기 목록에 있다면 for문 탈출
 					$("#add-wish").css('display','none');
 					$("#cancel-wish").css('display','block');
-				}	
+					break;
+				}
 			}
 		},
 		error:()=>{
@@ -334,41 +332,6 @@ $(document).ready(()=>{
 		    		}
 		  	});
 		};
-
-		
-	//네이버 api 요청
-	//let genre = $("#genre").val();
- 	/* $.ajax({
-		type:"GET",
-		url:"/movie/detail/api",
-		data:{title:title,genre:genre},
-		success:(response)=>{
-			for(var i=0; i < response.length; i++){
-				let image_url = response[i]["image"];
-				let title = response[i]["title"];
-				let actor = response[i]["actor"];
-				let director = response[i]["director"];
-				let pubDate = response[i]["pubDate"];
-				let userRating = response[i]["userRating"];
-				console.log(image_url);
-				let temp_html = `<div id="movieDataBox">
-									<div id="movieTitle">${title}</div>
-					                <ul class="list-unstyled">
-					                    <li>감독 <span>${director}</span></li>
-					                    <li>출연 <span>${actor}</span></li>
-					                    <li>개요 <span>${pubDate} | ${userRating}</span></li>
-					                </ul>
-								</div>
-								<div id="movieImgBox">
-									<img alt="영화 이미지" src="${image_url}">
-								</div>`;
-				$("#movieBox").append(temp_html);
-			}
-		},
-		error:()=>{
-			alert("ajax 통신 실패");
-		}
-	});  */
 })
 	
 </script> 
