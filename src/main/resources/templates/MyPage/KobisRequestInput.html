@@ -18,6 +18,8 @@
         
         // 버튼 클릭 이벤트 ajax 통신
         $("#btn-request").on("click", function(){
+            $("#btn-request").val("요청중~기다려주세요");
+            $("#btn-request").attr("disabled",true);
             var yearInfo = $("#yearInfo").val();
             var monthInfo = $("#monthInfo").val();
             if (monthInfo < 10) {
@@ -34,13 +36,16 @@
                     url : "/kobis/requestResult", 
                     data:{yearInfo : yearInfo, monthInfo : monthInfo},
                     success:function(data){
+                        $("#btn-request").val(" 데이터 요청하기");
+                        $("#btn-request").attr("disabled",false);
                         $("#AjaxResult").text(data.ResponseNum +"개 데이터 조회");
                         $("#AjaxResult").append("\n" + data.databaseInsertSuccess + "개 Insert Success");
                         $("#AjaxResult").append("\n" + data.databaseInsertFail + "개 Insert fail");
                         btnRequest2();
                     },
                     error:function(){
-                        alert("ajax 통신 오류");
+                        $("#btn-request").val(" Ajax 통신오류");
+                        $("#btn-request").attr("disabled",false);
                     }
                 });
             }
