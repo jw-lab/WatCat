@@ -36,9 +36,9 @@ public class MyPageController {
 	}
 	
 	//마이페이지 찜페이지
-	@RequestMapping("mypage/interested")
+	@RequestMapping("mypage/wishlist")
 	public String mypageInterested() {
-		return "Mypage/MypageInterested";
+		return "Mypage/MypageWishlist";
 	}
 	
 	//마이페이지 리뷰
