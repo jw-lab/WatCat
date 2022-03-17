@@ -2,7 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<style>
+#title {
+	font-weight: bold;
+}
 
+body {
+	background: url(/images/back_90.png);
+}
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mypage</title>
 <link
@@ -46,21 +54,42 @@
 			idx = $(this).children("span").text();
 		})
 
-		/* 		$("#btn-del").on("click", function() {
-		 idx = $(this).children("span").text();
-		 //var idx = $("#idx").val();
-
-		 if (confirm("정말로 영구 삭제 하시겠습니까?")) {
-
-		 $("#method").val("DELETE");
-		 var frm = $("#frm")[0];
-		 frm.action = "/mypage/trash/del/" + idx;
-		 frm.submit();
-
-		 }
-		 }); */
+		var star = $("#star").val();
+		var starImg = starImg(star);
 
 	});
+
+	function starImg(star) {
+
+		switch (star) {
+		case 'rate1':
+			break;
+		case 'rate2':
+			break;
+		case 'rate3':
+			break;
+		case 'rate4':
+			break;
+		case 'rate5':
+			break;
+		case 'rate6':
+			break;
+		case 'rate7':
+			break;
+		case 'rate8':
+			break;
+		case 'rate9':
+			break;
+
+		case 'rate10':
+			break;
+
+		default:
+			break;
+		}
+
+		return date;
+	}
 </script>
 </head>
 <body class="bg-black">
@@ -90,28 +119,52 @@
 										<input type="hidden" id="method" name="_method">
 										<div class="col-3 mt-4 ms-4">
 											<!-- 포스터이미지 -->
-											<img th:src="${list.poster}" width="200px">
+											<a href="https://www.themoviedb.org/movie/"
+												th:attrappend="href=${list.movieId}" target='_blank'
+												title="영화정보 보러가기"><img th:src="${list.poster}"
+												width="200px"></a>
 										</div>
 
-										<div class="col ms-4 mt-4">
-											<p class="h4" th:text="|${list.title}|"></p>
 
-											<p class="ms-1" th:text="${list.genres}" id="genres"></p>
+										<!-- 영화 정보 -->
+										<div class="col ms-4 mt-4">
+											<div class="row">
+												<a href="https://www.themoviedb.org/movie/"
+													th:attrappend="href=${list.movieId}" target='_blank'
+													class="h4 col-auto" th:text="${list.title}"
+													style="font-weight: bold;" title="영화정보 보러가기"></a>
+												<div class=" col mt-1">
+													<b>장르</b> <span th:text="${list.genres}"></span>
+												</div>
+												<p class="h6 ms-1 mt-2" th:text="${list.releaseDate}"
+													style="font-weight: bold;"></p>
+
+											</div>
+											<!-- 리뷰 칸 -->
+
+											<hr class="font-weight: bold;">
+
+											<div class="row">
+												<div class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: yellow;" id="star"></span>
+													</p>
+												</div>
+												<p th:if="${list.createdDt}==null" class="col">리뷰 작성일을
+													찾을 수 없습니다.</p>
+												<div th:unless="${list.createdDt}==null" class="col">
+													<p th:text="|작성일: ${list?.createdDt}|"></p>
+												</div>
+											</div>
 											<div class="col">
-												<textarea id="contents" class="mt-2 ms-1"
-													th:text="${list.content}" cols="55" rows="10" readonly
-													style="background-color: rgb(64, 64, 64)"></textarea>
+												<p id="contents" class="mt-2 ms-1" th:text="${list.content}"></p>
 											</div>
 										</div>
 									</div>
 
-									<!-- </form> -->
-
-									<!-- <input id="idx" th:value="${list.idx}" class="d-none"
-										name="idx"> -->
 									<div class="float-end ms-3 mb-3 me-3">
 										<input type="hidden" id="method" name="_method">
-										<!--  <a data-toggle="modal" data-target="#CatModal" href="/mypage/trash/re/" th:attrappend="href=${list.idx}" class="btn btn-primary">복구</a> -->
 
 										<button type="button" class="btn btn-primary"
 											data-bs-toggle="modal" data-bs-target="#btn-re">
@@ -122,18 +175,26 @@
 											data-bs-toggle="modal" data-bs-target="#btn-del">
 											삭제 <span th:text="${list.idx}" class="d-none"></span>
 										</button>
-										<!-- <a href="/mypage/trash/del/"
-											th:attrappend="href=${list.idx}" class="btn btn-danger">삭제</a> -->
 									</div>
-
-
 								</div>
 							</div>
+
+
+							<!-- 리뷰가 한개도 없을 경우 -->
+							<div th:unless="${#lists.size(trash.getList())}>
+								0">
+								<h5 class="mt-4">아직 삭제하신 리뷰가 없습니다.</h5>
+
+							</div>
+
+
+							<!-- 모달창 -->
+							<!-- 삭제 -->
 							<div id="btn-del" class="modal fade">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h4 class="modal-title">영구 삭제</h4>
+											<h4 class="modal-title text-black">영구 삭제</h4>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal"></button>
 										</div>
@@ -147,11 +208,13 @@
 									</div>
 								</div>
 							</div>
+
+							<!-- 복구 -->
 							<div id="btn-re" class="modal fade">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h4 class="modal-title">복구</h4>
+											<h4 class="modal-title text-black">복구</h4>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal"></button>
 										</div>
@@ -166,25 +229,30 @@
 								</div>
 							</div>
 						</form>
-						<div class="mt-5" style="color: black;" id="paging">
-							<ul class="pagination justify-content-center">
-								<li class="page-item"
-									th:classappend="${trash.getPrePage() == 0} ? 'disabled'">
-									<a class="page-link text-black"
-									th:href="@{/mypage/trash(pageNum=${trash.getPrePage()})}">&lt;</a>
-								</li>
-								<li class="page-item"
-									th:each="page : ${#numbers.sequence(trash.getNavigateFirstPage(), trash.getNavigateLastPage())}"
-									th:classappend="${page == trash.getPageNum()} ? 'active'">
-									<a class="page-link text-black" th:text="${page}"
-									th:href="@{/mypage/trash(pageNum=${page})}"></a>
-								</li>
-								<li class="page-item"
-									th:classappend="${trash.getNextPage() == 0} ? 'disabled'">
-									<a class="page-link text-black"
-									th:href="@{/mypage/trash(pageNum=${trash.getNextPage()})}">&gt;</a>
-								</li>
-							</ul>
+
+
+						<!--  -->
+						<div th:if="${#lists.size(trash.getList())}>10">
+							<div class="mt-5" style="color: black;" id="paging">
+								<ul class="pagination justify-content-center">
+									<li class="page-item"
+										th:classappend="${trash.getPrePage() == 0} ? 'disabled'">
+										<a class="page-link text-black"
+										th:href="@{/mypage/trash(pageNum=${trash.getPrePage()})}">&lt;</a>
+									</li>
+									<li class="page-item"
+										th:each="page : ${#numbers.sequence(trash.getNavigateFirstPage(), trash.getNavigateLastPage())}"
+										th:classappend="${page == trash.getPageNum()} ? 'active'">
+										<a class="page-link text-black" th:text="${page}"
+										th:href="@{/mypage/trash(pageNum=${page})}"></a>
+									</li>
+									<li class="page-item"
+										th:classappend="${trash.getNextPage() == 0} ? 'disabled'">
+										<a class="page-link text-black"
+										th:href="@{/mypage/trash(pageNum=${trash.getNextPage()})}">&gt;</a>
+									</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>

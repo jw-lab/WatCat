@@ -6,6 +6,8 @@ import com.watcat.dto.userDto;
 
 public interface MypageService {
 
+
+
 	//비밀번호 변경
 	void updatePw(userDto userdto) throws Exception; 
 
@@ -29,4 +31,10 @@ public interface MypageService {
 
 	// 휴지통:마이페이지 리뷰 복구 
 	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
+
+	
+	// 휴지통:검색
+	reviewDto MyreviewTrashSearch()throws Exception;
+
+
 }

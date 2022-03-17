@@ -64,6 +64,7 @@ public class MyPageController {
 	}
 	
 
+
 	
 	// 마이페이지 비밀번호 변경
 	@RequestMapping(value="mypage/updatepw", method = RequestMethod.POST)
@@ -125,5 +126,16 @@ public class MyPageController {
 		mypageService.MyreviewTrashRe(reviewdto);
 		return "redirect:/mypage/trash";
 	}
+	
+	
+//	//마이페이지 리뷰 검색
+//	@ResponseBody
+//	@RequestMapping(value = "mypage/trash/search/{title}", method = RequestMethod.GET)
+//	public ModelAndView openTrashDetail(@PathVariable("title") int title) throws Exception {
+//		ModelAndView mv = new ModelAndView("Mypage/MypageTrash");
+//		reviewDto titleSearch = mypageService.MyreviewTrashSearch();
+//		mv.addObject("search", titleSearch);
+//		return mv;
+//	}
 	
 }

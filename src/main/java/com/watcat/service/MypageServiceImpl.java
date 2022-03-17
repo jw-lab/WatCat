@@ -58,6 +58,11 @@ public class MypageServiceImpl implements MypageService {
 		mypageMapper.MyreviewTrashRe(reviewdto);
 		
 	}
+
+	@Override //휴지통 리뷰 검색
+	public reviewDto MyreviewTrashSearch() throws Exception {
+		return mypageMapper.MyreviewTrashSearch();
+	}
 	
 	
 
