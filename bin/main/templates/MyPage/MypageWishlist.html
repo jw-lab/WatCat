@@ -4,28 +4,115 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mypage</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/style.css">
+<script>
+
+
+$(document).ready(()=>{
+	let isEmpty = function(value){ 
+/* 		if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){ 
+			return true 
+		}
+		else{ 
+			return false 
+			} 
+		}; */
+	//tmdb api 활용
+	let movieId = $("#movieId").val();
+	let apiUrl = "https://api.themoviedb.org/3/movie/";
+	let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
+	let language = "&language=ko&append_to_response=credits";
+	let userId = $("#userId").val();// session에 저장된 userId
+	apiUrl += movieId; 
+	apiUrl += apiKey;
+	apiUrl += language;
+	// 영화 상세정보 get
+	$.ajax({
+		type:"GET",
+		url:apiUrl,
+		success:(response)=>{
+			// 이미지
+			let imageUrl ="https://image.tmdb.org/t/p/original";
+			// 포스터 이미지
+			let poster ="";
+			let posterPath = response.poster_path;
+			if(isEmpty(posterPath)){
+				poster = "../images/noimage.png";
+			} else {
+				poster = imageUrl + posterPath;
+			}
+			// 백드랍 이미지
+			let backdropPath= response.backdrop_path;
+			let backdrop = imageUrl + backdropPath;
+			
+			// 영화 제목
+			let title = response.title;
+			$("#movieBox").empty();
+			let temp_html = `<div id="movieDataBox" class="col-sm-7">
+				<h1 class="fw-bold mb-3">${title}</h1>
+	                
+                </div>
+			<div id="movieImgBox" class="col-sm-5 row">
+				<div class="col-sm-8 mx-auto">
+					<img id="movieImg" alt="영화 이미지" src="${poster}">
+				</div>
+			</div>`;
+			$("#movieBox").append(temp_html);
+
+			//사용자가 로그인되어 있으면 실행
+			if(!isEmpty(userId))
+				getWish();
+			
+			addWish();
+			cancelWish();
+			insertReview();
+			starRating();
+		},
+		error:()=>{
+			alert("get movie details 실패");
+		}
+	});
+};
+})
+
+</script>
 </head>
 <body class="bg-black">
-    <div class="h-100">
-        <!-- 헤더 영역 -->
-        <header th:include="Header :: header" class="fixed-top px-0 mx-0">
-        </header>
-        
-        <div class="row h-100 bg2ndColor">
-            <!-- 네비게이션 영역 -->
-            <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5">
-            </nav>
-            <!-- 메인영역 -->
-            <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
-                <div>
-                    찜리스트
-                </div>
-            </main>
-        </div>
-    
-    </div>
+	<div class="h-100">
+		<!-- 헤더 영역 -->
+		<header th:include="Header :: header" class="fixed-top px-0 mx-0">
+		</header>
+
+		<div class="row h-100 bg2ndColor">
+			<!-- 네비게이션 영역 -->
+			<nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5"></nav>
+			<!-- 메인영역 -->
+			<main class="col-lg-9 bg-black text-white"
+				style="padding-top: 100px;">
+				<div class="w-75 mx-auto mt-4">
+					<div>
+						<h3 class="text-white">
+							<b>찜</b>
+						</h3>
+						<div id="movieBox" class="row">
+							<div id="movieImgBox" class="col-sm-4 mx-auto">
+								<img src="/images/loading.gif" class="mt-5">
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+
+	</div>
 </body>
 </html>

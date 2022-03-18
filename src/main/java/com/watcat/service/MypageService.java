@@ -32,9 +32,9 @@ public interface MypageService {
 	// 휴지통:마이페이지 리뷰 복구 
 	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
 
-	
-	// 휴지통:검색
-	reviewDto MyreviewTrashSearch()throws Exception;
+
+	// 찜리스트
+	Page<reviewDto> myreviewWishList(int pageNum, String userId) throws Exception;
 
 
 }

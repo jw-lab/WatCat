@@ -27,8 +27,7 @@ public interface MypageMapper {
 	//마이-휴지통 복구
 	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
 
-	// //마이-휴지통 상세
-	reviewDto MyreviewTrashSearch()throws Exception;
-
+	// 마이-찜 리스트
+	Page<reviewDto> myreviewWishList(String userId) throws Exception;
 	
 }

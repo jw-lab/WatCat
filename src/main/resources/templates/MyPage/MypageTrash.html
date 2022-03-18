@@ -6,10 +6,6 @@
 #title {
 	font-weight: bold;
 }
-
-body {
-	background: url(/images/back_90.png);
-}
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mypage</title>
@@ -54,49 +50,13 @@ body {
 			idx = $(this).children("span").text();
 		})
 
-		var star = $("#star").val();
-		var starImg = starImg(star);
-
 	});
-
-	function starImg(star) {
-
-		switch (star) {
-		case 'rate1':
-			break;
-		case 'rate2':
-			break;
-		case 'rate3':
-			break;
-		case 'rate4':
-			break;
-		case 'rate5':
-			break;
-		case 'rate6':
-			break;
-		case 'rate7':
-			break;
-		case 'rate8':
-			break;
-		case 'rate9':
-			break;
-
-		case 'rate10':
-			break;
-
-		default:
-			break;
-		}
-
-		return date;
-	}
 </script>
 </head>
 <body class="bg-black">
 	<div class="h-100">
 		<!-- 헤더 영역 -->
 		<header th:include="Header :: header" class="fixed-top px-0 mx-0"></header>
-
 		<div class="row h-100 bg2ndColor">
 			<!-- 네비게이션 영역 -->
 			<nav th:include="/Mypage/nav :: nav" class="col-lg-3  px-5"></nav>
@@ -111,7 +71,6 @@ body {
 					<div>
 						<form method="POST" id="frm" style="color: white;">
 							<div class="row">
-								<!-- th:if="${#lists.size(trash)}>0" -->
 								<div class="mt-5" th:each="list : ${trash.getList()}"
 									style="background-color: rgb(38, 38, 38); border-radius: 9px;">
 
@@ -138,19 +97,38 @@ body {
 												</div>
 												<p class="h6 ms-1 mt-2" th:text="${list.releaseDate}"
 													style="font-weight: bold;"></p>
-
 											</div>
+
+
 											<!-- 리뷰 칸 -->
-
-											<hr class="font-weight: bold;">
-
+											<hr style="font-weight: bold;">
 											<div class="row">
-												<div class="col-auto">
+												<!-- 별점 별 색상변경 -->
+												<div th:if="${list.rating} >= 8" class="col-auto">
 													<p>
 														내가 준 별점: <span th:text="|${list.rating}점|"
-															style="font-weight: bold; color: yellow;" id="star"></span>
+															style="font-weight: bold; color: yellow;"></span>
 													</p>
 												</div>
+												<div th:if="${list.rating} == 7" class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: blue;"></span>
+													</p>
+												</div>
+												<div th:if="${list.rating} == 6" class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: green;"></span>
+													</p>
+												</div>
+												<div th:if="${list.rating} < 5 " class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: red;"></span>
+													</p>
+												</div>
+
 												<p th:if="${list.createdDt}==null" class="col">리뷰 작성일을
 													찾을 수 없습니다.</p>
 												<div th:unless="${list.createdDt}==null" class="col">
@@ -236,8 +214,8 @@ body {
 							<div class="mt-5" style="color: black;" id="paging">
 								<ul class="pagination justify-content-center">
 									<li class="page-item"
-										th:classappend="${trash.getPrePage() == 0} ? 'disabled'">
-										<a class="page-link text-black"
+										th:classappend="${trash.getPrePage() == 0} ? 'disabled'"><a
+										class="page-link text-black"
 										th:href="@{/mypage/trash(pageNum=${trash.getPrePage()})}">&lt;</a>
 									</li>
 									<li class="page-item"

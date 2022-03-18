@@ -29,10 +29,10 @@
 } */
 
 body {
-	background: url(/images/seat.jpg);
+	background: url(/images/seat2.jpg);
 	background-color: #11ffee00;
 	font-weight: bold;
-	color: white;
+	color: black !important;
 }
 
 .ui-datepicker {

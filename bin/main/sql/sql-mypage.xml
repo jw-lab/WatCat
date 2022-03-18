@@ -75,13 +75,15 @@
 		]]>
 	</update>
 
-	<!--리뷰 검색-->
-	<select id="MyreviewTrashSearch" parameterType="String" resultType="com.watcat.dto.reviewDto">
-		<![CDATA[
-		SELECT title 
-		FROM review
-		WHERE title like ${title}% || %${title}% || %${title} ]]>
 
+
+	<!-- 리뷰 찜리스트-->
+	<select id="myreviewWishList" parameterType="String" resultType="com.watcat.dto.movie.MovieWishDto">
+		<![CDATA[ 
+		SELECT *
+		FROM wishlist
+		WHERE user_id = #{userId} 
+	]]>
 	</select>
 
 </mapper>

@@ -59,12 +59,11 @@ public class MypageServiceImpl implements MypageService {
 		
 	}
 
-	@Override //휴지통 리뷰 검색
-	public reviewDto MyreviewTrashSearch() throws Exception {
-		return mypageMapper.MyreviewTrashSearch();
+	@Override
+	public Page<reviewDto> myreviewWishList(int pageNum, String userId) throws Exception {
+		PageHelper.startPage(pageNum, 9);
+		return mypageMapper.myreviewWishList(userId);
 	}
-	
-	
 
 
 }
