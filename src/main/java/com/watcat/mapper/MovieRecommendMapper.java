@@ -34,4 +34,6 @@ public interface MovieRecommendMapper {
 
 	List<reviewDto> selectReviewRecList() throws Exception;
 
+	List<reviewDto> selectRatingList() throws Exception;
+
 }

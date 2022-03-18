@@ -32,4 +32,6 @@ public interface MovieRecommendService {
 
 	void updateHitCnt(int idx) throws Exception;
 
+	List<reviewDto> selectRatingList() throws Exception;
+
 }
