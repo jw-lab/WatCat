@@ -158,3 +158,12 @@ star-input>.input.focus{
     -webkit-line-clamp: 1;
     overflow: hidden;
 }
+
+/* pagination customizing */
+.custom-pagination.pagination .page-item {
+	margin: 3px;
+}
+.custom-pagination.pagination .page-link{
+	background: gray;
+	border-color: gray;
+}
