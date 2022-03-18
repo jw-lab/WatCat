@@ -37,8 +37,12 @@ public class MovieRecommendController {
 		
 		// 추천순 목록
 		List<reviewDto> reviewRecList = movieRecommendService.selectReviewRecList();
+		
+		// 별점 평점순 목록
+		List<reviewDto> reviewRatingList = movieRecommendService.selectRatingList();
 		mv.addObject("reviewList", reviewList);
 		mv.addObject("reviewRecList",reviewRecList);
+		mv.addObject("reviewRatingList", reviewRatingList);
 		return mv;
 	}
 	

@@ -172,4 +172,26 @@
 			LIMIT 5;
 		]]>
 	</select>
+	
+	<!--평균 별점순으로 영화 데이터 가져오기-->
+	<select id="selectRatingList" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[
+			SELECT DISTINCT
+			    r.movie_id AS movie_id, title, poster, avg_rating
+			FROM
+			    review r
+			        JOIN
+			    (SELECT 
+			        movie_id, AVG(rating) AS avg_rating
+			    FROM
+			        review
+			    WHERE
+			        deleted_yn = 'N'
+			    GROUP BY movie_id) AS rat ON r.movie_id = rat.movie_id
+			WHERE
+			    deleted_yn = 'N'
+			ORDER BY avg_rating DESC
+			LIMIT 5
+		]]>
+	</select>
 </mapper>

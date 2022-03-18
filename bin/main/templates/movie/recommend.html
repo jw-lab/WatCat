@@ -22,10 +22,10 @@
             </div>
             <!-- 슬라이더 -->
             <div class="carousel-inner">
-            	<div class="carousel-item active" th:each="item, num : ${reviewRecList}" th:if="${num.first}">
+            	<div class="carousel-item active" th:each="item, num : ${reviewRatingList}" th:if="${num.first}">
                     <img th:src="${item.poster}" class="d-block">
                 </div>
-                <div class="carousel-item" th:each="item, num : ${reviewRecList}"  th:unless="${num.first}">
+                <div class="carousel-item" th:each="item, num : ${reviewRatingList}"  th:unless="${num.first}">
                     <img th:src="${item.poster}" class="d-block">
                 </div>
             </div>
