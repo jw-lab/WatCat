@@ -151,10 +151,28 @@ star-input>.input.focus{
 	vertical-align:middle;
 }
 
-.clamp {
+/* review content clamp */
+.review-content.clamp {
 	width:inherit;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
+}
+/* overview clamp */
+.overview.clamp {
+	width:auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+}
+
+/* pagination customizing */
+.custom-pagination.pagination .page-item {
+	margin: 3px;
+}
+.custom-pagination.pagination .page-link{
+	background: gray;
+	border-color: gray;
 }

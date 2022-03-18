@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 body{
-	background:url('../images/movie_search.jpeg') center center no-repeat;
+	background:url('../images/movie_search.jpeg') 45% center no-repeat;
 }
 
 .movieTitle:hover{
@@ -11,6 +11,7 @@ body{
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
+  margin-left: 50px;
 }
 .masonry .img-container {
   width: 180px;

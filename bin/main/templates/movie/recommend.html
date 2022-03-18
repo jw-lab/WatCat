@@ -11,7 +11,7 @@
 </head>
 <body class="bg-black">
 	<header th:include="header"></header>
-    <div id="div-carousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="div-carousel" class="carousel slide mb-3" data-bs-ride="carousel">
             <!-- 인디케이터 -->
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#div-carousel" data-bs-slide-to="0" class="active"></button>
@@ -22,11 +22,11 @@
             </div>
             <!-- 슬라이더 -->
             <div class="carousel-inner">
-            	<div class="carousel-item active" th:each="item, num : ${reviewRecList}" th:if="${num.first}">
-                    <img th:src="${item.poster}" class="d-block">
+            	<div class="carousel-item active" th:each="item, num : ${reviewRatingList}" th:if="${num.first}">
+                    <a th:href="@{/movie/detail(movieId=${item.movieId})}"><img th:src="${item.poster}" class="d-block"></a>
                 </div>
-                <div class="carousel-item" th:each="item, num : ${reviewRecList}"  th:unless="${num.first}">
-                    <img th:src="${item.poster}" class="d-block">
+                <div class="carousel-item" th:each="item, num : ${reviewRatingList}"  th:unless="${num.first}">
+                    <a th:href="@{/movie/detail(movieId=${item.movieId})}"><img th:src="${item.poster}" class="d-block"></a>
                 </div>
             </div>
             <!-- 컨트롤 -->
@@ -62,8 +62,11 @@
 					<tr th:each="item : ${reviewRecList}" class="table-dark">
 						<td th:text="${item.idx}"></td>
 						<td class="text-start">
-							<a class="movieTitle text-decoration-none fw-bold fs-4" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
-							<p th:text="${item.content}" class="clamp"></p>
+							<div>
+								<a class="movieTitle text-decoration-none fw-bold fs-5" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
+								<span class="badge bg-danger rounded-pill">추천</span>
+							</div>
+								<p th:text="${item.content}" class="review-content clamp"></p>
 						</td>
 						<td th:text="${item.userId}"></td>
 						<td th:text="${item.createdDt}"></td>
@@ -73,7 +76,7 @@
 					<tr th:each="item : ${reviewList.getList()}">
 						<td th:text="${item.idx}"></td>
 						<td class="text-start">
-							<a class="movieTitle text-decoration-none fw-bold fs-4" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
+							<a class="movieTitle text-decoration-none fw-bold fs-5" th:href="@{/review/detail(idx=${item.idx})}" th:text="${item.title}"></a>
 							<p th:text="${item.content}" class="clamp"></p>
 						</td>
 						<td th:text="${item.userId}"></td>
@@ -84,15 +87,15 @@
 				</tbody>
 			</table>
 			
- 			<ul class="pagination d-flex justify-content-center">
-				<li class="page-item" th:classappend="${reviewList.getPrePage()} == 0 ? 'disabled'">
-					<a class="page-link text-black" th:href="@{/(pageNum=${reviewList.getPrePage()})}">&lt;</a>
+ 			<ul class="pagination custom-pagination d-flex justify-content-center">
+				<li class="page-item" th:classappend="${reviewList.getPrePage()} == 0 ? 'd-none'">
+					<a class="page-link" th:href="@{/(pageNum=${reviewList.getPrePage()})}">&lt;</a>
 				</li>
 				<li class="page-item" th:each="page : ${#numbers.sequence(reviewList.getNavigateFirstPage(),reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
-					<a class="page-link text-black" th:text="${page}" th:href="@{/(pageNum=${page})}"></a>
+					<a class="page-link" th:text="${page}" th:href="@{/(pageNum=${page})}"></a>
 				</li>
-				<li class="page-item" th:classappend="${reviewList.getNextPage()} == 0 ? 'disabled'">
-					<a class="page-link text-black" th:href="@{/(pageNum=${reviewList.getNextPage()})}">&gt;</a>
+				<li class="page-item" th:classappend="${reviewList.getNextPage()} == 0 ? 'd-none'">
+					<a class="page-link" th:href="@{/(pageNum=${reviewList.getNextPage()})}">&gt;</a>
 				</li>
 			</ul>
 		</div>

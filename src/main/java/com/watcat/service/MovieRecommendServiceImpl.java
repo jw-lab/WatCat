@@ -100,5 +100,11 @@ public class MovieRecommendServiceImpl implements MovieRecommendService {
 		movieRecommendMapper.updateHitCnt(idx);
 		
 	}
+	//평균 별점순으로 데이터 가져오기 
+	@Override
+	public List<reviewDto> selectRatingList() throws Exception {
+
+		return movieRecommendMapper.selectRatingList();
+	}
 
 }

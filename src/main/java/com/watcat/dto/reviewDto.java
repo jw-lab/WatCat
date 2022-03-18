@@ -21,5 +21,6 @@ public class reviewDto {
 	private String deletedYn;
 	private String createdDt;
 	private int hitCnt;
-	private int reviewRecommend;
+	private int reviewRecommend; // 리뷰 추천수
+	private float avgRating;//평균 별점
 }
