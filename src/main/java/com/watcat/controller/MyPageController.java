@@ -1,5 +1,7 @@
 package com.watcat.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
+import com.watcat.dto.movie.MovieWishDto;
 import com.watcat.service.MypageService;
 
 @Controller
@@ -36,14 +40,8 @@ public class MyPageController {
 
 	// 마이페이지 찜페이지
 	@RequestMapping("mypage/wishlist")
-	public ModelAndView mypageInterested(HttpServletRequest httpServletRequest,
-			@RequestParam(required = false, defaultValue = "1") int pageNum) throws Exception {
-		ModelAndView mv = new ModelAndView("Mypage/MypageWishlist");
-		HttpSession httpSession = httpServletRequest.getSession();
-		String userId = httpSession.getAttribute("userId").toString();
-		PageInfo<reviewDto> myreviewWish = new PageInfo<reviewDto>(mypageService.myreviewWishList(pageNum, userId), 10);
-		mv.addObject("wish", myreviewWish);
-		return mv;
+	public String mypageWishlist() throws Exception {
+		return "MyPage/MypageWishlist";
 	}
 
 	// 마이페이지 리뷰
@@ -125,10 +123,21 @@ public class MyPageController {
 		return "redirect:/mypage/trash";
 	}
 
+	//
 	@RequestMapping(value = "mypage/trash/re/{idx}", method = RequestMethod.GET)
 	public String mypageTrashReG(reviewDto reviewdto) throws Exception {
 		mypageService.MyreviewTrashRe(reviewdto);
 		return "redirect:/mypage/trash";
+	}
+	
+	//wish리스트 데이터 요청
+	@ResponseBody
+	@RequestMapping("mypage/wishlistRequest")
+	public List<MovieWishDto> WishList(HttpServletRequest httpServletRequest) throws Exception{
+		HttpSession httpSession = httpServletRequest.getSession();
+		MovieWishDto movieWishDto = new MovieWishDto();
+		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
+		return mypageService.MyreviewWishList(movieWishDto);
 	}
 
 }
