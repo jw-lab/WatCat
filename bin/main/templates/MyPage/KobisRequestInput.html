@@ -11,6 +11,21 @@
 <script>
     
     $(document).ready(function(){
+        
+        $("#AutoThread").on("click", function(){
+            $.ajax({
+                type: "POST",
+                url : "/kobis/AutoThread", 
+                data:{},
+                success:function(data){
+                    alert("통신 성공");
+                },
+                error:function(){
+                    alert("통신 실패");
+                }
+            });
+        });
+
         btnRequest2();
         var today = new Date(); //현재 날짜 객체
         $("#monthInfo").val(today.getMonth() + 1); // input 박스 기본값 세팅
@@ -111,8 +126,12 @@
             <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5">
             </nav>
             <!-- 메인영역 -->
-            <main class="col-lg-9 bg-black text-white"  style="padding-top: 200px;">    
+            <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
                 <div class="m-3" style="width: 200px;">
+                    
+                    <input type="button" id="AutoThread" name="AutoThread" value="AutoThread" class="btn btn-danger">
+                    <hr>
+                    월단위 데이터 수집
                     <div class="form-floating my-1">
                         <input type="number" id="yearInfo" name="yearInfo" maxlength="4" class="form-control bg-black text-white">
                         <label>Year / 년</label>
@@ -122,15 +141,16 @@
                         <label>Month / 월</label>
                     </div>
                     <div>
-                        <input type="button" id="btn-request" name="btn-request" value="데이터 요청하기" class="btn btn-outline-success form-control my-1">
+                        <input type="button" id="btn-request" name="btn-request" value="데이터 요청하기" class="btn btn-danger form-control my-1" style="border-radius: 50px;">
                     </div>
                     <div class="form-floating my-1">
                         <textarea class="form-control bg-black text-white" id = "AjaxResult" name="AjaxResult" style="height: 150px;"></textarea>
                         <label>요청 결과</label>
                     </div>
                     <hr>
+                    기수집 데이터 집계
                     <div>
-                        <input type="button" id="btn-request2" name="btn-request2" value="수집된 데이터 확인" class="btn btn-outline-success form-control my-1">
+                        <input type="button" id="btn-request2" name="btn-request2" value="통계 요청" class="btn btn-danger form-control my-1" style="border-radius: 50px;">
                     </div>
                     <div class="form-floating my-1">
                         <textarea class="form-control bg-black text-white" id = "collectionResult" name="collectionResult" style="height: 300px"></textarea>

@@ -19,8 +19,6 @@ import com.watcat.service.MypageService;
 @Controller
 public class MyPageController {
 
-//	찜리스트 | 내가 작성한 리뷰 | 삭제한 리뷰 | 비밀번호 변경
-
 	@Autowired
 	MypageService mypageService;
 
@@ -37,7 +35,6 @@ public class MyPageController {
 	}
 
 	// 마이페이지 찜페이지
-
 	@RequestMapping("mypage/wishlist")
 	public ModelAndView mypageInterested(HttpServletRequest httpServletRequest,
 			@RequestParam(required = false, defaultValue = "1") int pageNum) throws Exception {
@@ -114,6 +111,7 @@ public class MyPageController {
 		return "redirect:/mypage/trash";
 	}
 
+	// 리뷰trash 리스트 출력
 	@RequestMapping(value = "mypage/trash/del/{idx}", method = RequestMethod.GET)
 	public String mypageTrashDelG(@PathVariable("idx") int idx) throws Exception {
 		mypageService.MyreviewTrashDelete(idx);
@@ -121,7 +119,6 @@ public class MyPageController {
 	}
 
 	// 리뷰 trash 복구
-
 	@RequestMapping(value = "mypage/trash/re/{idx}", method = RequestMethod.PUT)
 	public String mypageTrashRe(reviewDto reviewdto) throws Exception {
 		mypageService.MyreviewTrashRe(reviewdto);
