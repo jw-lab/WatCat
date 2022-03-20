@@ -81,7 +81,7 @@
 			SELECT *
 			FROM wishlist
 			WHERE user_id = #{userId}
-			ORDER BY movie_id
+			ORDER BY created_dt
 		]]>
 	</select>
 

@@ -15,12 +15,37 @@
 			url : "/mypage/wishlistRequest",
 			success:function(response){
 				var html_resouce="";
-				$.each(response, function(index, item){
-					var movieId = item;
-					html_resouce += '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start" style="width : 200px"><div>'+item.movieId+'</div></div></a>';
-				});
+				
 
-				$("#wishList").append(html_resouce);
+				$.each(response, function(index, item){
+					let apiUrl = "https://api.themoviedb.org/3/movie/";
+					let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
+					let language = "&language=ko&append_to_response=credits";
+
+					apiUrl = apiUrl + item.movieId + apiKey + language;
+					let imageUrl ="https://image.tmdb.org/t/p/original"; //포스터 이미지 기본 절대경로
+					let poster ="";
+					let posterPath ="";
+					
+					$.ajax({
+						type : "GET",
+						url : apiUrl,
+						success : function(apiResponse){
+							posterPath = apiResponse.poster_path;
+							if(posterPath == ""){
+								poster = "../images/noimage.png";
+							} else {
+								poster = imageUrl + posterPath;
+							}
+
+							html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" src="'+poster+'"></div></a>';
+							$("#wishList").append(html_resouce);
+						},
+						error : function(){
+							alert("api ajx 통신오류")
+						}
+					});
+				});
 
 			},
 			error:function(){
@@ -31,15 +56,15 @@
 	});
 </script>
 </head>
-<body class="bg-black">
-	<div class="h-100">
+<body class="bg-black" style="height: 100%;">
+	<div style="height: 100%;">
 		<!-- 헤더 영역 -->
 		<header th:include="Header :: header" class="fixed-top px-0 mx-0">
 		</header>
 
-		<div class="row h-100 bg2ndColor">
+		<div class="row bg2ndColor" style="height: 100%;">
 			<!-- 네비게이션 영역 -->
-			<nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5"></nav>
+			<nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 h-100"></nav>
 			<!-- 메인영역 -->
 			<main class="col-lg-9 bg-black text-white"
 				style="padding-top: 100px;">
