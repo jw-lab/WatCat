@@ -26,11 +26,11 @@ public class MyPageController {
 	@Autowired
 	MypageService mypageService;
 
-	// 마이페이지 첫페이지
-	@RequestMapping("mypage")
-	public String mypage() {
-		return "Mypage/Mypage";
-	}
+//	// 마이페이지 첫페이지
+//	@RequestMapping("mypage")
+//	public String mypage() {
+//		return "Mypage/Mypage";
+//	}
 
 	// 마이페이지 비밀번호
 	@RequestMapping("mypage/pw")

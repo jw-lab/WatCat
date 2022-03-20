@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>영화 검색 페이지</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<link rel="stylesheet" href="/css/style.css">
+<script>
+$(document).ready(()=>{
+	
+})
+</script>
+</head>
+<body class="bg-black">
+	<header th:include="header"></header>
+		<div class="container text-center">
+			<div class="text-start">
+				<div class="border border-1 border-white rounded text-white float-start m-3 p-2" style="width: 600px;">
+					<div class="text-center">
+						<H3>랭킹1위 최다수 영화</H3>
+					</div>
+					<div>
+						<table class="table text-white">
+							<colgroup>
+								<col width="10%" />
+								<col width="60%" />
+								<col width="20%" />
+								<col width="10%" />
+							</colgroup>
+							<thead>
+								<tr class="text-center">
+									<th>순위</th>
+									<th>영화 제목</th>
+									<th>개봉일</th>
+									<th class="text-end">횟수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${#lists.size(Rank1Best)} > 0" th:each="item : ${Rank1Best}" class="text-wrap text-center">
+									<td th:text="${item.rank}"></td>
+									<td th:text="${item.movieNm}"></td>
+									<td th:text="${item.openDt}"></td>
+									<td th:text="${item.count}"  class="text-end"></td>
+								</tr>
+								<tr th:unless="${#lists.size(Rank1Best)} > 0">
+									<td colspan="3" class="text-center">내용이 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="border border-1 border-danger rounded text-white float-start m-3 p-2" style="width: 600px;">
+					<div class="text-center">
+						<H3>박스오피스10 진입 최다수 영화</H3>
+					</div>
+					<div>
+						<table class="table text-white">
+							<colgroup>
+								<col width="10%" />
+								<col width="60%" />
+								<col width="20%" />
+								<col width="10%" />
+							</colgroup>
+							<thead>
+								<tr class="text-center">
+									<th>순위</th>
+									<th>영화 제목</th>
+									<th>개봉일</th>
+									<th class="text-end">횟수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${#lists.size(RankInBest)} > 0" th:each="item : ${RankInBest}" class="text-wrap text-center">
+									<td th:text="${item.rank}"></td>
+									<td th:text="${item.movieNm}"></td>
+									<td th:text="${item.openDt}"></td>
+									<td th:text="${item.count}" class="text-end"></td>
+								</tr>
+								<tr th:unless="${#lists.size(RankInBest)} > 0">
+									<td colspan="3" class="text-center">내용이 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="border border-1 border-success rounded text-white float-start m-3 p-2" style="width: 600px;">
+					<div class="text-center">
+						<H3>일매출 랭킹</H3>
+					</div>
+					<div>
+						<table class="table text-white">
+							<colgroup>
+								<col width="10%" />
+								<col width="55%" />
+								<col width="20%" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr class="text-center">
+									<th>순위</th>
+									<th>영화 제목</th>
+									<th>개봉일</th>
+									<th class="text-end"><small>단위:억원</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${#lists.size(SalesByDayBest)} > 0" th:each="item : ${SalesByDayBest}" class="text-wrap text-center">
+									<td th:text="${item.rank}"></td>
+									<td th:text="${item.movieNm}"></td>
+									<td th:text="${item.openDt}"></td>
+									<td th:text="${item.salesAmt}" class="text-end"></td>
+								</tr>
+								<tr th:unless="${#lists.size(SalesByDayBest)} > 0">
+									<td colspan="3" class="text-center">내용이 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="border border-1 border-primary rounded text-white float-start m-3 p-2" style="width: 600px;">
+					<div class="text-center">
+						<H3>누적매출 랭킹</H3>
+					</div>
+					<div>
+						<table class="table text-white">
+							<colgroup>
+								<col width="10%" />
+								<col width="55%" />
+								<col width="20%" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr class="text-center">
+									<th>순위</th>
+									<th>영화 제목</th>
+									<th>개봉일</th>
+									<th class="text-end"><small>단위:억원</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${#lists.size(SalesBest)} > 0" th:each="item : ${SalesBest}" class="text-wrap text-center">
+									<td th:text="${item.rank}"></td>
+									<td th:text="${item.movieNm}"></td>
+									<td th:text="${item.openDt}"></td>
+									<td th:text="${item.salesAmt}" class="text-end"></td>
+								</tr>
+								<tr th:unless="${#lists.size(SalesBest)} > 0">
+									<td colspan="3" class="text-center">내용이 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="border border-1 border-secondary rounded text-white float-start m-3 p-2" style="width: 600px;">
+					<div class="text-center">
+						<H3>당일 관객수 랭킹</H3>
+					</div>
+					<div>
+						<table class="table text-white">
+							<colgroup>
+								<col width="10%" />
+								<col width="55%" />
+								<col width="20%" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr class="text-center">
+									<th>순위</th>
+									<th>영화 제목</th>
+									<th>개봉일</th>
+									<th class="text-end"><small>단위:만명</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${#lists.size(AudiCntBest)} > 0" th:each="item : ${AudiCntBest}" class="text-wrap text-center">
+									<td th:text="${item.rank}"></td>
+									<td th:text="${item.movieNm}"></td>
+									<td th:text="${item.openDt}"></td>
+									<td th:text="${item.audiCnt}" class="text-end"></td>
+								</tr>
+								<tr th:unless="${#lists.size(AudiCntBest)} > 0">
+									<td colspan="3" class="text-center">내용이 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="border border-1 border-warning rounded text-white float-start m-3 p-2" style="width: 600px;">
+					<div class="text-center">
+						<H3>누적 관객수 랭킹</H3>
+					</div>
+					<div>
+						<table class="table text-white">
+							<colgroup>
+								<col width="10%" />
+								<col width="55%" />
+								<col width="20%" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr class="text-center">
+									<th>순위</th>
+									<th>영화 제목</th>
+									<th>개봉일</th>
+									<th class="text-end"><small>단위:만명</small></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${#lists.size(AudiAccBest)} > 0" th:each="item : ${AudiAccBest}" class="text-wrap text-center">
+									<td th:text="${item.rank}"></td>
+									<td th:text="${item.movieNm}"></td>
+									<td th:text="${item.openDt}"></td>
+									<td th:text="${item.audiAcc}" class="text-end"></td>
+								</tr>
+								<tr th:unless="${#lists.size(AudiAccBest)} > 0">
+									<td colspan="3" class="text-center">내용이 없습니다</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

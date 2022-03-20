@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.watcat.dto.Kobis.DailyBoxOfficeDto;
 import com.watcat.dto.Kobis.KobisDatabaseDto;
@@ -159,6 +160,31 @@ public class KobisDatabase {
 				}
 			}
 		}.start();
+	}
+	
+	// 통계 페이지
+	@RequestMapping("kobis/total")
+	public ModelAndView KobisTotal() throws Exception{
+		ModelAndView mv = new ModelAndView("kobisTotal");
+		// 랭킹 1위 최다수 영화
+		List<KobisDatabaseDto> Rank1Best = kobisDatabaseService.Rank1Best();
+		// 랭킹 진입 최다수 영화
+		List<KobisDatabaseDto> RankInBest = kobisDatabaseService.RankInBest();
+		// 일매출 랭킹
+		List<KobisDatabaseDto> SalesByDayBest = kobisDatabaseService.SalesByDayBest();
+		// 누적 내출 랭킹
+		List<KobisDatabaseDto> SalesBest = kobisDatabaseService.SalesBest();
+		// 당일 관객수 랭킹
+		List<KobisDatabaseDto> AudiCntBest = kobisDatabaseService.AudiCntBest();
+		// 누적 관객수 랭킹
+		List<KobisDatabaseDto> AudiAccBest = kobisDatabaseService.AudiAccBest();
+		mv.addObject("Rank1Best", Rank1Best);
+		mv.addObject("RankInBest", RankInBest);
+		mv.addObject("SalesByDayBest", SalesByDayBest);
+		mv.addObject("SalesBest", SalesBest);
+		mv.addObject("AudiCntBest", AudiCntBest);
+		mv.addObject("AudiAccBest", AudiAccBest);
+		return mv;
 	}
 }
 
