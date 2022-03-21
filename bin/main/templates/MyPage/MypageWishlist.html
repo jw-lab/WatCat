@@ -22,46 +22,6 @@
 					let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
 					let language = "&language=ko&append_to_response=credits";
 
-<<<<<<< HEAD
-$(document).ready(()=>{
-	
-	
-	let movieId = $("#movieId").val();
-	let apiUrl = "https://api.themoviedb.org/3/movie/";
-	let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
-	let language = "&language=ko&append_to_response=credits";
-	let userId = $("#userId").val();// session에 저장된 userId
-	apiUrl += movieId; 
-	apiUrl += apiKey;
-	apiUrl += language;
-	// 영화 상세정보 get
-	$.ajax({
-		type:"GET",
-		url:apiUrl,
-		success:(response)=>{
-			// 이미지
-			let imageUrl ="https://image.tmdb.org/t/p/original";
-			// 포스터 이미지
-			let poster ="";
-			let posterPath = response.poster_path;
-			if(isEmpty(posterPath)){
-				poster = "../images/noimage.png";
-			} else {
-				poster = imageUrl + posterPath;
-			}
-			// 백드랍 이미지
-			let backdropPath= response.backdrop_path;
-			let backdrop = imageUrl + backdropPath;
-			
-			let title = response.title;
-
-		},
-		error:()=>{
-			alert("get movie details 실패");
-		}
-	});
-})
-=======
 					apiUrl = apiUrl + item.movieId + apiKey + language;
 					let imageUrl ="https://image.tmdb.org/t/p/original"; //포스터 이미지 기본 절대경로
 					let poster ="";
@@ -72,13 +32,13 @@ $(document).ready(()=>{
 						url : apiUrl,
 						success : function(apiResponse){
 							posterPath = apiResponse.poster_path;
-							if(posterPath == null){
+							if(posterPath == ""){
 								poster = "../images/noimage.png";
 							} else {
 								poster = imageUrl + posterPath;
 							}
 
-							html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" width="200px" src="'+poster+'"></div></a>';
+							html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" src="'+poster+'"></div></a>';
 							$("#wishList").append(html_resouce);
 						},
 						error : function(){
@@ -86,7 +46,6 @@ $(document).ready(()=>{
 						}
 					});
 				});
->>>>>>> 93e4f9067669f461f98f591106dd68da1b989e43
 
 			},
 			error:function(){
@@ -114,7 +73,7 @@ $(document).ready(()=>{
 				</div>
 			</main>
 		</div>
+
 	</div>
 </body>
 </html>
-<!-- 업데이트용 주석 -->
