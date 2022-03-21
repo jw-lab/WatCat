@@ -17,6 +17,7 @@
 			SELECT * 
 			FROM review 
 			WHERE user_id = #{userId} AND deleted_yn = 'N'AND title like #{title}
+			ORDER BY created_dt desc
 		]]>
 	</select>
 
@@ -80,8 +81,8 @@
 		<![CDATA[ 
 			SELECT *
 			FROM wishlist
-			WHERE user_id = #{userId}
-			ORDER BY created_dt
+			WHERE user_id = #{userId} and title like #{title}
+			ORDER BY created_dt desc
 		]]>
 	</select>
 

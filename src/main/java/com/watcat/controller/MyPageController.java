@@ -1,7 +1,5 @@
 package com.watcat.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -140,10 +138,13 @@ public class MyPageController {
 	//wish리스트 데이터 요청
 	@ResponseBody
 	@RequestMapping("mypage/wishlistRequest")
-	public List<MovieWishDto> WishList(HttpServletRequest httpServletRequest) throws Exception{
+	public Object WishList(HttpServletRequest httpServletRequest,
+			@RequestParam(required = false, defaultValue = "") String title) throws Exception{
 		HttpSession httpSession = httpServletRequest.getSession();
 		MovieWishDto movieWishDto = new MovieWishDto();
 		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
+		title = "%" + title + "%";
+		movieWishDto.setTitle(title);
 		return mypageService.MyreviewWishList(movieWishDto);
 	}
 
