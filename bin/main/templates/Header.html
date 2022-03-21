@@ -144,37 +144,35 @@ color:black !important;
 
 					<script>
 						$("#btn-logout")
-								.on(
-										"click",
-										function() {
+							.on(
+								"click",
+								function() {
+									$.ajax({
+												url : "/logout",
+												type : "delete",
+												success : function(data) {
 
-											$
-													.ajax({
-														url : "/login",
-														type : "delete",
-														success : function(data) {
+													console
+															.log("로그아웃됨");
+													location.href = "/";
 
-															console
-																	.log("로그아웃됨");
-															location.href = "/";
+												},
+												error : function(
+														request,
+														status, error) {
 
-														},
-														error : function(
-																request,
-																status, error) {
-
-															console
-																	.log("code:"
-																			+ request.status
-																			+ "\n"
-																			+ "message:"
-																			+ request.responseText
-																			+ "\n"
-																			+ "error:"
-																			+ error);
-														}
-													})
-										});
+													console
+															.log("code:"
+																	+ request.status
+																	+ "\n"
+																	+ "message:"
+																	+ request.responseText
+																	+ "\n"
+																	+ "error:"
+																	+ error);
+												}
+											})
+									});
 					</script>
 
 				</div>
