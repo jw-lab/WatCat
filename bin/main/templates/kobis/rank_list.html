@@ -23,7 +23,6 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/css/style.css">
-<!-- <link rel="stylesheet" href="/css/rank.css"> -->
 <link href="/css/m_rank.css" rel="stylesheet" type="text/css" media="screen and (max-width:899px)">
 <link href="/css/rank.css" rel="stylesheet" type="text/css" media="screen and (min-width:900px)">
 <script>
@@ -80,9 +79,7 @@
                             for (var i = 0; i < response.length; i++) {
                                 let temp_html =  " <ul class=\"list-unstyled\">";
                                 temp_html += "<li class=\"h4\"><b><span>" + response[i].rank + "위</span></b></li>";
-                                //temp_html += "<li class=\"h5\"><b><a href="+ naverMv+ response[i].movieNm+"\" target='_blank'>"+  response[i].movieNm +"</a></b></li>";
                                 temp_html += "<li class=\"h5\" ><b><span ><a href="+ tmdbMv+ response[i].movieNm+"\" target='_blank' >"+  response[i].movieNm +"</span></a></b></li>";
-                               /*  temp_html += "<li class=\"h5\"><b>"+ response[i].movieNm+"</b></li>"; */
                                 temp_html += "<li><span style=\"rgb(89, 89, 89)\">개봉일: " + response[i].openDt + "</span></li>";
                                 temp_html += " <li><span>누적관객수: " + response[i].audiAcc + "명</span></li>";
                                 temp_html += "<li><span><a href="+ megaMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/mega.png\" style=\" height:20px;\"  alt=\"메가박스\" title=\"메가박스에서 예매\" id=\"mv\" class=\"me-2\"></img></a></span>"; 

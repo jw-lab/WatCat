@@ -42,15 +42,15 @@
                         </div>
                         <div class="row my-5 float-start w-100" >
                             <div class="col-6 mx-auto">
-                                <ul class="pagination justify-content-center mx-auto">
-                                    <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'disabled'">
-                                    <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()}, title=${title})}">Prev</a>
+                                <ul class="pagination custom-pagination justify-content-center mx-auto">
+                                    <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'd-none'">
+                                    <a class="page-link" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()}, title=${title})}">Prev</a>
                                     </li>
                                     <li class="page-item" th:each="page: ${#numbers.sequence(reviewList.getNavigateFirstPage(), reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
-                                    <a class="page-link text-black" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page}, title=${title})}"></a>
+                                    <a class="page-link" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page}, title=${title})}"></a>
                                     </li>
-                                    <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'disabled'">
-                                    <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()}, title=${title})}">Next</a>
+                                    <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'd-none'">
+                                    <a class="page-link" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()}, title=${title})}">Next</a>
                                     </li>
                                 </ul>
                                 <div >
