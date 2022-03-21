@@ -237,13 +237,14 @@ function CheckEmail(str){
 </head>
 <body>
 	
-		<nav class="container-fluid row">
-			<div class="h3 text-danger col-6" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">WaTCaT</div>
-			<div class="col-6">
-				<button id="btn-login"class="font-weight-bold btn btn-light float-end me-0"
-				 style="border-radius:50px;font-size: 16px;"onclick="location.href='/login'">로그인</button>
-			</div>	
-		</nav>
+		<nav class="d-flex justify-content-between"style="padding-top:16px;padding-left:78px;">
+				<div>
+					<h1 class="h1" style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: rgb(182, 0, 55);">WaTCaT</h1>
+				</div>
+				<div>
+					<button id="btn-signup" class="btn btn-light float-end mt-2" onclick="location.href='/login'">로그인</button>
+				</div>
+			</nav>
 		<div id="login-background" >
 			<main class="row container-fluid">
 				<div class="container col-4 mx-auto me-auto main-box">
