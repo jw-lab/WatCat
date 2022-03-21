@@ -29,7 +29,13 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 
-
+<style>
+/* dropdown-menu:hover{
+} */
+dropdown-item:hover{
+color:black !important;
+}
+</style>
 </head>
 <body>
 	<header th:fragment="header">
@@ -47,13 +53,13 @@
 						th:if="${session.userId != null}">
 						<div class="dropdown ">
 							<!-- <button > -->
-								<img src="/images/p.png" style="width: 60px;" class="btn dropdown-toggle" type="button"
+								<img src="/images/p.png" style="width: 70px; position: relative; bottom:10px;" class="btn dropdown-toggle" type="button"
 								id="dropdownMenuButton1" data-bs-toggle="dropdown"
 								aria-expanded="false">
 							<!-- </button> -->
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
 								style="background-color: gray;">
-								<li><a class="dropdown-item " href="/mypage"
+								<li><a class="dropdown-item " href="/mypage/wishlist"
 									style="color: white;">마이페이지</a></li>
 								<li><a class="dropdown-item" id="btn-logout"
 									style="color: white;">로그아웃 </a></li>
@@ -112,16 +118,6 @@
 								영화 검색
 							</button>
 						</a>
-					</div>
-					<div class="float-end mx-1" th:if="${session.userId != null}">
-						<a href="/mypage/wishlist" class="headerLink">
-							<button class="btn btn-outline-light">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-heart-fill" viewBox="0 0 16 16">
-								<path d="M11.5 4v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5ZM8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1Zm0 6.993c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
-								</svg>
-								MyPage
-							</button>
-						</a> 
 					</div>
 					<div th:if="${session.userId == null}" class="float-end mx-1">
 						<a href="/login" class="headerLink">
