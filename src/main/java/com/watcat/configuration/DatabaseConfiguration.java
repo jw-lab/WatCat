@@ -29,6 +29,7 @@ public class DatabaseConfiguration implements WebMvcConfigurer {
 	public HikariConfig hikariConfig() {
 		return new HikariConfig();
 	}
+
 	
 	@Bean
 

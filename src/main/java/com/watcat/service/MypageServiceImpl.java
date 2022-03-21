@@ -1,5 +1,7 @@
 package com.watcat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
+import com.watcat.dto.movie.MovieWishDto;
 import com.watcat.mapper.MypageMapper;
 
 @Service
@@ -22,7 +25,7 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override //마이페이지 리뷰 리스트
 	public Page<reviewDto> MyreviewList(int pageNum, String userId) throws Exception {
-		PageHelper.startPage(pageNum, 9);
+		PageHelper.startPage(pageNum, 12);
 		return mypageMapper.MyreviewList(userId);
 	}
 
@@ -59,10 +62,9 @@ public class MypageServiceImpl implements MypageService {
 		
 	}
 
-	@Override
-	public Page<reviewDto> myreviewWishList(int pageNum, String userId) throws Exception {
-		PageHelper.startPage(pageNum, 9);
-		return mypageMapper.myreviewWishList(userId);
+	@Override //wish 리스트
+	public List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception {
+		return mypageMapper.MyreviewWishList(movieWishDto);
 	}
 
 

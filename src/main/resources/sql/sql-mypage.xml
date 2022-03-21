@@ -75,15 +75,14 @@
 		]]>
 	</update>
 
-
-
 	<!-- 리뷰 찜리스트-->
-	<select id="myreviewWishList" parameterType="String" resultType="com.watcat.dto.movie.MovieWishDto">
+	<select id="MyreviewWishList" parameterType="com.watcat.dto.movie.MovieWishDto" resultType="com.watcat.dto.movie.MovieWishDto">
 		<![CDATA[ 
-		SELECT *
-		FROM wishlist
-		WHERE user_id = #{userId} 
-	]]>
+			SELECT *
+			FROM wishlist
+			WHERE user_id = #{userId}
+			ORDER BY created_dt
+		]]>
 	</select>
 
 </mapper>

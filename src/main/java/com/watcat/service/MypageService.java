@@ -1,8 +1,11 @@
 package com.watcat.service;
 
+import java.util.List;
+
 import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
+import com.watcat.dto.movie.MovieWishDto;
 
 public interface MypageService {
 
@@ -32,9 +35,11 @@ public interface MypageService {
 	// 휴지통:마이페이지 리뷰 복구 
 	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
 
+	// wish 리스트
+	List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception;
 
-	// 찜리스트
-	Page<reviewDto> myreviewWishList(int pageNum, String userId) throws Exception;
+
+	
 
 
 }
