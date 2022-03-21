@@ -168,22 +168,3 @@ star-input>.input.focus{
     overflow: hidden;
 }
 
-/* pagination customizing */
-.custom-pagination.pagination .page-item {
-	margin: 3px;
-}
-.custom-pagination.pagination .page-link{
-	background: rgb(31,32,35);
-	border-color: rgb(31,32,35);
-}
-
-.custom-pagination.pagination a:hover {
-	color: rgb(182, 0, 55);
-}
-
-.custom-pagination.pagination > .active > a, 
-.custom-pagination.pagination > .active > a:hover, 
-.custom-pagination.pagination > .active > a:focus {
-  background: rgb(182, 0, 55);;
-  border-color: rgb(182, 0, 55);;
-}
