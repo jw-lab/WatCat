@@ -11,6 +11,7 @@
 <script>
 	let N = "no";
 	let Y = "yes";
+	
 	//계정영구삭제
 	function deleteUser(userId){
 		$.ajax({
@@ -44,6 +45,7 @@
 	};
 	
 	
+	
 </script>
 </head>
 <body class="bg-black">
@@ -58,7 +60,7 @@
             </nav>
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
-                <div class="m-5">
+                <div th:if="${userList.getList().size()}>0"  class="m-5">
                    <h2 class="text-white my-3">유저계정관리</h2>
                    <hr class="text-white">
                    <table class="table text-white">
@@ -77,7 +79,7 @@
 							<td>계정 상태</td>
 							<td></td>
 						</tr>
-						<tr th:if="${#lists.size(userList)}>0" th:each ="item : ${userList}">			
+						<tr th:each="item : ${userList.getList()}">			
 							<td th:text="${item.userId}"></td>					
 							<td th:text="${item.userPw}"></td>					
 							<td th:if="${item.adminPermission}=='Y'">관리자</td>					
@@ -91,7 +93,41 @@
 							</td>					
 						</tr>                 
                    </table>
-                </div>
+               </div>
+               <div th:unless="${userList.getList().size()}>0" class="m-5">
+	     			<h2 class="text-white my-3">유저계정관리</h2>
+                    <hr class="text-white">
+                   <h1>검색결과가 없습니다 재검색 해주세요.</h1>
+               </div>
+                   	<ul  th:if="${userList.getList().size()}>0" class="pagination d-flex justify-content-center">
+		 				<li class="page-item" th:classappend="${userList.getPrePage()} == 0 ? 'disabled'">
+							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=1)}">&laquo;</a>
+						</li>
+						<li class="page-item" th:classappend="${userList.getPrePage()} == 0 ? 'disabled'">
+							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=${userList.getPrePage()})}">&lt;</a>
+						</li>
+						<li class="page-item" th:each="page : ${#numbers.sequence(userList.getNavigateFirstPage(),userList.getNavigateLastPage())}" th:classappend="${page == userList.getPageNum()} ? 'active'">
+							<a class="page-link text-black" th:text="${page}" th:href="@{/admin/account/(query=${query},pageNum=${page})}"></a>
+						</li>
+						<li class="page-item" th:classappend="${userList.getNextPage()} == 0 ? 'disabled'">
+							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=${userList.getNextPage()})}">&gt;</a>
+						</li>
+							<li class="page-item" th:classappend="${userList.getNextPage()} == 0 ? 'disabled'">
+							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=${userList.getPages()})}">&raquo;</a>
+						</li>
+					</ul>
+					<section class="navbar">
+					  <form action="/admin/account" method="get" class="ms-auto me-5">
+					    <div class="input-group">
+					      <input type="text" name="query" class="form-control" placeholder="아이디 검색">
+					      <button type="submit"class="input-group-text" id="search-bar">
+					      	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+							  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+							</svg>
+					      </button>
+					    </div>
+					  </form>
+					</section>		
             </main>
         </div>
     
