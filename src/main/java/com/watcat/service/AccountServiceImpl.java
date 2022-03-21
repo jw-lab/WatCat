@@ -1,8 +1,7 @@
 package com.watcat.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
@@ -38,10 +37,16 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<userDto> requestUserList() throws Exception {
+	public Page<userDto> requestUserList(@Nullable String query,int pageNum) throws Exception {
 		
-		return accountMapper.requestUserList();
+		PageHelper.startPage(pageNum,10);
+		if(query==null) {
+			return accountMapper.requestUserList();
+		}else {
+			return accountMapper.requestSearchUserList(query);
+		}
 	}
+	
 
 	@Override
 	public void banUser(String userId) throws Exception {
@@ -77,9 +82,13 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Page<reviewDto> requestReviewList(int pageNum) throws Exception {
-		PageHelper.startPage(pageNum,5);
-		return accountMapper.requestReviewList();
+	public Page<reviewDto> requestReviewList(int pageNum,String query) throws Exception {
+		PageHelper.startPage(pageNum,4);
+		if(query==null) {
+			return accountMapper.requestReviewList();
+		}else {
+			return accountMapper.requestSearchReviewList(query);
+		}
 	}
 
 	@Override

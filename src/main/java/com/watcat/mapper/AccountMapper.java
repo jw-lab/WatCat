@@ -1,7 +1,5 @@
 package com.watcat.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,7 +16,7 @@ public interface AccountMapper {
 
 	public int idCheck(String userId)throws Exception;
 
-	public List<userDto> requestUserList()throws Exception;
+	public Page<userDto> requestUserList() throws Exception;
 
 	public void banUser(String userId)throws Exception;
 
@@ -39,6 +37,10 @@ public interface AccountMapper {
 	public void repostReview(int idx) throws Exception;
 
 	public void banReviewUser(String account) throws Exception;
+
+	public Page<userDto> requestSearchUserList(String query)throws Exception;
+
+	public Page<reviewDto> requestSearchReviewList(String query)throws Exception;
 
 	
 }
