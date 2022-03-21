@@ -8,7 +8,7 @@
 }
 
 .carousel-item img{
-	height: 300px;
+	height: 500px;
 	width: auto;
 	margin: auto;
 }
@@ -168,11 +168,3 @@ star-input>.input.focus{
     overflow: hidden;
 }
 
-/* pagination customizing */
-.custom-pagination.pagination .page-item {
-	margin: 3px;
-}
-.custom-pagination.pagination .page-link{
-	background: gray;
-	border-color: gray;
-}

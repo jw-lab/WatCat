@@ -68,6 +68,17 @@
 		]]>
 	</select>
 	
+		<!--유저검색하기 -->
+	<select id="requestSearchUserList" parameterType="String" resultType="com.watcat.dto.userDto">
+		<![CDATA[ 
+			SELECT
+				user_id,user_pw,admin_permission,deleted_yn
+			FROM
+				user
+			WHERE	
+				user_id LIKE CONCAT('%',#{query},'%')	
+		]]>
+	</select>
 	
 	<!-- 유저정지-->
 	<update id="banUser" parameterType="String">
@@ -112,6 +123,21 @@
 				idx,movie_id,title,content,user_id,created_dt,deleted_yn
 			FROM
 				review
+			ORDER BY
+				idx
+			DESC
+		]]>
+	</select>
+	
+		<!-- 리뷰 검색하기-->
+	<select id="requestSearchReviewList" resultType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			SELECT
+				idx,movie_id,title,content,user_id,created_dt,deleted_yn
+			FROM
+				review
+			WHERE
+				title LIKE CONCAT('%',#{query},'%') OR content LIKE CONCAT('%',#{query},'%') OR  user_id LIKE CONCAT('%',#{query},'%')
 			ORDER BY
 				idx
 			DESC

@@ -24,9 +24,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override //마이페이지 리뷰 리스트
-	public Page<reviewDto> MyreviewList(int pageNum, String userId) throws Exception {
+	public Page<reviewDto> MyreviewList(int pageNum, reviewDto reviewdto) throws Exception {
 		PageHelper.startPage(pageNum, 12);
-		return mypageMapper.MyreviewList(userId);
+		return mypageMapper.MyreviewList(reviewdto);
 	}
 
 	@Override //마이페이지 리뷰 디테일

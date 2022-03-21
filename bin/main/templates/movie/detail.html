@@ -106,7 +106,7 @@ $(document).ready(()=>{
 				});
 			}
 			$("#movieBox").empty();
-			let temp_html = `<div id="movieDataBox" class="col-sm-7">
+			let temp_html = `<div id="movieDataBox" class="col-sm-6 col-md-7">
 				<h1 class="fw-bold mb-3">${title}<span class="text-secondary fs-3">(${originalTitle})</span></h1>
 				<h4 class="fw-bold text-muted">${tagline}</h4>
 				<div class="mb-3 overview clamp"><span>${overview}</span></div>
@@ -197,8 +197,8 @@ $(document).ready(()=>{
 				    </div>
 	            </div>
 			</div>
-			<div id="movieImgBox" class="col-sm-5 row">
-				<div class="col-sm-8 mx-auto">
+			<div id="movieImgBox" class="col-sm-6 col-md-5 row">
+				<div class="col-md-12 col-lg-8 col-xxl-7 mx-auto">
 					<img id="movieImg" alt="영화 이미지" src="${poster}">
 				</div>
 			</div>`;
@@ -208,7 +208,7 @@ $(document).ready(()=>{
 			if(!isEmpty(userId))
 				getWish();
 			
-			addWish();
+			addWish(title);
 			cancelWish();
 			insertReview();
 			starRating();
@@ -242,7 +242,7 @@ $(document).ready(()=>{
 	}
 	
 	//찜하기 추가 버튼 클릭 이벤트
-	function addWish() {
+	function addWish(title) {
 		$("#add-wish").on("click",()=>{
 			if(isEmpty(userId)) {
 				sweetAlert('warning','','로그인이 필요합니다');
@@ -251,7 +251,7 @@ $(document).ready(()=>{
 			$.ajax({
 				type:"POST",
 				url:"/movie/wish",
-				data:{movieId:movieId,userId:userId},
+				data:{movieId:movieId,userId:userId,title:title},
 				success:(response)=>{
 					$("#add-wish").css('display','none');
 					$("#cancel-wish").css('display','block');

@@ -15,7 +15,7 @@ public interface MypageService {
 	void updatePw(userDto userdto) throws Exception; 
 
 	//마이페이지 리뷰 리스트
-	Page<reviewDto> MyreviewList(int pageNum, String userId) throws Exception;
+	Page<reviewDto> MyreviewList(int pageNum, reviewDto reviewdto) throws Exception;
 
 	//마이페이지 리뷰 디테일
 	reviewDto reviewDetail(int idx) throws Exception;

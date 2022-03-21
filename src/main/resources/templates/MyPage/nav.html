@@ -10,8 +10,8 @@
     <!-- 아하 -->
     <nav th:fragment="nav" class="bg2ndColor">
         <div class="text-white mx-auto"  style="padding-top: 180px;">
-            <div class="MyPageSmallListsfont">
-                보관함
+            <div class="MyPageSmallListsfont text-warning">
+                <b>보관함</b>
             </div>
             <a href="/mypage/wishlist">
                 <div class="MyPageListsfont">
@@ -38,8 +38,8 @@
                 </div>
             </a>
 
-            <div class="MyPageSmallListsfont">
-                나의 정보
+            <div class="MyPageSmallListsfont text-warning">
+                <b>나의 정보</b>
             </div>
             <a href="/mypage/pw">
                 <div class="MyPageListsfont">
@@ -51,8 +51,8 @@
                 </div>
             </a>
             <div th:if="${session.adminPermission}=='Y'">
-	            <div class="MyPageSmallListsfont mt-5 pt-3">
-	               	관리자 메뉴
+	            <div class="MyPageSmallListsfont mt-5 pt-3 text-warning">
+	               	<b>관리자 메뉴</b>
 	            </div>
 	            <a href="/admin/account">
 	                <div class="MyPageListsfont">

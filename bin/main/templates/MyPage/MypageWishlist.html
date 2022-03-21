@@ -10,89 +10,60 @@
 <link rel="stylesheet" href="/css/style.css">
 <script>
 	$(document).ready(function() {
-		$.ajax({
-			type : "POST",
-			url : "/mypage/wishlistRequest",
-			success:function(response){
-				var html_resouce="";
-				
 
-				$.each(response, function(index, item){
-					let apiUrl = "https://api.themoviedb.org/3/movie/";
-					let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
-					let language = "&language=ko&append_to_response=credits";
+		ajaxRequest();
 
-<<<<<<< HEAD
-$(document).ready(()=>{
-	
-	
-	let movieId = $("#movieId").val();
-	let apiUrl = "https://api.themoviedb.org/3/movie/";
-	let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
-	let language = "&language=ko&append_to_response=credits";
-	let userId = $("#userId").val();// session에 저장된 userId
-	apiUrl += movieId; 
-	apiUrl += apiKey;
-	apiUrl += language;
-	// 영화 상세정보 get
-	$.ajax({
-		type:"GET",
-		url:apiUrl,
-		success:(response)=>{
-			// 이미지
-			let imageUrl ="https://image.tmdb.org/t/p/original";
-			// 포스터 이미지
-			let poster ="";
-			let posterPath = response.poster_path;
-			if(isEmpty(posterPath)){
-				poster = "../images/noimage.png";
-			} else {
-				poster = imageUrl + posterPath;
-			}
-			// 백드랍 이미지
-			let backdropPath= response.backdrop_path;
-			let backdrop = imageUrl + backdropPath;
-			
-			let title = response.title;
-
-		},
-		error:()=>{
-			alert("get movie details 실패");
-		}
-	});
-})
-=======
-					apiUrl = apiUrl + item.movieId + apiKey + language;
-					let imageUrl ="https://image.tmdb.org/t/p/original"; //포스터 이미지 기본 절대경로
-					let poster ="";
-					let posterPath ="";
-					
-					$.ajax({
-						type : "GET",
-						url : apiUrl,
-						success : function(apiResponse){
-							posterPath = apiResponse.poster_path;
-							if(posterPath == null){
-								poster = "../images/noimage.png";
-							} else {
-								poster = imageUrl + posterPath;
-							}
-
-							html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" width="200px" src="'+poster+'"></div></a>';
-							$("#wishList").append(html_resouce);
-						},
-						error : function(){
-							alert("api ajx 통신오류")
-						}
-					});
-				});
->>>>>>> 93e4f9067669f461f98f591106dd68da1b989e43
-
-			},
-			error:function(){
-				alert("ajax 통신 오류")
-			}
+		$("#btnSearch").on("click", function(){
+			var title = $("#title").val();
+			ajaxRequest(title);
 		});
+
+		function ajaxRequest(title){
+			$("#wishList").text("");
+			$.ajax({
+				type : "POST",
+				data : {"title" : title},
+				url : "/mypage/wishlistRequest",
+				success:function(response){
+					var html_resouce="";
+					
+	
+					$.each(response, function(index, item){
+						let apiUrl = "https://api.themoviedb.org/3/movie/";
+						let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
+						let language = "&language=ko&append_to_response=credits";
+	
+						apiUrl = apiUrl + item.movieId + apiKey + language;
+						let imageUrl ="https://image.tmdb.org/t/p/original"; //포스터 이미지 기본 절대경로
+						let poster ="";
+						let posterPath ="";
+						
+						$.ajax({
+							type : "GET",
+							url : apiUrl,
+							success : function(apiResponse){
+								posterPath = apiResponse.poster_path;
+								if(posterPath == null){
+									poster = "../images/noimage.png";
+								} else {
+									poster = imageUrl + posterPath;
+								}
+	
+								html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" width="200px" src="'+poster+'"></div></a>';
+								$("#wishList").append(html_resouce);
+							},
+							error : function(){
+								alert("api ajx 통신오류")
+							}
+						});
+					});
+	
+				},
+				error:function(){
+					alert("ajax 통신 오류")
+				}
+			});
+		}
 
 	});
 </script>
@@ -107,14 +78,21 @@ $(document).ready(()=>{
 			<!-- 네비게이션 영역 -->
 			<nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 h-100"></nav>
 			<!-- 메인영역 -->
-			<main class="col-lg-9 bg-black text-white"
-				style="padding-top: 100px;">
+			<main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">
+				<H3 class="text-primary text-center"><b>찜 리스트</b></H3>
+				<!-- 검색 영역 -->
+				<div style="width: 300px;" class="mx-auto">
+					<input type="text" id="title" name="title" class="w-100 form-control" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
+					<input type="button" id="btnSearch" value="검색" class="w-100 btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
+				</div>
+				<!-- 위시 리스트 영역 -->
 				<div class="w-100 mx-auto mt-4">
 					<div id="wishList" name="wishList"></div>
 				</div>
+				
 			</main>
 		</div>
+
 	</div>
 </body>
 </html>
-<!-- 업데이트용 주석 -->
