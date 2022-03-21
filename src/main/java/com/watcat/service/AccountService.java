@@ -1,6 +1,6 @@
 package com.watcat.service;
 
-import java.util.List;
+import org.springframework.lang.Nullable;
 
 import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
@@ -14,7 +14,7 @@ public interface AccountService {
 
 	public int idCheck(String userId) throws Exception;
 
-	public List<userDto> requestUserList() throws Exception;
+	public Page<userDto> requestUserList(@Nullable String query,int pageNum) throws Exception;
 
 	public void banUser(String userId) throws Exception;
 
@@ -26,7 +26,7 @@ public interface AccountService {
 
 	public int getPermission(String userId) throws Exception;
 
-	public Page<reviewDto> requestReviewList(int pageNum) throws Exception;
+	public Page<reviewDto> requestReviewList(int pageNum, String query) throws Exception;
 
 	public void deleteReview(int idx)throws Exception;
 
@@ -35,6 +35,7 @@ public interface AccountService {
 	public void repostReview(int idx)throws Exception;
 
 	public void banReviewUser(String account)throws Exception;
+
 
 	
 }

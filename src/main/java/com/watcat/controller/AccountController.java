@@ -1,14 +1,13 @@
 package com.watcat.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -127,17 +126,17 @@ public class AccountController {
 	//계정관리 페이지
 	
 	@RequestMapping(value="/admin/account",method=RequestMethod.GET)
-	public ModelAndView requestUserList() throws Exception{
+	public ModelAndView requestUserList(@RequestParam(required = false,defaultValue = "1") int pageNum,@Nullable@RequestParam("query") String query) throws Exception{
 		ModelAndView mv = new ModelAndView("account/admin/accountManagement");
 		
-		List<userDto> userList = new ArrayList<>();
-		
-		userList = accountService.requestUserList();
-		
+		PageInfo<userDto> userList = new PageInfo<>(accountService.requestUserList(query,pageNum),10);
+	
 		mv.addObject("userList", userList);
+		mv.addObject("query",query);
 		
 		return mv;
 	}
+	
 	
 	//계정 정지,해제
 	@ResponseBody
@@ -164,10 +163,11 @@ public class AccountController {
 	//리뷰관리페이지
 	@ResponseBody
 	@RequestMapping(value="/admin/review",method=RequestMethod.GET)
-	public ModelAndView requestReviewList(@RequestParam(required = false,defaultValue = "1") int pageNum) throws Exception{
+	public ModelAndView requestReviewList(@RequestParam(required = false,defaultValue = "1") int pageNum,@Nullable@RequestParam("query")String query) throws Exception{
 		ModelAndView mv = new ModelAndView("account/admin/reviewManagement");
-		PageInfo<reviewDto> reviewList = new PageInfo<>(accountService.requestReviewList(pageNum),5); 
+		PageInfo<reviewDto> reviewList = new PageInfo<>(accountService.requestReviewList(pageNum,query),5); 
 		mv.addObject("reviewList", reviewList);
+		mv.addObject("query",query);
 		return mv;
 	}
 	
