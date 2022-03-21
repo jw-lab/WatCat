@@ -47,12 +47,19 @@ public class MyPageController {
 	// 마이페이지 리뷰
 	@RequestMapping("mypage/review")
 	public ModelAndView mypageReview(HttpServletRequest httpServletRequest,
-			@RequestParam(required = false, defaultValue = "1") int pageNum) throws Exception {
+			@RequestParam(required = false, defaultValue = "1") int pageNum, 
+			@RequestParam(required = false, defaultValue = "") String title) throws Exception {
 		ModelAndView mv = new ModelAndView("Mypage/MypageReview");
 		HttpSession httpSession = httpServletRequest.getSession();
 		String userId = httpSession.getAttribute("userId").toString();
-		PageInfo<reviewDto> myreview = new PageInfo<reviewDto>(mypageService.MyreviewList(pageNum, userId), 10);
+		reviewDto reviewdto = new reviewDto();
+		reviewdto.setUserId(userId);
+		String returnTitle = title;
+		title = "%"+title+"%";
+		reviewdto.setTitle(title);
+		PageInfo<reviewDto> myreview = new PageInfo<reviewDto>(mypageService.MyreviewList(pageNum, reviewdto), 10);			
 		mv.addObject("reviewList", myreview);
+		mv.addObject("title", returnTitle);
 		return mv;
 	}
 

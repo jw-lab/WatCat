@@ -14,7 +14,7 @@ public interface MypageMapper {
 
 	void updatePw(userDto userdto) throws Exception;
 
-	Page<reviewDto> MyreviewList(String userId) throws Exception;
+	Page<reviewDto> MyreviewList(reviewDto reviewdto) throws Exception;
 
 	reviewDto reviewDetail(int idx) throws Exception;
 

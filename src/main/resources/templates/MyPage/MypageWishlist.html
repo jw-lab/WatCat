@@ -32,13 +32,13 @@
 						url : apiUrl,
 						success : function(apiResponse){
 							posterPath = apiResponse.poster_path;
-							if(posterPath == ""){
+							if(posterPath == null){
 								poster = "../images/noimage.png";
 							} else {
 								poster = imageUrl + posterPath;
 							}
 
-							html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" src="'+poster+'"></div></a>';
+							html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" width="200px" src="'+poster+'"></div></a>';
 							$("#wishList").append(html_resouce);
 						},
 						error : function(){
