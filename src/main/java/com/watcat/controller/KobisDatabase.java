@@ -153,7 +153,7 @@ public class KobisDatabase {
 						System.out.println("조회된 데이터 : " + responseResultNum);
 						System.out.println("Insert Success : " + databaseInsertSuccess);
 						System.out.println("Insert Fail : " + databaseInsertFail);
-						Thread.sleep(1000*60*threadSleep); //1000 = 1초				
+						Thread.sleep(1000*60*threadSleep); //1000 = 1초
 					}
 				}catch(Exception e) {
 					e.printStackTrace();
