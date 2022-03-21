@@ -22,12 +22,12 @@
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">    
                 <div class="w-100 mx-auto mt-3">
-                    <h3>리뷰 리스트</h3>
+                    <h3 class="text-primary"><b>리뷰 리스트</b></h3>
                     <div class="w-100">
                         <div class="w-100">
                             <div th:each="list : ${reviewList.getList()}" class="border border-1 border-light rounded m-2 p-2 float-start" style="width: 260px;">
                                 <div class="text-center">
-                                    <a th:href="@{/mypage/reviewDetail(idx=${list.idx})}"><img th:src="${list.poster}" width="200px"></a>
+                                    <a th:href="@{/mypage/reviewDetail(idx=${list.idx})}"><img th:src="${list.poster}" width="200px" height="300px"></a>
                                 </div>
                                 <div class="p-2">
                                     <p th:text="|제목 : ${list.title}|"></p>  
@@ -40,18 +40,26 @@
                             <H4>'영화 검색' 페이지에서 영화를 선택 후</H4>
                             <H4>글을 작성해 주세요.</H4>
                         </div>
-                        <div>
-                            <ul class="pagination justify-content-center w-100 mx-auto pt-5">
-                                <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'disabled'">
-                                <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()})}">Prev</a>
-                                </li>
-                                <li class="page-item" th:each="page: ${#numbers.sequence(reviewList.getNavigateFirstPage(), reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
-                                <a class="page-link text-black" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page})}"></a>
-                                </li>
-                                <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'disabled'">
-                                <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()})}">Next</a>
-                                </li>
-                            </ul>
+                        <div class="row my-5 float-start w-100" >
+                            <div class="col-6 mx-auto">
+                                <ul class="pagination justify-content-center mx-auto">
+                                    <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'disabled'">
+                                    <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()}, title=${title})}">Prev</a>
+                                    </li>
+                                    <li class="page-item" th:each="page: ${#numbers.sequence(reviewList.getNavigateFirstPage(), reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
+                                    <a class="page-link text-black" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page}, title=${title})}"></a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'disabled'">
+                                    <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()}, title=${title})}">Next</a>
+                                    </li>
+                                </ul>
+                                <div >
+                                    <form action="/mypage/review" method="get" style="width: 400px;" class="mx-auto">
+                                        <input type="text" th:value="${title}" id="title" name="title" class="w-100 form-control" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
+                                        <input type="submit" id="btnSearch" value="검색" class="w-100 btn btn-danger" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     

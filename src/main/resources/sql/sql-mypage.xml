@@ -12,11 +12,12 @@
 	</select>
 
 	<!-- 마이 리뷰 리스트-->
-	<select id="MyreviewList" parameterType="String" resultType="com.watcat.dto.reviewDto">
+	<select id="MyreviewList" parameterType="com.watcat.dto.reviewDto" resultType="com.watcat.dto.reviewDto">
 		<![CDATA[
 			SELECT * 
 			FROM review 
-			WHERE user_id = #{userId} AND deleted_yn = 'N'
+			WHERE user_id = #{userId} AND deleted_yn = 'N'AND title like #{title}
+			ORDER BY created_dt desc
 		]]>
 	</select>
 
@@ -80,8 +81,8 @@
 		<![CDATA[ 
 			SELECT *
 			FROM wishlist
-			WHERE user_id = #{userId}
-			ORDER BY created_dt
+			WHERE user_id = #{userId} and title like #{title}
+			ORDER BY created_dt desc
 		]]>
 	</select>
 

@@ -208,7 +208,7 @@ $(document).ready(()=>{
 			if(!isEmpty(userId))
 				getWish();
 			
-			addWish();
+			addWish(title);
 			cancelWish();
 			insertReview();
 			starRating();
@@ -242,7 +242,7 @@ $(document).ready(()=>{
 	}
 	
 	//찜하기 추가 버튼 클릭 이벤트
-	function addWish() {
+	function addWish(title) {
 		$("#add-wish").on("click",()=>{
 			if(isEmpty(userId)) {
 				sweetAlert('warning','','로그인이 필요합니다');
@@ -251,7 +251,7 @@ $(document).ready(()=>{
 			$.ajax({
 				type:"POST",
 				url:"/movie/wish",
-				data:{movieId:movieId,userId:userId},
+				data:{movieId:movieId,userId:userId,title:title},
 				success:(response)=>{
 					$("#add-wish").css('display','none');
 					$("#cancel-wish").css('display','block');
