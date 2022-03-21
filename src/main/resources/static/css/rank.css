@@ -17,11 +17,43 @@
 	top: 0px;
 	left: 0px;
 	right: 0px;
-	bottom: 0px; 
+	bottom: 0px;
 	color: white;
 }
 
-body{
-	/* background : rgb(26, 26, 26); */
-    background: url(/images/back.jpg) ;
+body {
+	background: url(/images/back_90.png);
+	background-color: #11ffee00;
+	font-weight: bold;
+	color: white;
+}
+/* 
+body {
+	background: url(/images/pop.jpg);
+	background-color: #11ffee00;;
+	color: black !important;
+	font-weight: bold;
+} */
+.ui-datepicker {
+	margin-left: 100px;
+	z-index: 1000;
+}
+
+li span {
+	text-shadow: -1px 0 rgb(153, 153, 153), 0 1px rgb(153, 153, 153), 1px 0
+		rgb(153, 153, 153), 0 -1px rgb(153, 153, 153);
+}
+
+#mv {
+	box-shadow: -0.5px 0 rgb(153, 153, 153), 0 0.5px rgb(153, 153, 153),
+		0.5px 0 rgb(153, 153, 153), 0 -0.5px rgb(153, 153, 153);
+}
+
+/* .h5 {
+	color: balck import!;
+}
+ */
+#title {
+	text-shadow: -1px 0 rgb(153, 153, 153), 0 1px rgb(153, 153, 153), 1px 0
+		rgb(153, 153, 153), 0 -1px rgb(153, 153, 153);
 }

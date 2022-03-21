@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.watcat.mapper.MypageMapper">
-	
+
 	<!-- 비밀번호 변경-->
 	<select id="updatePw" parameterType="com.watcat.dto.userDto">
 		<![CDATA[ 
@@ -10,7 +10,7 @@
 			WHERE user_id = #{userId}
 		]]>
 	</select>
-	
+
 	<!-- 마이 리뷰 리스트-->
 	<select id="MyreviewList" parameterType="String" resultType="com.watcat.dto.reviewDto">
 		<![CDATA[
@@ -19,14 +19,14 @@
 			WHERE user_id = #{userId} AND deleted_yn = 'N'
 		]]>
 	</select>
-	
+
 	<!-- 리뷰 디테일-->
 	<select id="reviewDetail" parameterType="int" resultType="com.watcat.dto.reviewDto">
 		<![CDATA[ 
 			SELECT * FROM review WHERE idx = ${idx}
 		]]>
 	</select>
-	
+
 	<!-- 리뷰 업데이트-->
 	<select id="myReviewUpdate" parameterType="com.watcat.dto.reviewDto">
 		<![CDATA[ 
@@ -38,7 +38,7 @@
 			WHERE idx = ${idx}
 		]]>
 	</select>
-	
+
 	<!-- 마이 리뷰 삭제-->
 	<update id="myReviewDelete" parameterType="com.watcat.dto.reviewDto">
 		<![CDATA[ 
@@ -47,9 +47,9 @@
 			WHERE idx = ${idx}
 		]]>
 	</update>
-	
+
 	<!--삭제된 리뷰 리스트 불러오기-->
-		<select id="MyreviewTrashList" parameterType="String" resultType="com.watcat.dto.reviewDto">
+	<select id="MyreviewTrashList" parameterType="String" resultType="com.watcat.dto.reviewDto">
 		<![CDATA[
 			SELECT * 
 			FROM review 
@@ -57,15 +57,15 @@
 			AND deleted_yn = 'Y'
 		]]>
 	</select>
-	
+
 	<!--휴지통 리뷰 영구 삭제-->
-		<update id="MyreviewTrashDelete" parameterType="com.watcat.dto.reviewDto">
+	<update id="MyreviewTrashDelete" parameterType="com.watcat.dto.reviewDto">
 		<![CDATA[ 
 			DELETE FROM review
 			WHERE idx = ${idx}
 		]]>
 	</update>
-	
+
 	<!--휴지통 리뷰 복구-->
 	<update id="MyreviewTrashRe" parameterType="com.watcat.dto.reviewDto">
 		<![CDATA[ 
@@ -74,5 +74,15 @@
 			WHERE idx = ${idx}
 		]]>
 	</update>
-	
+
+	<!-- 리뷰 찜리스트-->
+	<select id="MyreviewWishList" parameterType="com.watcat.dto.movie.MovieWishDto" resultType="com.watcat.dto.movie.MovieWishDto">
+		<![CDATA[ 
+			SELECT *
+			FROM wishlist
+			WHERE user_id = #{userId}
+			ORDER BY created_dt
+		]]>
+	</select>
+
 </mapper>

@@ -15,17 +15,17 @@
         <header th:include="Header :: header" class="fixed-top px-0 mx-0">
         </header>
         
-        <div class="row h-100 bg2ndColor">
+        <div class="row bg2ndColor">
             <!-- 네비게이션 영역 -->
-            <nav th:include="/Mypage/nav :: nav" class="col-lg-3  px-5 h-100">
+            <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 h-100">
             </nav>
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">    
-                <div class="w-75 mx-auto mt-3">
+                <div class="w-100 mx-auto mt-3">
                     <h3>리뷰 리스트</h3>
                     <div class="w-100">
                         <div class="w-100">
-                            <div th:each="list : ${reviewList.getList()}" class="border border-1 border-light rounded m-2 p-2 float-start" style="width: 270px;">
+                            <div th:each="list : ${reviewList.getList()}" class="border border-1 border-light rounded m-2 p-2 float-start" style="width: 260px;">
                                 <div class="text-center">
                                     <a th:href="@{/mypage/reviewDetail(idx=${list.idx})}"><img th:src="${list.poster}" width="200px"></a>
                                 </div>
@@ -40,18 +40,28 @@
                             <H4>'영화 검색' 페이지에서 영화를 선택 후</H4>
                             <H4>글을 작성해 주세요.</H4>
                         </div>
-                        <div>
-                            <ul class="pagination justify-content-center w-100 mx-auto pt-5">
-                                <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'disabled'">
-                                <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()})}">Prev</a>
-                                </li>
-                                <li class="page-item" th:each="page: ${#numbers.sequence(reviewList.getNavigateFirstPage(), reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
-                                <a class="page-link text-black" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page})}"></a>
-                                </li>
-                                <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'disabled'">
-                                <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()})}">Next</a>
-                                </li>
-                            </ul>
+                        <div class="row">
+                            <div class="col-6 mx-auto">
+                                <ul class="pagination justify-content-center w-100 mx-auto pt-5">
+                                    <li class="page-item" th:classappend="${reviewList.getPrePage() == 0} ? 'disabled'">
+                                    <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getPrePage()})}">Prev</a>
+                                    </li>
+                                    <li class="page-item" th:each="page: ${#numbers.sequence(reviewList.getNavigateFirstPage(), reviewList.getNavigateLastPage())}" th:classappend="${page == reviewList.getPageNum()} ? 'active'">
+                                    <a class="page-link text-black" th:text="${page}" th:href="@{/mypage/review/(pageNum=${page})}"></a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${reviewList.getNextPage() == 0} ? 'disabled'">
+                                    <a class="page-link text-black" th:href="@{/mypage/review(pageNum=${reviewList.getNextPage()})}">Next</a>
+                                    </li>
+                                </ul>
+                                <div class="row mb-5">
+                                    <div class="col-10">
+                                        <input type="text" id="inputSearch" class="w-100">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="submit" id="btnSearch" value="검색" class="w-100">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     

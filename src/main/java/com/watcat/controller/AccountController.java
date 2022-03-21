@@ -91,7 +91,6 @@ public class AccountController {
 		session.removeAttribute("adminPermission");
 		session.invalidate();
 		
-		
 	}
 	
 	//회원가입 페이지

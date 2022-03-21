@@ -27,7 +27,6 @@ public class KobisController {
 
 		List<DailyBoxOfficeDto> kobis = kobisService.getDailyBoxOffice(strUrl);
 		return kobis;
-
 	}
 
 

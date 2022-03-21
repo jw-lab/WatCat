@@ -36,4 +36,65 @@
 			ORDER BY search_dt desc;
 		]]>
 	</select>
+	
+	<!-- // 랭킹 1위 최다수 영화-->
+	<select id="Rank1Best" resultType="com.watcat.dto.Kobis.KobisDatabaseDto">
+		<![CDATA[ 
+			SELECT row_number() over(order by count(k.rank) desc) as 'rank' ,movie_nm, count(k.rank) AS 'count', open_dt
+			FROM kobis_movie k
+			WHERE k.rank = 1
+			GROUP BY movie_nm, open_dt
+			limit 10;	
+		]]>
+	</select>
+	
+	<!-- // 랭킹 진입 최다수 영화-->
+	<select id="RankInBest" resultType="com.watcat.dto.Kobis.KobisDatabaseDto">
+		<![CDATA[ 
+			SELECT row_number() over(order by count(k.rank) desc) as 'rank', movie_nm,count(k.rank) AS 'count', open_dt
+			FROM kobis_movie k
+			GROUP BY movie_nm, open_dt
+			limit 10;
+		]]>
+	</select>
+	
+	<!-- // 일매출 랭킹-->
+	<select id="SalesByDayBest" resultType="com.watcat.dto.Kobis.KobisDatabaseDto">
+		<![CDATA[ 
+			SELECT row_number() over(order by max(sales_amt) desc) as 'rank', movie_nm, open_dt, format( max(sales_amt) * 0.000000001, 2) as sales_amt
+			FROM kobis_movie
+			group by movie_nm, open_dt
+			limit 10;
+		]]>
+	</select>
+	
+	<!-- // 누적 매출 랭킹-->
+	<select id="SalesBest" resultType="com.watcat.dto.Kobis.KobisDatabaseDto">
+		<![CDATA[ 
+			SELECT row_number() over(order by max(sales_acc) desc) as 'rank', movie_nm, open_dt, format( max(sales_acc) * 0.000000001, 2) as sales_amt
+			FROM kobis_movie
+			group by movie_nm, open_dt
+			limit 10;
+		]]>
+	</select>
+	
+	<!-- // 당일 관객수 랭킹-->
+	<select id="AudiCntBest" resultType="com.watcat.dto.Kobis.KobisDatabaseDto">
+		<![CDATA[ 
+		SELECT row_number() over(order by max(audi_cnt) desc) as 'rank', movie_nm, open_dt, format( max(audi_cnt) * 0.0001 , 2) as audi_cnt
+		FROM kobis_movie
+		group by movie_nm, open_dt
+		limit 10;	
+		]]>
+	</select>
+	
+	<!-- // 누적 관객수 랭킹-->
+	<select id="AudiAccBest" resultType="com.watcat.dto.Kobis.KobisDatabaseDto">
+		<![CDATA[ 
+		SELECT row_number() over(order by max(audi_acc) desc) as 'rank', movie_nm, open_dt, format( max(audi_acc) * 0.0001 , 2) as audi_acc
+		FROM kobis_movie
+		group by movie_nm, open_dt
+		limit 10;	
+		]]>
+	</select>
 </mapper>
