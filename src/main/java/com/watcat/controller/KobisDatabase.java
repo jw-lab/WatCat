@@ -131,7 +131,6 @@ public class KobisDatabase {
 						yesterDay = LocalDate.now().minusDays(1);
 						strYesterDay = yesterDay.toString();
 						replaceYesterDay = strYesterDay.replace("-", "");
-						replaceYesterDay = "20220319";
 						
 						if (checkDate(strYesterDay) == true) {
 							strUrl += replaceYesterDay;

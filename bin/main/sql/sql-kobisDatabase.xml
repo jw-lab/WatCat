@@ -23,7 +23,7 @@
 				#{audiChange}, 
 				#{audiAcc},  
 				#{scrnCnt}, 
-				#{showCnt} );
+				#{showCnt});
 		]]>
 	</insert>
 	
