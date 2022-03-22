@@ -8,65 +8,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
-<script>
-	$(document).ready(function() {
-
-		ajaxRequest();
-
-		$("#btnSearch").on("click", function(){
-			var title = $("#title").val();
-			ajaxRequest(title);
-		});
-
-		function ajaxRequest(title){
-			$("#wishList").text("");
-			$.ajax({
-				type : "POST",
-				data : {"title" : title},
-				url : "/mypage/wishlistRequest",
-				success:function(response){
-					var html_resouce="";
-					
-	
-					$.each(response, function(index, item){
-						let apiUrl = "https://api.themoviedb.org/3/movie/";
-						let apiKey = "?api_key=a1c25fa7fbd7117d8d4d73bf1892deae";
-						let language = "&language=ko&append_to_response=credits";
-	
-						apiUrl = apiUrl + item.movieId + apiKey + language;
-						let imageUrl ="https://image.tmdb.org/t/p/original"; //포스터 이미지 기본 절대경로
-						let poster ="";
-						let posterPath ="";
-						
-						$.ajax({
-							type : "GET",
-							url : apiUrl,
-							success : function(apiResponse){
-								posterPath = apiResponse.poster_path;
-								if(posterPath == null){
-									poster = "../images/noimage.png";
-								} else {
-									poster = imageUrl + posterPath;
-								}
-	
-								html_resouce = '<a href="/movie/detail?movieId='+item.movieId+'"><div class="border border-1 border-white rounded m-2 p-2 float-start text-center" style="width : 250px;"><img height="300px" width="200px" src="'+poster+'"></div></a>';
-								$("#wishList").append(html_resouce);
-							},
-							error : function(){
-								alert("api ajx 통신오류")
-							}
-						});
-					});
-	
-				},
-				error:function(){
-					alert("ajax 통신 오류")
-				}
-			});
-		}
-
-	});
-</script>
 </head>
 <body class="bg-black" style="height: 100%;">
 	<div style="height: 100%;">
@@ -79,17 +20,48 @@
 			<nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 h-100"></nav>
 			<!-- 메인영역 -->
 			<main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">
-				<H3 class="text-primary"><b>찜 리스트</b></H3>
-				<!-- 검색 영역 -->
-				<div style="width: 300px;">
-					<input type="text" id="title" name="title" class="w-100 form-control" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
-					<input type="button" id="btnSearch" value="검색" class="w-100 btn btn-primary" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
-				</div>
-				<!-- 위시 리스트 영역 -->
-				<div class="w-100 mx-auto mt-4">
-					<div id="wishList" name="wishList"></div>
-				</div>
-				
+				<div class="w-100 mx-auto mt-3">
+                    <h3 class="text-primary"><b>Wish List</b></h3>
+                    <div class="w-100">
+                        <div class="w-100">
+                            <div th:each="list : ${wishList.getList()}" class="border border-1 border-light rounded m-2 p-2 float-start" style="width: 260px;">
+                                <div class="text-center">
+									<a th:href="@{/movie/detail(movieId=${list.movieId})}"><img th:src="${list.poster}" width="200px" height="300px"></a>
+                                </div>
+                                <div class="p-2">
+                                    <p th:text="|찜 하기 날짜 : |"></p>
+									<p th:text="${list.createdDt}"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:unless="${#lists.size(wishList.getList())} > 0" class="text-center border border-1 border-light rounded m-2 p-2 pt-2 mx-auto">
+                            <H1>찜 해둔 영화가 없습니다..</H1>
+                            <H4>'영화 검색' 페이지에서 영화를 선택 후</H4>
+                            <H4>관심 영화를 찜해주세요.</H4>
+                        </div>
+                        <div class="row my-5 float-start w-100" >
+                            <div class="col-6 mx-auto">
+                                <ul class="pagination custom-pagination justify-content-center mx-auto">
+                                    <li class="page-item" th:classappend="${wishList.getPrePage() == 0} ? 'd-none'">
+                                    <a class="page-link" th:href="@{/mypage/wishlist(pageNum=${wishList.getPrePage()}, title=${title})}">Prev</a>
+                                    </li>
+                                    <li class="page-item" th:each="page: ${#numbers.sequence(wishList.getNavigateFirstPage(), wishList.getNavigateLastPage())}" th:classappend="${page == wishList.getPageNum()} ? 'active'">
+                                    <a class="page-link" th:text="${page}" th:href="@{/mypage/wishlist/(pageNum=${page}, title=${title})}"></a>
+                                    </li>
+                                    <li class="page-item" th:classappend="${wishList.getNextPage() == 0} ? 'd-none'">
+                                    <a class="page-link" th:href="@{/mypage/wishlist(pageNum=${wishList.getNextPage()}, title=${title})}">Next</a>
+                                    </li>
+                                </ul>
+                                <div >
+                                    <form action="/mypage/review" method="get" style="width: 400px;" class="mx-auto">
+                                        <input type="text" th:value="${title}" id="title" name="title" class="w-100 form-control" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
+                                        <input type="submit" id="btnSearch" value="검색" class="w-100 btn btn-danger" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			</main>
 		</div>
 

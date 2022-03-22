@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
@@ -40,8 +39,18 @@ public class MyPageController {
 
 	// 마이페이지 wishlist 페이지
 	@RequestMapping("mypage/wishlist")
-	public ModelAndView mypageWishlist() throws Exception {
+	public ModelAndView mypageWishlist(HttpServletRequest httpServletRequest, 
+			@RequestParam(required = false, defaultValue = "1") int pageNum, 
+			@RequestParam(required = false, defaultValue = "") String title) throws Exception {
 		ModelAndView mv = new ModelAndView("MyPage/MypageWishlist");
+		HttpSession httpSession = httpServletRequest.getSession();
+		MovieWishDto movieWishDto = new MovieWishDto();
+		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
+		title = "%" + title + "%";
+		movieWishDto.setTitle(title);
+		PageInfo<MovieWishDto> wishList = new PageInfo<MovieWishDto>(mypageService.MyreviewWishList(pageNum, movieWishDto), 10);
+		
+		mv.addObject("wishList", wishList);
 		mv.addObject("pageName", "mypageWishlist");
 		return mv;
 	}
@@ -141,17 +150,4 @@ public class MyPageController {
 //		return "redirect:/mypage/trash";
 //	}
 //	
-	//wish리스트 데이터 요청
-	@ResponseBody
-	@RequestMapping("mypage/wishlistRequest")
-	public Object WishList(HttpServletRequest httpServletRequest,
-			@RequestParam(required = false, defaultValue = "") String title) throws Exception{
-		HttpSession httpSession = httpServletRequest.getSession();
-		MovieWishDto movieWishDto = new MovieWishDto();
-		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
-		title = "%" + title + "%";
-		movieWishDto.setTitle(title);
-		return mypageService.MyreviewWishList(movieWishDto);
-	}
-
 }

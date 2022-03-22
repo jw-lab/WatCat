@@ -15,14 +15,14 @@
         <header th:include="Header :: header" class="fixed-top px-0 mx-0">
         </header>
         
-        <div class="row bg2ndColor">
+        <div class="row bg2ndColor  h-100">
             <!-- 네비게이션 영역 -->
             <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 h-100">
             </nav>
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">    
                 <div class="w-100 mx-auto mt-3">
-                    <h3 class="text-primary"><b>리뷰 리스트</b></h3>
+                    <h3 class="text-primary"><b>My Review</b></h3>
                     <div class="w-100">
                         <div class="w-100">
                             <div th:each="list : ${reviewList.getList()}" class="border border-1 border-light rounded m-2 p-2 float-start" style="width: 260px;">
@@ -62,7 +62,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </main>
         </div>

@@ -1,7 +1,5 @@
 package com.watcat.mapper;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.github.pagehelper.Page;
@@ -31,8 +29,6 @@ public interface MypageMapper {
 	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
 
 	// 마이-찜 리스트
-	Page<reviewDto> myreviewWishList(String userId) throws Exception;
-
-	List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception;
+	Page<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception;
 	
 }
