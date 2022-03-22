@@ -29,11 +29,7 @@
 } */
 
 body {
-<<<<<<< HEAD
-	background: url(/images/popcorn.jpg);
-=======
-	background: url(/images/seat2.jpg);
->>>>>>> 715733389f920c2b68f6d26f763d4f289baba793
+	background: url(/images/black.jpg);
 	background-color: #11ffee00;
 	font-weight: bold;
 	color: black !important;
