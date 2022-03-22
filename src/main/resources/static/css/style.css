@@ -74,3 +74,7 @@ a:link{color:rgb(255, 255, 255)}
 }
 
 /* mypage nav a태그 */
+.navFocus{
+	background-color: rgb(65, 65, 65);
+	border-radius: 5px;
+}

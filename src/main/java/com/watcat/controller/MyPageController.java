@@ -32,8 +32,10 @@ public class MyPageController {
 
 	// 마이페이지 비밀번호
 	@RequestMapping("mypage/pw")
-	public String mypagePw() {
-		return "Mypage/MypagePW";
+	public ModelAndView mypagePw() {
+		ModelAndView mv = new ModelAndView("Mypage/MypagePW");
+		mv.addObject("pageName", "mypagePw");
+		return mv;
 	}
 
 	// 마이페이지 찜페이지
