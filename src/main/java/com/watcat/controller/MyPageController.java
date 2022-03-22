@@ -38,10 +38,12 @@ public class MyPageController {
 		return mv;
 	}
 
-	// 마이페이지 찜페이지
+	// 마이페이지 wishlist 페이지
 	@RequestMapping("mypage/wishlist")
-	public String mypageWishlist() throws Exception {
-		return "MyPage/MypageWishlist";
+	public ModelAndView mypageWishlist() throws Exception {
+		ModelAndView mv = new ModelAndView("MyPage/MypageWishlist");
+		mv.addObject("pageName", "mypageWishlist");
+		return mv;
 	}
 
 	// 마이페이지 리뷰
@@ -60,6 +62,7 @@ public class MyPageController {
 		PageInfo<reviewDto> myreview = new PageInfo<reviewDto>(mypageService.MyreviewList(pageNum, reviewdto), 10);			
 		mv.addObject("reviewList", myreview);
 		mv.addObject("title", returnTitle);
+		mv.addObject("pageName", "mypageReview");
 		return mv;
 	}
 
@@ -73,17 +76,17 @@ public class MyPageController {
 		PageInfo<reviewDto> myreviewTrash = new PageInfo<reviewDto>(mypageService.MyreviewTrashList(pageNum, userId),
 				10);
 		mv.addObject("trash", myreviewTrash);
+		mv.addObject("pageName", "mypageTrash");
 		return mv;
 	}
 
 	// 마이페이지 비밀번호 변경
 	@RequestMapping(value = "mypage/updatepw", method = RequestMethod.POST)
 	public String updatePw(HttpServletRequest httpServletRequest, userDto userdto) throws Exception {
-
 		HttpSession httpSession = httpServletRequest.getSession();
 		userdto.setUserId(httpSession.getAttribute("userId").toString());
 		mypageService.updatePw(userdto);
-		return "Mypage/MyPage";
+		return "redirect:/mypage/pw";
 	}
 
 	// 리뷰 디테일
@@ -92,6 +95,7 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView("MyPage/MypageReviewDetail");
 		reviewDto reviewDetail = mypageService.reviewDetail(idx);
 		mv.addObject("reviewDetail", reviewDetail);
+		mv.addObject("pageName", "mypageReview");
 		return mv;
 	}
 

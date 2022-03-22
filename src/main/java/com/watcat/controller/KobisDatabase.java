@@ -27,8 +27,10 @@ public class KobisDatabase {
 	KobisDatabaseService kobisDatabaseService;
 
 	@RequestMapping("kobis/requestInput")
-	public String requestInput() {
-		return "Mypage/KobisRequestInput";
+	public ModelAndView KobisRequestInput() {
+		ModelAndView mv = new ModelAndView("Mypage/KobisRequestInput");
+		mv.addObject("pageName", "KobisRequestInput");
+		return mv;
 	}
 
 	// 수집된 api데이터 리스트형태로 리턴

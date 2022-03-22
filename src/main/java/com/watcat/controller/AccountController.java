@@ -132,6 +132,7 @@ public class AccountController {
 	
 		mv.addObject("userList", userList);
 		mv.addObject("query",query);
+		mv.addObject("pageName", "requestUserList");
 		
 		return mv;
 	}
@@ -167,6 +168,7 @@ public class AccountController {
 		PageInfo<reviewDto> reviewList = new PageInfo<>(accountService.requestReviewList(pageNum,query),5); 
 		mv.addObject("reviewList", reviewList);
 		mv.addObject("query",query);
+		mv.addObject("pageName", "requestReviewList");
 		return mv;
 	}
 	
