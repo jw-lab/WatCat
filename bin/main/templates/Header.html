@@ -30,10 +30,8 @@
 	crossorigin="anonymous"></script>
 
 <style>
-/* dropdown-menu:hover{
-} */
-dropdown-item:hover{
-color:black !important;
+li:hover {
+	color: black;
 }
 </style>
 </head>
@@ -47,14 +45,15 @@ color:black !important;
 						style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: rgb(182, 0, 55);">
 						WaTCaT</a>
 				</div>
-				<!-- 왼쪽정렬 메뉴 -->
-
+				
 				<div class="col-8 mt-2 text-white navbar-top-menu">
 					<div class="float-end mx-1 headerLink"
 						th:if="${session.userId != null}">
 						<div class="dropdown ">
 							<!-- <button > -->
-								<img src="/images/p.png" style="width: 70px; position: relative; bottom:10px;" class="btn dropdown-toggle" type="button"
+							<img src="/images/p.png"
+								style="width: 70px; position: relative; bottom: 10px;"
+								class="btn dropdown-toggle" type="button"
 								id="dropdownMenuButton1" data-bs-toggle="dropdown"
 								aria-expanded="false">
 							<!-- </button> -->
@@ -149,7 +148,7 @@ color:black !important;
 				      	<ul class="navbar-nav">
 				      	     
 				          <li class="nav-item me-auto">
-				            <button class="container-fluid text-start text-danger" onclick="location.href='/search'">
+				            <button class="container-fluid text-start text-white" onclick="location.href='/search'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 									fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
 									<path
@@ -160,7 +159,7 @@ color:black !important;
 				          </li>
 				          
 				           <li class="nav-item me-auto">
-				            	<button class="container-fluid text-start text-danger" onclick="location.href='/'">
+				            	<button class="container-fluid text-start text-white" onclick="location.href='/'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 									fill="currentColor" class="bi bi-journal-richtext"
 									viewBox="0 0 16 16">
@@ -176,7 +175,7 @@ color:black !important;
 				          </li>
 				          
 				          <li class="nav-item me-auto">
-				           	<button class="container-fluid text-start text-danger" onclick="location.href='/watcat/kobis'">
+				           	<button class="container-fluid text-start text-white" onclick="location.href='/watcat/kobis'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 									fill="currentColor" class="bi bi-trophy-fill"
 									viewBox="0 0 16 16">
@@ -188,7 +187,7 @@ color:black !important;
 				          </li>
 				          
 				           <li class="nav-item me-auto">
-				            	<button class="container-fluid text-start text-danger" onclick="location.href='/kobis/total'">
+				            	<button class="container-fluid text-start text-white" onclick="location.href='/kobis/total'">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
 								  <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
 								</svg>
@@ -209,10 +208,9 @@ color:black !important;
 								로그인
 
 							</button>
-				          </li>
-				          
+				          </li>          
 				           <li class="nav-item"  th:if="${session.userId}!=null">
-				            <button class="container-fluid text-start text-danger btn-logout">
+				            <button class="container-fluid text-start text-danger text-start btn-logout">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 									fill="currentColor" class="bi bi-door-open-fill"
 									viewBox="0 0 16 16">
@@ -235,7 +233,6 @@ color:black !important;
 				        </ul>
 				      </div>  
 				     </div>
-				
 				<div>
 					<!-- 로그아웃 ajax -->
 					<script
