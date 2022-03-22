@@ -19,9 +19,23 @@
 }
 
 #movieImgBox img {
-	width: 100%;
-	height: 100%;
+	width: 250px;
+	height: auto;
 	object-fit: cover;
+}
+
+@media (max-width: 768px) {
+	th {
+		font-size: 12px;
+	}
+}
+
+@media (min-width: 768px) {
+	#movieImgBox img {
+	width: 280px;
+	height: auto;
+	object-fit: cover;
+	}
 }
 
 /* 모달창-커스텀 */
