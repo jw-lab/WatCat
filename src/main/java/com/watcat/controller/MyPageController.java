@@ -129,12 +129,12 @@ public class MyPageController {
 	}
 
 	//
-	@RequestMapping(value = "mypage/trash/re/{idx}", method = RequestMethod.GET)
-	public String mypageTrashReG(reviewDto reviewdto) throws Exception {
-		mypageService.MyreviewTrashRe(reviewdto);
-		return "redirect:/mypage/trash";
-	}
-	
+//	@RequestMapping(value = "mypage/trash/re/{idx}", method = RequestMethod.GET)
+//	public String mypageTrashReG(reviewDto reviewdto) throws Exception {
+//		mypageService.MyreviewTrashRe(reviewdto);
+//		return "redirect:/mypage/trash";
+//	}
+//	
 	//wish리스트 데이터 요청
 	@ResponseBody
 	@RequestMapping("mypage/wishlistRequest")
