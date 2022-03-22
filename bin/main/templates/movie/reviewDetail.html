@@ -55,10 +55,10 @@
 				
 				$("#review-box").empty();
 				let temp_html = `<div class="row g-3 mt-5">
-            	<div class="col-sm-6 d-flex justify-content-center">
+            	<div class="col-md-6 d-flex justify-content-center">
             	<a href="/movie/detail?movieId=${movieId}"><img src="${poster}" width="250px"></a>
             	</div>
-                <div class="col-sm-6 ">
+                <div class="col-md-6">
                 	<div class="p-0 form-floating">
 	                    <input type="text" id="title" name="title" class="form-control bg-black text-white" value="${title}"  readonly>
 	                    <label>영화 제목</label>
@@ -90,7 +90,7 @@
 	            </div>
 	            <div class="col-sm-6 p-0 form-floating">
 	                <input type="number" max="10" id="rating" name="rating" class="form-control bg-black text-white" value="${rating}" readonly>
-	                <label>개인 평점 <small>(최대 10점 입니다.)</small></label>
+	                <label>개인 평점 <small>(최대 10점)</small></label>
 	            </div>
 	            <div class="col-sm-6 p-0 form-floating">
 	                <input type="number" id="hitCnt" name="hitCnt" class="form-control bg-black text-white" value="${hitCnt}" readonly>
