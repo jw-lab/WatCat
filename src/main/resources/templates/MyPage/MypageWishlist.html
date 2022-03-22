@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-black" style="height: 100%;">
-	<div style="height: 100%;">
+	<div>
 		<!-- 헤더 영역 -->
 		<header th:include="Header :: header" class="fixed-top px-0 mx-0">
 		</header>
@@ -29,7 +29,7 @@
 									<a th:href="@{/movie/detail(movieId=${list.movieId})}"><img th:src="${list.poster}" width="200px" height="300px"></a>
                                 </div>
                                 <div class="p-2">
-                                    <p th:text="|찜 하기 날짜 : |"></p>
+                                    <p th:text="|찜 Date|"></p>
 									<p th:text="${list.createdDt}"></p>
                                 </div>
                             </div>
