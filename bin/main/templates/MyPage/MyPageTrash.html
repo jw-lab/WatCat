@@ -22,6 +22,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
+<link href="/Mypage/MypageTrash_m.html" type="text/html" media="screen and (max-width:899px)">
 <script>
 	$(document).ready(function() {
 		var idx = 0;
@@ -78,17 +79,17 @@
 										<input type="hidden" id="method" name="_method">
 										<div class="col-3 mt-4 ms-4">
 											<!-- 포스터이미지 -->
-											<a href="https://www.themoviedb.org/movie/"
+											<a href="/movie/detail?movieId="
 												th:attrappend="href=${list.movieId}" target='_blank'
 												title="영화정보 보러가기"><img th:src="${list.poster}"
-												width="200px"></a>
+												width="100%%"></a>
 										</div>
 
 
 										<!-- 영화 정보 -->
 										<div class="col ms-4 mt-4">
 											<div class="row">
-												<a href="https://www.themoviedb.org/movie/"
+												<a href="/movie/detail?movieId="
 													th:attrappend="href=${list.movieId}" target='_blank'
 													class="h4 col-auto" th:text="${list.title}"
 													style="font-weight: bold;" title="영화정보 보러가기"></a>
@@ -212,7 +213,7 @@
 						<!--  -->
 						<div th:if="${#lists.size(trash.getList())}>1">
 							<div class="mt-5" style="color: black;" id="paging">
-								<ul class="pagination justify-content-center">
+								<ul class="pagination justify-content-center custom-pagination">
 									<li class="page-item"
 										th:classappend="${trash.getPrePage() == 0} ? 'disabled'"><a
 										class="page-link text-black"
