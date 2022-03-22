@@ -42,9 +42,12 @@ a:link{color:rgb(255, 255, 255)}
 	color: rgb(182, 0, 55);
 }
 
-.custom-pagination.pagination > .active > a, 
-.custom-pagination.pagination > .active > a:hover, 
-.custom-pagination.pagination > .active > a:focus {
-  background: rgb(182, 0, 55);;
-  border-color: rgb(182, 0, 55);;
+.custom-pagination.pagination > .active > a {
+  background: rgb(182, 0, 55);
+  border-color: rgb(182, 0, 55);
 }
+.custom-pagination.pagination > .active a:hover {
+	color:  rgb(31,32,35);
+}
+
+/* mypage nav a태그 */

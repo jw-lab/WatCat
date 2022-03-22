@@ -81,7 +81,7 @@ public class AccountController {
 	
 	//로그아웃
 	@ResponseBody
-	@RequestMapping(value="/login",method=RequestMethod.DELETE)
+	@RequestMapping(value="/logout",method=RequestMethod.DELETE)
 	public void logOut(HttpServletRequest request) throws Exception {
 		
 		HttpSession session = request.getSession();

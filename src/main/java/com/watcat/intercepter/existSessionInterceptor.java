@@ -12,33 +12,27 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public class normalInterceptor implements HandlerInterceptor {
+public class existSessionInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object handler) throws Exception{
 		
 		HttpSession session = request.getSession();
 		
-		Object adminPermission = session.getAttribute("adminPermission");
 		Object userId = session.getAttribute("userId");
+		
+		if(userId==null) {
 
-		//null값방지
-		if (adminPermission==null) adminPermission=""; 
-		
-		
-		//일반계정일경우
-		if(userId!=null&&adminPermission.equals("N")) {
-			
-			//getWriter() 로 html 작성
 			response.setContentType("text/html; charset=UTF-8");
 			 
 			PrintWriter out = response.getWriter();
 			 
-			out.println("<script>alert('비정상적인 접근 입니다'); location.href='/';</script>");
+			out.println("<script>alert('비정상적인 접근 입니다'); location.href='/login';</script>");
 			 
 			out.flush();
+
+
 			
-				
 			return false;
 		}
 		

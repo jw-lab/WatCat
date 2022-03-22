@@ -1,5 +1,7 @@
 package com.watcat.intercepter;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,8 +23,22 @@ public class adminInterceptor implements HandlerInterceptor {
 		
 		Object adminPermission = session.getAttribute("adminPermission");
 		
-		if(adminPermission==null||adminPermission.equals("N")) {
-			response.sendRedirect("/login");
+		Object userId = session.getAttribute("userId");
+		
+		//equals() null값방지
+		if (adminPermission==null) adminPermission=""; 
+		
+		//관리자계정일경우
+		if(userId!=null&&adminPermission.equals("Y")) {
+			
+			//getWriter() 로 html 작성
+			response.setContentType("text/html; charset=UTF-8");
+			 
+			PrintWriter out = response.getWriter();
+			 
+			out.println("<script>alert('비정상적인 접근 입니다'); location.href='/';</script>");
+			 
+			out.flush();
 			
 			return false;
 		}

@@ -8,6 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/style.RecMovie.css">
 <script>
 	let N = "no";
 	let Y = "yes";
@@ -99,29 +100,29 @@
                     <hr class="text-white">
                    <h1>검색결과가 없습니다 재검색 해주세요.</h1>
                </div>
-                   	<ul  th:if="${userList.getList().size()}>0" class="pagination d-flex justify-content-center">
-		 				<li class="page-item" th:classappend="${userList.getPrePage()} == 0 ? 'disabled'">
-							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=1)}">&laquo;</a>
+                   	<ul  th:if="${userList.getList().size()}>0" class="custom-pagination pagination d-flex justify-content-center">
+		 				<li class="page-item" th:classappend="${userList.getPrePage()} == 0 ? 'd-none'">
+							<a class="page-link text-white" th:href="@{/admin/account(query=${query},pageNum=1)}">&laquo;</a>
 						</li>
-						<li class="page-item" th:classappend="${userList.getPrePage()} == 0 ? 'disabled'">
-							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=${userList.getPrePage()})}">&lt;</a>
+						<li class="page-item" th:classappend="${userList.getPrePage()} == 0 ? 'd-none'">
+							<a class="page-link text-white" th:href="@{/admin/account(query=${query},pageNum=${userList.getPrePage()})}">&lt;</a>
 						</li>
 						<li class="page-item" th:each="page : ${#numbers.sequence(userList.getNavigateFirstPage(),userList.getNavigateLastPage())}" th:classappend="${page == userList.getPageNum()} ? 'active'">
-							<a class="page-link text-black" th:text="${page}" th:href="@{/admin/account/(query=${query},pageNum=${page})}"></a>
+							<a class="page-link text-white" th:text="${page}" th:href="@{/admin/account/(query=${query},pageNum=${page})}"></a>
 						</li>
-						<li class="page-item" th:classappend="${userList.getNextPage()} == 0 ? 'disabled'">
-							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=${userList.getNextPage()})}">&gt;</a>
+						<li class="page-item" th:classappend="${userList.getNextPage()} == 0 ? 'd-none'">
+							<a class="page-link text-white" th:href="@{/admin/account(query=${query},pageNum=${userList.getNextPage()})}">&gt;</a>
 						</li>
-							<li class="page-item" th:classappend="${userList.getNextPage()} == 0 ? 'disabled'">
-							<a class="page-link text-black" th:href="@{/admin/account(query=${query},pageNum=${userList.getPages()})}">&raquo;</a>
+							<li class="page-item" th:classappend="${userList.getNextPage()} == 0 ? 'd-none'">
+							<a class="page-link text-white" th:href="@{/admin/account(query=${query},pageNum=${userList.getPages()})}">&raquo;</a>
 						</li>
 					</ul>
 					<section class="navbar">
 					  <form action="/admin/account" method="get" class="ms-auto me-5">
 					    <div class="input-group">
 					      <input type="text" name="query" class="form-control" placeholder="아이디 검색">
-					      <button type="submit"class="input-group-text" id="search-bar">
-					      	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+					      <button type="submit"class="input-group-text btn btn-info" id="search-bar">
+					      	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16">
 							  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 							</svg>
 					      </button>

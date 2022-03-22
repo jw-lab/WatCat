@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.watcat.intercepter.adminInterceptor;
+import com.watcat.intercepter.existSessionInterceptor;
 import com.watcat.intercepter.normalInterceptor;
 
 @Configuration
@@ -21,13 +22,20 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 	@Autowired
 	adminInterceptor adminInterceptor;
 	
+	//무계정 입터셉터
+	@Autowired
+	existSessionInterceptor exInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		
 		 registry.addInterceptor(adminInterceptor)
-		 		 .addPathPatterns("/admin/**","/kobis/requestInput" );
+		 		 .addPathPatterns("/login","/signup");
 		
 		 registry.addInterceptor(normalInterceptor)
-				.addPathPatterns("/mypage/**");	 
+				.addPathPatterns("/login","/signup","/admin/**/","/kobis/requestInput");	 
+		 
+		 registry.addInterceptor(exInterceptor)
+		 		.addPathPatterns("/admin/**/","kobis/requestInput","/mypage/**/");
 	}
 }
