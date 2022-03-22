@@ -9,9 +9,32 @@ a:visited{color:rgb(255, 255, 255)}
 a:link{color:rgb(255, 255, 255)}
 
 /* 약간 배경색  */
-.bg2ndColor {
+.bg2ndColor{
 	background-color: rgb(22, 22, 22);
 }
+
+#offcanvasNavbar{
+	background-color:rgb(30, 30, 30);
+	width:300px;
+}
+
+.offcanvas-body .nav-item button{
+	border:none;
+	padding-top:10px;
+	padding-bottom:15px;
+	padding-left:10px;
+	font-size: 20px;
+	background:none;
+}
+.navbar-toggler{
+	display:none;
+}
+
+.page-nav-line{
+	margin: 35px 0;
+    height: 1px;
+    background: #41464F;
+}    
 
 .MyPageListsfont{
 	font-size: larger;
