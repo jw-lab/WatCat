@@ -6,9 +6,9 @@
 	<insert id="insertMovieWish" parameterType="com.watcat.dto.movie.MovieWishDto">
 		<![CDATA[
 			INSERT INTO
-				wishlist(movie_id,user_id,title)
+				wishlist(movie_id,user_id,title,poster)
 			VALUES
-				(#{movieId},#{userId},#{title})
+				(#{movieId},#{userId},#{title},#{poster})
 		]]>
 	</insert>
 	

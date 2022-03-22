@@ -208,7 +208,7 @@ $(document).ready(()=>{
 			if(!isEmpty(userId))
 				getWish();
 			
-			addWish(title);
+			addWish(title,poster);
 			cancelWish();
 			insertReview();
 			starRating();
@@ -242,7 +242,7 @@ $(document).ready(()=>{
 	}
 	
 	//찜하기 추가 버튼 클릭 이벤트
-	function addWish(title) {
+	function addWish(title,poster) {
 		$("#add-wish").on("click",()=>{
 			if(isEmpty(userId)) {
 				sweetAlert('warning','','로그인이 필요합니다');
@@ -251,7 +251,7 @@ $(document).ready(()=>{
 			$.ajax({
 				type:"POST",
 				url:"/movie/wish",
-				data:{movieId:movieId,userId:userId,title:title},
+				data:{movieId:movieId,userId:userId,title:title,poster:poster},
 				success:(response)=>{
 					$("#add-wish").css('display','none');
 					$("#cancel-wish").css('display','block');
@@ -350,7 +350,7 @@ $(document).ready(()=>{
     <div class="container mt-3">
 		<input type="hidden" id="movieId" name="movieId" th:value="${movieId}">
 		<input type="hidden" id="userId" name="userId" th:value="${session.userId}">
-		
+
 		<div id="movieBox" class="row">
 			<div id="movieImgBox" class="col-sm-4 mx-auto">
 				<img src="/images/loading.gif" class="mt-5">
