@@ -6,12 +6,14 @@
 	box-sizing :border-box;
 }
 
-html, body{
-	margin: 0;
-    height: 100%;
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
 }
 
-@media(max-width:1075px){
+@media(max-width:1100px){
 		.navbar-toggler{
 			 display:inline-block !important;
 		}
@@ -69,11 +71,11 @@ a:link{text-decoration: none;color:rgb(255, 255, 255)}
 	width:100%;
 	height:80px;
 }
-
+/*menu*/
 #nav-menu-item li{
 	display:inline-block;
 	line-height : 100px;
-	margin: 0 20px;
+	margin: 0 15px;
 }
 #nav-menu-item li a{
 	font-weight: bold;
@@ -82,15 +84,21 @@ a:link{text-decoration: none;color:rgb(255, 255, 255)}
 	padding: 7px 10px;
 	border-radius:4px;
 }
-#nav-menu-item li a:active,#nav-menu-item li a:hover, .login-href a:hover{
+#nav-menu-item li a:active,#nav-menu-item li a:hover{
 	background:#d9534f;
 	transition:0.2s;
+}
+.login-href a:hover{
+	color:black;
+	background:pink;
 }
 .login-href{
 	line-height:100px;
 }
 .login-href a{
-	font-size:17px;
+	font-weight:bold;
+	background:#d9534f;
+	font-size:20px;
 	padding:7px 13px;
 	border-radius:4px;	
 }
