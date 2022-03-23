@@ -1,0 +1,184 @@
+.movieTitle:hover{
+	color: white;
+}
+
+/* 캐러셀 이미지 */
+.carousel-item {
+	background-color: black;
+}
+
+.carousel-item img{
+	height: 500px;
+	width: auto;
+	margin: auto;
+}
+
+/* 영화 상세보기 이미지 */
+#movieImgBox {
+	overflow: hidden;
+}
+
+#movieImgBox img {
+	width: 250px;
+	height: auto;
+	object-fit: cover;
+}
+
+@media (max-width: 768px) {
+	th {
+		font-size: 12px;
+	}
+}
+
+@media (min-width: 768px) {
+	#movieImgBox img {
+	width: 280px;
+	height: auto;
+	object-fit: cover;
+	}
+}
+
+/* 모달창-커스텀 */
+#modal.modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+#modal .modal-window {
+    background: rgb(255,255,255);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 400px;
+    height: 420px;
+    position: relative;
+    top: -10px;
+    padding: 10px;
+}
+#modal .title {
+    padding-left: 10px;
+    text-shadow: 1px 1px 2px gray;
+    color: white;
+    
+}
+
+#modal .close-area {
+
+    padding-right: 10px;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px gray;
+    color: white;
+}
+
+#modal .content {
+    margin-top: 20px;
+    padding: 0px 10px;
+    text-shadow: 1px 1px 2px gray;
+    color: white;
+}
+
+/* 별점 */
+.star-input>.input,
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{
+	display: inline-block;
+	vertical-align:middle;
+	background:url('../images/grade_img.png') no-repeat;
+}
+.star-input{
+	display:inline-block; 
+	white-space:nowrap;
+	width:225px;
+	height:0px;
+	padding-left:100px;
+	line-height:30px;
+}
+	
+.star-input>.input{
+	display:inline-block;
+	width:150px;
+	background-size:150px;
+	height:28px;
+	white-space:nowrap;
+	overflow:hidden;
+	position: relative;
+}
+.star-input>.input>input{
+	position:absolute;
+	width:1px;
+	height:1px;
+	opacity:0;
+}
+star-input>.input.focus{
+	outline:1px dotted #ddd;
+}
+.star-input>.input>label{
+	width:30px;
+	height:0;
+	padding:28px 0 0 0;
+	overflow: hidden;
+	float:left;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	left: 0;}
+	
+.star-input>.input>label:hover,
+.star-input>.input>input:focus+label,
+.star-input>.input>input:checked+label{
+	background-size: 150px;
+	background-position: 0 bottom;
+}
+.star-input>.input>label:hover~label{
+	background-image: none;
+}
+.star-input>.input>label[for="rate1"]{width:15px;z-index:10;}
+.star-input>.input>label[for="rate2"]{width:30px;z-index:9;}
+.star-input>.input>label[for="rate3"]{width:45px;z-index:8;}
+.star-input>.input>label[for="rate4"]{width:60px;z-index:7;}
+.star-input>.input>label[for="rate5"]{width:75px;z-index:6;}
+.star-input>.input>label[for="rate6"]{width:90px;z-index:5;}
+.star-input>.input>label[for="rate7"]{width:105px;z-index:4;}
+.star-input>.input>label[for="rate8"]{width:120px;z-index:3;}
+.star-input>.input>label[for="rate9"]{width:135px;z-index:2;}
+.star-input>.input>label[for="rate10"]{width:150px;z-index:1;}
+.star-input>.score{
+	display:inline-block;
+	width:60px; 
+	font-size:18px;
+	text-align:right; 
+	vertical-align:middle;
+}
+
+/* review content clamp */
+.review-content.clamp {
+	width:inherit;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+/* overview clamp */
+.overview.clamp {
+	width:auto;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    overflow: hidden;
+}
+

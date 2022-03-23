@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>추천 영화 상세보기 페이지</title>
@@ -346,7 +346,7 @@ $(document).ready(()=>{
 </script> 
 </head>
 <body class="bg-black text-white">
-	<header th:include="header"></header>
+	<header th:include="Header :: header"></header>
     <div class="container mt-3">
 		<input type="hidden" id="movieId" name="movieId" th:value="${movieId}">
 		<input type="hidden" id="userId" name="userId" th:value="${session.userId}">

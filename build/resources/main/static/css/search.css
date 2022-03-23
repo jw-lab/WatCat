@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+body{
+	background:url('../images/movie_search.jpeg') 45% center no-repeat;
+}
+
+.movieTitle:hover{
+	color: white;
+}
+.masonry {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-left: 50px;
+}
+.masonry .img-container {
+  width: 180px;
+  height: 250px;
+  margin: 10px;
+}
+.masonry .img-wrapper {
+  width: inherit;
+  height: inherit;
+  position:relative;
+  cursor:pointer;
+}
+.masonry img{
+  object-fit: scale-down;
+  width: inherit;
+  height: inherit;
+}
+
+.clamp {
+	width:inherit;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}

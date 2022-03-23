@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<style>
+#title {
+	font-weight: bold;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mypage</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+<link href="/Mypage/MypageTrash_m.html" type="text/html"
+	media="screen and (max-width:899px)">
+<script>
+	$(document).ready(function() {
+		var idx = 0;
+
+		/* 복구 */
+		$("#btn-reOk").on("click", function() {
+			$("#method").val("PUT");
+			var frm = $("#frm")[0];
+			frm.action = "/mypage/trash/re/" + idx;
+			frm.submit();
+		});
+
+		$(".btn-primary").on("click", function() {
+			idx = $(this).children("span").text();
+		})
+
+		/* 삭제 */
+		$("#btn-delOk").on("click", function() {
+			$("#method").val("DELETE");
+			var frm = $("#frm")[0];
+			frm.action = "/mypage/trash/del/" + idx;
+			frm.submit();
+		});
+
+		$(".btn-danger").on("click", function() {
+			idx = $(this).children("span").text();
+		})
+
+		/*전체 삭제 */
+		$("#btn-delAll").on("click", function() {
+			$("#method").val("DELETE");
+			var frm = $("#frm")[0];
+			frm.action = "/mypage/trash/delAll" ;
+			frm.submit();
+		});
+
+	});
+</script>
+</head>
+<body class="bg-black">
+	<div class="h-100">
+		<!-- 헤더 영역 -->
+		<header th:include="Header :: header" class="fixed-top px-0 mx-0"></header>
+		<div class="row bg2ndColor h-100">
+			<!-- 네비게이션 영역 -->
+			<nav th:include="MyPage/nav :: nav" class="col-lg-3  px-5"></nav>
+			<!-- 메인영역 -->
+			<main class="col-lg-9 bg-black " style="padding-top: 100px;">
+				<div class="px-3 mt-4">
+					<div>
+						<h3 class="text-primary">
+							<b>삭제한 리뷰</b> <img src="/images/mytrash.png"
+								class="btn float-end"  style="width: 80px;"
+								title="전체삭제" data-bs-toggle="modal" data-bs-target="#btn-del_all">
+						</h3>
+					</div>
+
+					<div>
+						<form method="POST" id="frm" style="color: white;">
+							<div class="row m-5">
+								<div class="mt-3 mb-4" th:each="list : ${trash.getList()}"
+									style="background-color: rgb(38, 38, 38); border-radius: 9px;">
+
+									<div class="row">
+										<input type="hidden" id="method" name="_method">
+										<div class="col-3 mt-4 ms-4">
+											<!-- 포스터이미지 -->
+											<a href="/movie/detail?movieId="
+												th:attrappend="href=${list.movieId}" target='_blank'
+												title="영화정보 보러가기"><img th:src="${list.poster}"
+												width="100%%"></a>
+										</div>
+
+
+										<!-- 영화 정보 -->
+										<div class="col ms-4 mt-4">
+											<div class="row">
+												<a href="/movie/detail?movieId="
+													th:attrappend="href=${list.movieId}" target='_blank'
+													class="h4 col-auto" th:text="${list.title}"
+													style="font-weight: bold;" title="영화정보 보러가기"></a>
+												<div class=" col mt-1 ">
+													<b>장르</b> <span th:text="${list.genres}"></span>
+												</div>
+												<p class="h6 ms-1 mt-2" th:text="${list.releaseDate}"
+													style="font-weight: bold;"></p>
+											</div>
+
+
+											<!-- 리뷰 칸 -->
+											<hr style="font-weight: bold;">
+											<div class="row">
+												<!-- 별점 별 색상변경 -->
+												<div th:if="${list.rating} >= 8" class="col-4">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: yellow;"></span>
+													</p>
+												</div>
+												<div th:if="${list.rating} == 7" class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: blue;"></span>
+													</p>
+												</div>
+												<div th:if="${list.rating} == 6" class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: green;"></span>
+													</p>
+												</div>
+												<div th:if="${list.rating} < 5 " class="col-auto">
+													<p>
+														내가 준 별점: <span th:text="|${list.rating}점|"
+															style="font-weight: bold; color: red;"></span>
+													</p>
+												</div>
+
+												<p th:if="${list.createdDt}==null" class="col">리뷰 작성일을
+													찾을 수 없습니다.</p>
+												<div th:unless="${list.createdDt}==null" class="col">
+													<p th:text="|작성일: ${list?.createdDt}|"></p>
+												</div>
+											</div>
+											<div class="col">
+												<p id="contents" class="mt-2 ms-1" th:text="${list.content}"></p>
+											</div>
+										</div>
+									</div>
+
+									<div class="float-end ms-3 mb-3 me-3">
+										<input type="hidden" id="method" name="_method">
+
+										<button type="button" class="btn btn-primary"
+											data-bs-toggle="modal" data-bs-target="#btn-re">
+											복구 <span th:text="${list.idx}" class="d-none"></span>
+										</button>
+
+										<button type="button" class="btn btn-danger"
+											data-bs-toggle="modal" data-bs-target="#btn-del">
+											삭제 <span th:text="${list.idx}" class="d-none"></span>
+										</button>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- 리뷰가 한개도 없을 경우 -->
+							<div th:unless="${#lists.size(trash.getList())}>
+								0">
+								<h5 class="mt-4">비워져있습니다.</h5>
+
+							</div>
+
+
+							<!-- 모달창 -->
+							<!-- 삭제 -->
+							<div id="btn-del" class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title text-black">영구 삭제</h4>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal"></button>
+										</div>
+										<div class="modal-body" style="color: red;">
+											<p>확인을 클릭시 리뷰를 영원히 복구 시킬 수 없게 됩니다;(</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" id="btn-delOk" class="btn btn-danger"
+												data-bs-dismiss="mdoal">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 복구 -->
+							<div id="btn-re" class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title text-black">복구</h4>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal"></button>
+										</div>
+										<div class="modal-body" style="color: blue;">
+											<p>확인을 클릭시 리뷰가 복구 됩니다:)</p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" id="btn-reOk" class="btn btn-primary"
+												data-bs-dismiss="mdoal">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 전체 삭제 -->
+							<div id="btn-del_all" class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title text-black">휴지통 비우기</h4>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal"></button>
+										</div>
+										<div class="modal-body" style="color: blue;">
+											<p th:text="|확인을 클릭시 글 ${cnt}개가 영구적으로 지워집니다.|"> </p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" id="btn-delAll" class="btn btn-danger"
+												data-bs-dismiss="mdoal">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</form>
+						<div th:if="${#lists.size(trash.getList())}>0">
+							<div class="mt-5" style="color: black;" id="paging">
+								<ul class="pagination justify-content-center custom-pagination">
+
+									<li class="page-item"
+										th:classappend="${trash.getPrePage() == 0} ? 'd-none'"><a
+										class="page-link"
+										th:href="@{/mypage/trash(pageNum=${trash.getPrePage()})}">&lt;</a>
+									</li>
+									<li class="page-item"
+										th:each="page : ${#numbers.sequence(trash.getNavigateFirstPage(), trash.getNavigateLastPage())}"
+										th:classappend="${page == trash.getPageNum()} ? 'active'">
+										<a class="page-link" th:text="${page}"
+										th:href="@{/mypage/trash(pageNum=${page})}"></a>
+									</li>
+									<li class="page-item"
+										th:classappend="${trash.getNextPage() == 0} ? 'd-none'">
+										<a class="page-link"
+										th:href="@{/mypage/trash(pageNum=${trash.getNextPage()})}">&gt;</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</main>
+		</div>
+
+	</div>
+</body>
+</html>
