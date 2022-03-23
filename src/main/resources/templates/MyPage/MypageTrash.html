@@ -60,10 +60,6 @@
 			frm.submit();
 		});
 
-		/* $(".btn-danger").on("click", function() {
-			idx = $(this).children("span").text();
-		}) */
-
 	});
 </script>
 </head>
@@ -110,7 +106,7 @@
 													th:attrappend="href=${list.movieId}" target='_blank'
 													class="h4 col-auto" th:text="${list.title}"
 													style="font-weight: bold;" title="영화정보 보러가기"></a>
-												<div class=" col mt-1">
+												<div class=" col mt-1 ">
 													<b>장르</b> <span th:text="${list.genres}"></span>
 												</div>
 												<p class="h6 ms-1 mt-2" th:text="${list.releaseDate}"
@@ -122,7 +118,7 @@
 											<hr style="font-weight: bold;">
 											<div class="row">
 												<!-- 별점 별 색상변경 -->
-												<div th:if="${list.rating} >= 8" class="col-auto">
+												<div th:if="${list.rating} >= 8" class="col-4">
 													<p>
 														내가 준 별점: <span th:text="|${list.rating}점|"
 															style="font-weight: bold; color: yellow;"></span>
@@ -245,17 +241,8 @@
 								</div>
 							</div>
 
-
-
 						</form>
 
-
-
-						<!--  -->
-
-					<!-- 	<div th:if="${#lists.size(trash.getList())}>0">
-							<div class="mt-5" style="color: black;" id="paging">
-								<ul class="pagination justify-content-center custom-pagination"> -->
 
 						<div th:if="${#lists.size(trash.getList())}>0" class="mb-5">
 							<div class="mt-5" id="paging">
