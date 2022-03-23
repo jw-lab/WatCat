@@ -11,7 +11,7 @@ html, body{
     height: 100%;
 }
 
-@media(max-width:1055px){
+@media(max-width:1075px){
 		.navbar-toggler{
 			 display:inline-block !important;
 		}
@@ -19,11 +19,7 @@ html, body{
 			display:none !important;
 		}
 	}
-@media(min-width:1400px){
-	#nav-menu-item{
-		padding-right:10%;
-	}
-}
+
 
 /* a 태그 세팅 */
 a{text-decoration: none}
@@ -33,20 +29,39 @@ a:link{text-decoration: none;color:rgb(255, 255, 255)}
 /* 약간 배경색  */
 .bg2ndColor{
 	background-color: rgb(22, 22, 22);
+	height:120px;
 }
 /* 오프캔버스 */
 #offcanvasNavbar{
 	background-color:rgb(30, 30, 30);
-	width:300px;
+	width:280px;
 }
 
 .offcanvas-body .nav-item button{
 	border:none;
+	border-radius:1px;
 	padding-top:10px;
 	padding-bottom:15px;
 	padding-left:10px;
 	font-size: 20px;
 	background:none;
+}
+.offcanvas-body .nav-item{
+	width:280px;
+}
+.offcanvas-body .main-menu:hover{
+	background-color:#d9534f;
+	border-radius:3px;
+	transition:0.2s;
+}
+
+.offcanvas-body .account-menu:hover{
+	background-color:#41464F;
+	border-radius:3px;
+	transition:0.2s;
+}
+.offcanvas-body .account-menu button:hover{
+	color:aqua!important;
 }
 /* nav */
 .watcat-nav{
@@ -54,27 +69,25 @@ a:link{text-decoration: none;color:rgb(255, 255, 255)}
 	width:100%;
 	height:80px;
 }
-#nav-menu-item{
-	float:right;
-}
+
 #nav-menu-item li{
 	display:inline-block;
-	line-height : 80px;
+	line-height : 100px;
 	margin: 0 20px;
 }
 #nav-menu-item li a{
+	font-weight: bold;
 	color:white;
-	font-size:17px;
-	padding: 7px 13px;
+	font-size:20px;
+	padding: 7px 10px;
 	border-radius:4px;
 }
 #nav-menu-item li a:active,#nav-menu-item li a:hover, .login-href a:hover{
 	background:#d9534f;
 	transition:0.2s;
-	color:black;
 }
 .login-href{
-	line-height:80px;
+	line-height:100px;
 }
 .login-href a{
 	font-size:17px;
@@ -84,7 +97,6 @@ a:link{text-decoration: none;color:rgb(255, 255, 255)}
 
 .navbar-toggler{
 	display:none;
-	line-height:80px;
 }
 
 .page-nav-line{
@@ -104,16 +116,26 @@ a:link{text-decoration: none;color:rgb(255, 255, 255)}
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-
+.dropdown-menu li a{
+	transition:0.1s;
+	color:white;
+	cursor: pointer;
+}
+.dropdown-menu li a:hover,.dropdown-menu li:active{
+	color:black!important;
+	font-size:large;
+	font-weight:bold;
+	background:#d9534f!important;
+}
 
 .headerLink{
-	line-height:80px;
+	line-height:100px;
 }
 .headerLink li{
 	line-height:40px;
 }
 .headerLink img:hover{
-	opacity:0.7;
+	opacity:0.8;
 }
 
 /* pagination customizing */

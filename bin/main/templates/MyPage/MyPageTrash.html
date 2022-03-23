@@ -79,13 +79,9 @@
 				<div class="px-3 mt-4">
 					<div>
 						<h3 class="text-primary">
-<<<<<<< HEAD
 							<b>삭제한 리뷰</b> <img src="/images/mytrash.png"
 								class="btn float-end"  style="width: 80px;"
 								title="전체삭제" data-bs-toggle="modal" data-bs-target="#btn-del_all">
-=======
-							<b>Review Trash</b>
->>>>>>> 56fa63bb10eabb3db338a8ea70ff132f120482f4
 						</h3>
 					</div>
 
@@ -238,7 +234,7 @@
 												data-bs-dismiss="modal"></button>
 										</div>
 										<div class="modal-body" style="color: blue;">
-											<p th:text="|확인을 클릭시 글 ${cnt}개가 지워집니다.|"> </p>
+											<p th:text="|확인을 클릭시 글 ${cnt}개가 영구적으로 지워집니다.|"> </p>
 										</div>
 										<div class="modal-footer">
 											<button type="button" id="btn-delAll" class="btn btn-danger"
@@ -254,16 +250,11 @@
 
 
 
-						<!--  -->
-<<<<<<< HEAD
+
 						<div th:if="${#lists.size(trash.getList())}>0">
 							<div class="mt-5" style="color: black;" id="paging">
 								<ul class="pagination justify-content-center custom-pagination">
-=======
-						<div th:if="${#lists.size(trash.getList())}>1" class="mb-5">
-							<div class="mt-5" id="paging">
-								<ul class="pagination justify-content-center custom-pagination text-white">
->>>>>>> 56fa63bb10eabb3db338a8ea70ff132f120482f4
+
 									<li class="page-item"
 										th:classappend="${trash.getPrePage() == 0} ? 'd-none'"><a
 										class="page-link"

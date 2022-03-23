@@ -29,7 +29,7 @@ public class existSessionInterceptor implements HandlerInterceptor {
 			 
 			out.println("<script>alert('비정상적인 접근 입니다'); location.href='/login';</script>");
 			 
-			out.flush();
+			out.close();
 
 
 			

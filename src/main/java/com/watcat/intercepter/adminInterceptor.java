@@ -38,7 +38,7 @@ public class adminInterceptor implements HandlerInterceptor {
 			 
 			out.println("<script>alert('비정상적인 접근 입니다'); location.href='/';</script>");
 			 
-			out.flush();
+			out.close();
 			
 			return false;
 		}
