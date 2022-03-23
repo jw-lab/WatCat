@@ -22,7 +22,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
-<link href="/Mypage/MypageTrash_m.html" type="text/html" media="screen and (max-width:899px)">
+<link href="/Mypage/MypageTrash_m.html" type="text/html"
+	media="screen and (max-width:899px)">
 <script>
 	$(document).ready(function() {
 		var idx = 0;
@@ -51,6 +52,18 @@
 			idx = $(this).children("span").text();
 		})
 
+		/*전체 삭제 */
+		$("#btn-delAll").on("click", function() {
+			$("#method").val("DELETE");
+			var frm = $("#frm")[0];
+			frm.action = "/mypage/trash/delAll" ;
+			frm.submit();
+		});
+
+		/* $(".btn-danger").on("click", function() {
+			idx = $(this).children("span").text();
+		}) */
+
 	});
 </script>
 </head>
@@ -66,9 +79,12 @@
 				<div class="px-3 mt-4">
 					<div>
 						<h3 class="text-primary">
-							<b>삭제한 리뷰</b>
+							<b>삭제한 리뷰</b> <img src="/images/mytrash.png"
+								class="btn float-end"  style="width: 80px;"
+								title="전체삭제" data-bs-toggle="modal" data-bs-target="#btn-del_all">
 						</h3>
 					</div>
+
 					<div>
 						<form method="POST" id="frm" style="color: white;">
 							<div class="row m-5">
@@ -162,7 +178,7 @@
 							<!-- 리뷰가 한개도 없을 경우 -->
 							<div th:unless="${#lists.size(trash.getList())}>
 								0">
-								<h5 class="mt-4">아직 삭제하신 리뷰가 없습니다.</h5>
+								<h5 class="mt-4">비워져있습니다.</h5>
 
 							</div>
 
@@ -207,11 +223,35 @@
 									</div>
 								</div>
 							</div>
+
+							<!-- 전체 삭제 -->
+							<div id="btn-del_all" class="modal fade">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title text-black">휴지통 비우기</h4>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal"></button>
+										</div>
+										<div class="modal-body" style="color: blue;">
+											<p th:text="|확인을 클릭시 글 ${cnt}개가 영구적으로 지워집니다.|"> </p>
+										</div>
+										<div class="modal-footer">
+											<button type="button" id="btn-delAll" class="btn btn-danger"
+												data-bs-dismiss="mdoal">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
 						</form>
 
 
+
 						<!--  -->
-						<div th:if="${#lists.size(trash.getList())}>1">
+						<div th:if="${#lists.size(trash.getList())}>0">
 							<div class="mt-5" style="color: black;" id="paging">
 								<ul class="pagination justify-content-center custom-pagination">
 									<li class="page-item"
@@ -233,6 +273,8 @@
 								</ul>
 							</div>
 						</div>
+
+
 					</div>
 				</div>
 			</main>

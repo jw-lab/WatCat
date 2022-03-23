@@ -85,5 +85,20 @@
 			ORDER BY created_dt desc
 		]]>
 	</select>
-
+	
+	<!--휴지통 리뷰 전체 삭제-->
+		<delete id="MyreviewTrashDeleteAll" parameterType="com.watcat.dto.reviewDto">
+		<![CDATA[ 
+			DELETE FROM review 
+			WHERE user_id = #{userId} AND deleted_yn = 'Y'
+		]]>
+	</delete>
+	
+	<!--휴지통 리뷰 갯수 세기-->
+ 	<select id="MyTrashCnt" parameterType="com.watcat.dto.reviewDto" resultType="int">
+ 	<![CDATA[ 
+ 		SELECT count(idx) 
+ 		FROM review WHERE user_id = #{userId} AND deleted_yn = 'Y'
+ 	]]>
+ 	</select >
 </mapper>

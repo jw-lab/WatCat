@@ -1,5 +1,7 @@
 package com.watcat.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -70,7 +72,10 @@ public class MyPageController {
 		String userId = httpSession.getAttribute("userId").toString();
 		PageInfo<reviewDto> myreviewTrash = new PageInfo<reviewDto>(mypageService.MyreviewTrashList(pageNum, userId),
 				10);
+		
+		List<reviewDto> cnt = mypageService.MyTrashCnt(userId);
 		mv.addObject("trash", myreviewTrash);
+		 mv.addObject("cnt", cnt); 
 		return mv;
 	}
 
@@ -113,6 +118,20 @@ public class MyPageController {
 		mypageService.MyreviewTrashDelete(idx);
 		return "redirect:/mypage/trash";
 	}
+	
+	
+	// 리뷰trash 전체 삭제
+	@RequestMapping(value = "mypage/trash/delAll", method = RequestMethod.DELETE)
+	public String mypageTrashDelAll(HttpServletRequest httpServletRequest) throws Exception {
+		
+		HttpSession httpSession = httpServletRequest.getSession();
+		String userId = httpSession.getAttribute("userId").toString();
+		mypageService.MyreviewTrashDeleteAll(userId);
+		
+		
+		return "redirect:/mypage/trash";
+	}
+
 
 	// 리뷰trash 리스트 출력
 	@RequestMapping(value = "mypage/trash/del/{idx}", method = RequestMethod.GET)

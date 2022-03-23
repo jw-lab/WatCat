@@ -35,4 +35,7 @@ public interface MypageMapper {
 
 	List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception;
 	
+	void MyreviewTrashDeleteAll(String userId)throws Exception;
+	
+	List<reviewDto> MyTrashCnt(String userId)throws Exception;
 }

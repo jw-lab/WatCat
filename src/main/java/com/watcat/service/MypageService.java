@@ -38,6 +38,10 @@ public interface MypageService {
 	// wish 리스트
 	List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception;
 
+	void MyreviewTrashDeleteAll(String userId)throws Exception;
+
+	List<reviewDto> MyTrashCnt(String userId)throws Exception;
+
 
 	
 

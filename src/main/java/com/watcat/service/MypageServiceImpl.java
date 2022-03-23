@@ -67,5 +67,17 @@ public class MypageServiceImpl implements MypageService {
 		return mypageMapper.MyreviewWishList(movieWishDto);
 	}
 
+	@Override
+	public void MyreviewTrashDeleteAll(String userId) throws Exception {
+		mypageMapper.MyreviewTrashDeleteAll(userId);
+		
+	}
+
+	@Override
+	public List<reviewDto> MyTrashCnt(String userId) throws Exception {
+		return mypageMapper.MyTrashCnt(userId);
+		
+	}
+
 
 }
