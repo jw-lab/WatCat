@@ -89,11 +89,8 @@ public class MyPageController {
 		
 		List<reviewDto> cnt = mypageService.MyTrashCnt(userId);
 		mv.addObject("trash", myreviewTrash);
-<<<<<<< HEAD
 		 mv.addObject("cnt", cnt); 
-=======
 		mv.addObject("pageName", "mypageTrash");
->>>>>>> 56fa63bb10eabb3db338a8ea70ff132f120482f4
 		return mv;
 	}
 
