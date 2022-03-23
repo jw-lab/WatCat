@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
@@ -34,14 +33,28 @@ public class MyPageController {
 
 	// 마이페이지 비밀번호
 	@RequestMapping("mypage/pw")
-	public String mypagePw() {
-		return "Mypage/MypagePW";
+	public ModelAndView mypagePw() {
+		ModelAndView mv = new ModelAndView("Mypage/MypagePW");
+		mv.addObject("pageName", "mypagePw");
+		return mv;
 	}
 
-	// 마이페이지 찜페이지
+	// 마이페이지 wishlist 페이지
 	@RequestMapping("mypage/wishlist")
-	public String mypageWishlist() throws Exception {
-		return "MyPage/MypageWishlist";
+	public ModelAndView mypageWishlist(HttpServletRequest httpServletRequest, 
+			@RequestParam(required = false, defaultValue = "1") int pageNum, 
+			@RequestParam(required = false, defaultValue = "") String title) throws Exception {
+		ModelAndView mv = new ModelAndView("MyPage/MypageWishlist");
+		HttpSession httpSession = httpServletRequest.getSession();
+		MovieWishDto movieWishDto = new MovieWishDto();
+		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
+		title = "%" + title + "%";
+		movieWishDto.setTitle(title);
+		PageInfo<MovieWishDto> wishList = new PageInfo<MovieWishDto>(mypageService.MyreviewWishList(pageNum, movieWishDto), 10);
+		
+		mv.addObject("wishList", wishList);
+		mv.addObject("pageName", "mypageWishlist");
+		return mv;
 	}
 
 	// 마이페이지 리뷰
@@ -60,6 +73,7 @@ public class MyPageController {
 		PageInfo<reviewDto> myreview = new PageInfo<reviewDto>(mypageService.MyreviewList(pageNum, reviewdto), 10);			
 		mv.addObject("reviewList", myreview);
 		mv.addObject("title", returnTitle);
+		mv.addObject("pageName", "mypageReview");
 		return mv;
 	}
 
@@ -75,18 +89,21 @@ public class MyPageController {
 		
 		List<reviewDto> cnt = mypageService.MyTrashCnt(userId);
 		mv.addObject("trash", myreviewTrash);
+<<<<<<< HEAD
 		 mv.addObject("cnt", cnt); 
+=======
+		mv.addObject("pageName", "mypageTrash");
+>>>>>>> 56fa63bb10eabb3db338a8ea70ff132f120482f4
 		return mv;
 	}
 
 	// 마이페이지 비밀번호 변경
 	@RequestMapping(value = "mypage/updatepw", method = RequestMethod.POST)
 	public String updatePw(HttpServletRequest httpServletRequest, userDto userdto) throws Exception {
-
 		HttpSession httpSession = httpServletRequest.getSession();
 		userdto.setUserId(httpSession.getAttribute("userId").toString());
 		mypageService.updatePw(userdto);
-		return "Mypage/MyPage";
+		return "redirect:/mypage/pw";
 	}
 
 	// 리뷰 디테일
@@ -95,6 +112,7 @@ public class MyPageController {
 		ModelAndView mv = new ModelAndView("MyPage/MypageReviewDetail");
 		reviewDto reviewDetail = mypageService.reviewDetail(idx);
 		mv.addObject("reviewDetail", reviewDetail);
+		mv.addObject("pageName", "mypageReview");
 		return mv;
 	}
 
@@ -154,17 +172,4 @@ public class MyPageController {
 //		return "redirect:/mypage/trash";
 //	}
 //	
-	//wish리스트 데이터 요청
-	@ResponseBody
-	@RequestMapping("mypage/wishlistRequest")
-	public Object WishList(HttpServletRequest httpServletRequest,
-			@RequestParam(required = false, defaultValue = "") String title) throws Exception{
-		HttpSession httpSession = httpServletRequest.getSession();
-		MovieWishDto movieWishDto = new MovieWishDto();
-		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
-		title = "%" + title + "%";
-		movieWishDto.setTitle(title);
-		return mypageService.MyreviewWishList(movieWishDto);
-	}
-
 }

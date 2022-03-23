@@ -71,7 +71,7 @@
 	<div class="h-100">
 		<!-- 헤더 영역 -->
 		<header th:include="Header :: header" class="fixed-top px-0 mx-0"></header>
-		<div class="row bg2ndColor">
+		<div class="row bg2ndColor h-100">
 			<!-- 네비게이션 영역 -->
 			<nav th:include="/Mypage/nav :: nav" class="col-lg-3  px-5"></nav>
 			<!-- 메인영역 -->
@@ -79,9 +79,13 @@
 				<div class="px-3 mt-4">
 					<div>
 						<h3 class="text-primary">
+<<<<<<< HEAD
 							<b>삭제한 리뷰</b> <img src="/images/mytrash.png"
 								class="btn float-end"  style="width: 80px;"
 								title="전체삭제" data-bs-toggle="modal" data-bs-target="#btn-del_all">
+=======
+							<b>Review Trash</b>
+>>>>>>> 56fa63bb10eabb3db338a8ea70ff132f120482f4
 						</h3>
 					</div>
 
@@ -251,23 +255,29 @@
 
 
 						<!--  -->
+<<<<<<< HEAD
 						<div th:if="${#lists.size(trash.getList())}>0">
 							<div class="mt-5" style="color: black;" id="paging">
 								<ul class="pagination justify-content-center custom-pagination">
+=======
+						<div th:if="${#lists.size(trash.getList())}>1" class="mb-5">
+							<div class="mt-5" id="paging">
+								<ul class="pagination justify-content-center custom-pagination text-white">
+>>>>>>> 56fa63bb10eabb3db338a8ea70ff132f120482f4
 									<li class="page-item"
-										th:classappend="${trash.getPrePage() == 0} ? 'disabled'"><a
-										class="page-link text-black"
+										th:classappend="${trash.getPrePage() == 0} ? 'd-none'"><a
+										class="page-link"
 										th:href="@{/mypage/trash(pageNum=${trash.getPrePage()})}">&lt;</a>
 									</li>
 									<li class="page-item"
 										th:each="page : ${#numbers.sequence(trash.getNavigateFirstPage(), trash.getNavigateLastPage())}"
 										th:classappend="${page == trash.getPageNum()} ? 'active'">
-										<a class="page-link text-black" th:text="${page}"
+										<a class="page-link" th:text="${page}"
 										th:href="@{/mypage/trash(pageNum=${page})}"></a>
 									</li>
 									<li class="page-item"
-										th:classappend="${trash.getNextPage() == 0} ? 'disabled'">
-										<a class="page-link text-black"
+										th:classappend="${trash.getNextPage() == 0} ? 'd-none'">
+										<a class="page-link"
 										th:href="@{/mypage/trash(pageNum=${trash.getNextPage()})}">&gt;</a>
 									</li>
 								</ul>

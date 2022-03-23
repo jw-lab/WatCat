@@ -38,7 +38,7 @@
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">
                 <div>
-                    <form action="/mypage/updatepw" method="post" class="w-50 mx-auto px-lg-5">
+                    <form action="/mypage/updatepw" method="post" class="mx-auto px-lg-5" style="width: 500px;">
                         <h3 class="my-5 text-primary text-center"><b>비밀번호 변경 하기</b></h3>
                         
                         <div class="form-floating bg-black">
@@ -51,8 +51,7 @@
                         </div>
                         <p id="checkpw" name="checkpw" class="text-danger"></p>
                         <div class="text-end my-3">
-                            <input type="submit" class="btn btn-outline-primary" value="확인" onClick="return passwordchk()"></input>
-                            <input type="reset" class="btn btn-outline-danger" value="취소"></input>
+                            <input type="submit" class="btn btn-danger btnRounded" value="확인" onClick="return passwordchk()"></input>
                         </div>
                     </form>
                 </div>

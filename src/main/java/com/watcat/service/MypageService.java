@@ -1,7 +1,5 @@
 package com.watcat.service;
 
-import java.util.List;
-
 import com.github.pagehelper.Page;
 import com.watcat.dto.reviewDto;
 import com.watcat.dto.userDto;
@@ -36,7 +34,7 @@ public interface MypageService {
 	void MyreviewTrashRe(reviewDto reviewdto)throws Exception;
 
 	// wish 리스트
-	List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception;
+	Page<MovieWishDto> MyreviewWishList(int pageNum, MovieWishDto movieWishDto) throws Exception;
 
 	void MyreviewTrashDeleteAll(String userId)throws Exception;
 

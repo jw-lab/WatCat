@@ -1,7 +1,5 @@
 package com.watcat.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +61,8 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override //wish 리스트
-	public List<MovieWishDto> MyreviewWishList(MovieWishDto movieWishDto) throws Exception {
+	public Page<MovieWishDto> MyreviewWishList(int pageNum, MovieWishDto movieWishDto) throws Exception {
+		PageHelper.startPage(pageNum, 12);
 		return mypageMapper.MyreviewWishList(movieWishDto);
 	}
 

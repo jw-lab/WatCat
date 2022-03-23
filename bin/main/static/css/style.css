@@ -1,17 +1,97 @@
+*{
+	padding:0;
+	margin:0;
+	text-decoration : none;
+	list-style:noe;
+	box-sizing :border-box;
+}
+
 html, body{
 	margin: 0;
     height: 100%;
 }
 
+@media(max-width:1055px){
+		.navbar-toggler{
+			 display:inline-block !important;
+		}
+		.headerLink,.login-href,#nav-menu-item{
+			display:none !important;
+		}
+	}
+@media(min-width:1400px){
+	#nav-menu-item{
+		padding-right:10%;
+	}
+}
+
 /* a 태그 세팅 */
 a{text-decoration: none}
-a:visited{color:rgb(255, 255, 255)}
-a:link{color:rgb(255, 255, 255)}
+a:visited{text-decoration: none;color:rgb(255, 255, 255)}
+a:link{text-decoration: none;color:rgb(255, 255, 255)}
 
 /* 약간 배경색  */
-.bg2ndColor {
+.bg2ndColor{
 	background-color: rgb(22, 22, 22);
 }
+/* 오프캔버스 */
+#offcanvasNavbar{
+	background-color:rgb(30, 30, 30);
+	width:300px;
+}
+
+.offcanvas-body .nav-item button{
+	border:none;
+	padding-top:10px;
+	padding-bottom:15px;
+	padding-left:10px;
+	font-size: 20px;
+	background:none;
+}
+/* nav */
+.watcat-nav{
+	background-color: rgb(22, 22, 22);
+	width:100%;
+	height:80px;
+}
+#nav-menu-item{
+	float:right;
+}
+#nav-menu-item li{
+	display:inline-block;
+	line-height : 80px;
+	margin: 0 20px;
+}
+#nav-menu-item li a{
+	color:white;
+	font-size:17px;
+	padding: 7px 13px;
+	border-radius:4px;
+}
+#nav-menu-item li a:active,#nav-menu-item li a:hover, .login-href a:hover{
+	background:#d9534f;
+	transition:0.2s;
+	color:black;
+}
+.login-href{
+	line-height:80px;
+}
+.login-href a{
+	font-size:17px;
+	padding:7px 13px;
+	border-radius:4px;	
+}
+
+.navbar-toggler{
+	display:none;
+	line-height:80px;
+}
+
+.page-nav-line{
+	margin: 35px 0;
+    height: 1px;
+    background: #41464F;
+}    
 
 .MyPageListsfont{
 	font-size: larger;
@@ -25,8 +105,15 @@ a:link{color:rgb(255, 255, 255)}
 	margin-bottom: 10px;
 }
 
-.headerLink:hover{
-	color: black;
+
+.headerLink{
+	line-height:80px;
+}
+.headerLink li{
+	line-height:40px;
+}
+.headerLink img:hover{
+	opacity:0.7;
 }
 
 /* pagination customizing */
@@ -51,3 +138,13 @@ a:link{color:rgb(255, 255, 255)}
 }
 
 /* mypage nav a태그 */
+.navFocus{
+	background-color: rgb(65, 65, 65);
+	border-radius: 5px;
+}
+
+.btnRounded{
+	border-radius: 50px;
+	padding-right: 40px;
+	padding-left: 40px;
+}

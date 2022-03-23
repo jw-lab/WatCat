@@ -7,6 +7,7 @@ public class MovieWishDto {
 	private int movieId;
 	private String userId;
 	private String title;
+	private String poster;
 	private String createdDt;
 
 }
