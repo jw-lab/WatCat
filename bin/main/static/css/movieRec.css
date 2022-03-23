@@ -182,3 +182,10 @@ star-input>.input.focus{
     overflow: hidden;
 }
 
+.clamp {
+	width:inherit;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}

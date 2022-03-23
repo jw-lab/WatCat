@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/css/style.css">
 </head>
 <body class="bg-black" style="height: 100%;">
-	<div class="h-100">
+	<div class="">
 		<!-- 헤더 영역 -->
 		<header th:include="Header :: header" class="fixed-top px-0 mx-0">
 		</header>
@@ -19,8 +19,8 @@
             <!-- 네비게이션 영역 -->
                 <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 min-vh-100" ></nav>
 			<!-- 메인영역 -->
-			<main class="col-lg-9 bg-black text-white" style="padding-top: 100px;">
-				<div class="w-100 mx-auto mt-3">
+			<main class="col-lg-9 bg-black text-white" style="margin-top: 30px;">
+				<div class="w-100 mt-lg-5 pt-lg-5 mx-2">
                     <h3 class="text-primary"><b>Wish List</b></h3>
                     <div class="w-100">
                         <div class="w-100">
@@ -53,7 +53,7 @@
                                     </li>
                                 </ul>
                                 <div >
-                                    <form action="/mypage/review" method="get" style="width: 400px;" class="mx-auto">
+                                    <form action="/mypage/review" method="get" class="mx-auto w-100">
                                         <input type="text" th:value="${title}" id="title" name="title" class="w-100 form-control" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                                         <input type="submit" id="btnSearch" value="검색" class="w-100 btn btn-danger" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                     </form>
