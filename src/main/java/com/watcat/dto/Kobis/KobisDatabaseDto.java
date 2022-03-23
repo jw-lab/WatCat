@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class KobisDatabaseDto {
-	
 	String searchDt;
 	String movieCd;
 	String rank;
@@ -14,7 +13,5 @@ public class KobisDatabaseDto {
 	String salesAmt;
 	String salesAcc;
 	String audiCnt;
-	String audiAcc;
-	
-	
+	String audiAcc;	
 }
