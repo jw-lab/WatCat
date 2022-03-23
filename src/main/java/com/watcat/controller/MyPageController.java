@@ -48,6 +48,7 @@ public class MyPageController {
 		HttpSession httpSession = httpServletRequest.getSession();
 		MovieWishDto movieWishDto = new MovieWishDto();
 		movieWishDto.setUserId(httpSession.getAttribute("userId").toString());
+		mv.addObject("title", title);
 		title = "%" + title + "%";
 		movieWishDto.setTitle(title);
 		PageInfo<MovieWishDto> wishList = new PageInfo<MovieWishDto>(mypageService.MyreviewWishList(pageNum, movieWishDto), 10);
@@ -67,12 +68,11 @@ public class MyPageController {
 		String userId = httpSession.getAttribute("userId").toString();
 		reviewDto reviewdto = new reviewDto();
 		reviewdto.setUserId(userId);
-		String returnTitle = title;
+		mv.addObject("title", title);
 		title = "%"+title+"%";
 		reviewdto.setTitle(title);
 		PageInfo<reviewDto> myreview = new PageInfo<reviewDto>(mypageService.MyreviewList(pageNum, reviewdto), 10);			
 		mv.addObject("reviewList", myreview);
-		mv.addObject("title", returnTitle);
 		mv.addObject("pageName", "mypageReview");
 		return mv;
 	}

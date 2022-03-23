@@ -17,7 +17,7 @@
 
         <div class="row bg2ndColor h-100">
             <!-- 네비게이션 영역 -->
-                <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5 min-vh-100" ></nav>
+                <nav th:include="MyPage/nav :: nav" class="col-lg-3 px-5 min-vh-100" ></nav>
 			<!-- 메인영역 -->
 			<main class="col-lg-9 bg-black text-white" style="margin-top: 30px;">
 				<div class="w-100 mt-lg-5 pt-lg-5 mx-2">
@@ -53,7 +53,7 @@
                                     </li>
                                 </ul>
                                 <div >
-                                    <form action="/mypage/review" method="get" class="mx-auto w-100">
+                                    <form action="/mypage/wishlist" method="get" class="mx-auto w-100">
                                         <input type="text" th:value="${title}" id="title" name="title" class="w-100 form-control" style="border-bottom-left-radius: 0px; border-bottom-right-radius: 0px;">
                                         <input type="submit" id="btnSearch" value="검색" class="w-100 btn btn-danger" style="border-top-left-radius: 0px; border-top-right-radius: 0px;">
                                     </form>
