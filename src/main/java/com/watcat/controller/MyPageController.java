@@ -149,6 +149,16 @@ public class MyPageController {
 		
 		return "redirect:/mypage/trash";
 	}
+	@RequestMapping(value = "mypage/trash/delAll", method = RequestMethod.POST)
+	public String mypageTrashDelAllP(HttpServletRequest httpServletRequest) throws Exception {
+		
+		HttpSession httpSession = httpServletRequest.getSession();
+		String userId = httpSession.getAttribute("userId").toString();
+		mypageService.MyreviewTrashDeleteAll(userId);
+		
+		
+		return "redirect:/mypage/trash";
+	}
 
 
 	// 리뷰trash 리스트 출력
