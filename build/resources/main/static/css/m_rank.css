@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap')
+	;
+
+@import
+	url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Poor+Story&display=swap')
+	;
+
+#main {
+	font-family: 'Poor Story', cursive;
+	font-family: 'Nanum Myeongjo', serif;
+}
+
+#main {
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	color: white;
+}
+
+/* body {
+	background: url(/images/pop.jpg);
+	background-color: #11ffee00;;
+	color: black !important;
+	font-weight: bold;
+} */
+
+body {
+	background: url(/images/black.jpg);
+	background-color: #11ffee00;
+	font-weight: bold;
+	color: black !important;
+}
+
+.ui-datepicker {
+	margin-left: 100px;
+	z-index: 1000;
+}
+
+li span {
+	text-shadow: -1px 0 rgb(153, 153, 153), 0 1px rgb(153, 153, 153), 1px 0
+		rgb(153, 153, 153), 0 -1px rgb(153, 153, 153);
+}
+
+#mv {
+	box-shadow: -0.5px 0 rgb(153, 153, 153), 0 0.5px rgb(153, 153, 153),
+		0.5px 0 rgb(153, 153, 153), 0 -0.5px rgb(153, 153, 153);
+}
+
+#title {
+	text-shadow: -1px 0 rgb(153, 153, 153), 0 1px rgb(153, 153, 153), 1px 0
+		rgb(153, 153, 153), 0 -1px rgb(153, 153, 153);
+}

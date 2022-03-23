@@ -34,7 +34,7 @@ public class MyPageController {
 	// 마이페이지 비밀번호
 	@RequestMapping("mypage/pw")
 	public ModelAndView mypagePw() {
-		ModelAndView mv = new ModelAndView("Mypage/MypagePW");
+		ModelAndView mv = new ModelAndView("MyPage/MypagePW");
 		mv.addObject("pageName", "mypagePw");
 		return mv;
 	}
@@ -62,7 +62,7 @@ public class MyPageController {
 	public ModelAndView mypageReview(HttpServletRequest httpServletRequest,
 			@RequestParam(required = false, defaultValue = "1") int pageNum, 
 			@RequestParam(required = false, defaultValue = "") String title) throws Exception {
-		ModelAndView mv = new ModelAndView("Mypage/MypageReview");
+		ModelAndView mv = new ModelAndView("MyPage/MypageReview");
 		HttpSession httpSession = httpServletRequest.getSession();
 		String userId = httpSession.getAttribute("userId").toString();
 		reviewDto reviewdto = new reviewDto();
@@ -81,7 +81,7 @@ public class MyPageController {
 	@RequestMapping("mypage/trash")
 	public ModelAndView mypageTrash(HttpServletRequest httpServletRequest,
 			@RequestParam(required = false, defaultValue = "1") int pageNum) throws Exception {
-		ModelAndView mv = new ModelAndView("Mypage/MypageTrash");
+		ModelAndView mv = new ModelAndView("MyPage/MypageTrash");
 		HttpSession httpSession = httpServletRequest.getSession();
 		String userId = httpSession.getAttribute("userId").toString();
 		PageInfo<reviewDto> myreviewTrash = new PageInfo<reviewDto>(mypageService.MyreviewTrashList(pageNum, userId),

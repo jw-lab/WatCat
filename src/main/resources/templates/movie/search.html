@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>영화 검색 페이지</title>
@@ -81,7 +81,7 @@ $(document).ready(()=>{
 </script>
 </head>
 <body class="bg-black">
-	<header th:include="header"></header>
+	<header th:include="Header :: header"></header>
 		<div class="container">
 			<div class="row w-100">
 				<div class="col-md-5 mx-auto">

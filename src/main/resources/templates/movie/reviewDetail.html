@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>리뷰 상세보기 페이지</title>
@@ -221,7 +221,7 @@
 </script>
 </head>
 <body class="bg-black">
-	<header th:include="header"></header>
+	<header th:include="Header :: header"></header>
 	<div class="container">
         <input type="hidden" id="sessionUserid" name="sessionUserid" th:value="${session.userId}">
         <input type="hidden" id="review-idx" name="review-idx" th:value="${idx}">

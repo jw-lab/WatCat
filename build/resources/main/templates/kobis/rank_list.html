@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Kobis</title>
+<style>
+
+</style>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+	integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/style.css">
+<link href="/css/m_rank.css" rel="stylesheet" type="text/css" media="screen and (max-width:899px)">
+<link href="/css/rank.css" rel="stylesheet" type="text/css" media="screen and (min-width:900px)">
+<script>
+
+            $(document).ready(() => {
+                var today = new Date();
+                today.setDate(today.getDate() - 1);
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1; //January is 0!
+                var yyyy = today.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd;
+                }
+                if (mm < 10) {
+                    mm = '0' + mm;
+                }
+                today = yyyy + '-' + mm + '-' + dd;
+                document
+                    .getElementById("selDate")
+                    .setAttribute("max", today);
+                
+                var now = new Date();
+
+                document
+                .getElementById('selDate')
+                .value = new Date(now.setDate(now.getDate() - 1))
+                .toISOString()
+                .substring(0, 10);//오늘날짜=기본날짜
+                
+
+                $("#btn-search").on("click", function () {
+                	var date = $("#selDate").val();  //날짜 
+				    var search = $("#btn-search").val();  
+                    let apiCon = "/watcat/kobis/api"; //controller-api 주소
+                    var title = $("title").val(); //제목
+                    var d_ate = converDate(date); //날짜에서 '-' 제외하는 메소드
+                    var ymdate = yearMonthDate(d_ate); //----년--월--일 메소드
+                    let naverMv = "\"https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=영화+";
+                    let tmdbMv = "\"https://www.themoviedb.org/search?query=";
+					let cgvMv = "\"http://www.cgv.co.kr/search/?query=";
+					let megaMv = "\"https://www.megabox.co.kr/movie?searchText=";
+                    
+                    $("#title").text(ymdate+" 박스오피스 순위");
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: apiCon,
+                        data: {
+                            date: d_ate
+                        },
+                        success: (response) => {
+                            $("#kobisList").empty(); 
+
+                            for (var i = 0; i < response.length; i++) {
+                                let temp_html =  " <ul class=\"list-unstyled\">";
+                                temp_html += "<li class=\"h4\"><b><span>" + response[i].rank + "위</span></b></li>";
+                                temp_html += "<li class=\"h5\" ><b><span ><a href="+ naverMv+ response[i].movieNm+"\" target='_blank' title=\"네이버로 영화 검색\">"+  response[i].movieNm +"</span></a></b></li>";
+                                temp_html += "<li><span style=\"rgb(89, 89, 89)\">개봉일: " + response[i].openDt + "</span></li>";
+                                temp_html += " <li><span>누적관객수: " + response[i].audiAcc + "명</span></li>";
+                                temp_html += "<li><span><a href="+ megaMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/mega.png\" style=\" height:20px;\"  alt=\"메가박스\" title=\"메가박스에서 예매\" id=\"mv\" class=\"me-2\"></img></a></span>"; 
+                                temp_html += "<span><a href="+ cgvMv + response[i].movieNm+"\" target='_blank'><img src=\"/images/cgv.svg\" style=\"height:20px;\"  alt=\"cgv\" title=\"cgv에서 예매\" id=\"mv\"></img></a></span></li>";
+                                temp_html += "</ul>";
+                                $("#kobisList").append(temp_html);
+                            }
+                        },
+                        error: function (request, error) {
+                            alert("\nmessage:" + request.responseText + "\nerror:" + error);
+                        }
+
+                    });
+                });
+            });
+
+            function converDate(date) {
+                var temp = date.split("-");
+                return temp.join("");
+            }
+
+            function yearMonthDate(date) {
+                date = date.substring(0, 4) + "년" + date.substring(4, 6) + "월" + date.substring(6,10) + "일";
+                return date;
+            }
+        </script>
+
+</head>
+<body style="color:black;">
+
+	<header th:replace="Header :: header" ></header>
+
+	<main class="container mt-5 border-bottom" id="main">
+		<div class="row my-3">
+			<div class="col-sm px-3">
+				<h1 class="text-center" id="title">박스오피스</h1>
+				<div class="row my-3 border-bottom"></div>
+
+
+				<div class="row">
+
+					<div class="col-11 float-end ">
+						<input type="date" class="form-control text-center" id="selDate"
+							name="selDate">
+					</div>
+					<div class="col-1 ">
+						<button type="button" id="btn-search" class="btn"
+							style="background-color: rgb(182, 0, 55); color: white;">검색</button>
+					</div>
+
+				</div>
+				<hr class="mt-5">
+				<br>
+				<div id="kobisList" class="text-center ">
+					<!-- 리스트 출력 -->
+				</div>
+
+			</div>
+		</div>
+
+	</main>
+
+</body>
+</html>
