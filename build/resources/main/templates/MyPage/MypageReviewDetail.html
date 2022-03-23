@@ -75,76 +75,78 @@
         <header th:include="Header :: header" class="fixed-top px-0 mx-0">
         </header>
         
-        <div class="row bg2ndColor">
+        <div class="row bg2ndColor h-100">
             <!-- 네비게이션 영역 -->
-            <nav th:include="MyPage/nav :: nav" class="col-lg-3 px-5">
+                <nav th:include="MyPage/nav :: nav" class="col-lg-3 px-5 min-vh-100" >
             </nav>
             <!-- 메인영역 -->
-            <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
-                <h3 class="text-primary"><b>리뷰 상세 보기</b></h3>
-                <div class="w-75 mx-auto mt-3">
-                    <form action="#" id="frm" method="post" class="mt-3 p-3">
-                        <input type="hidden" id="idx" name="idx" th:value="${reviewDetail.idx}" readonly><!-- idx 비활성화-->
-                        <div class="row">
-                            <div class="col p-2 ms-2">
-                                <img th:src="${reviewDetail.poster}" width="200px"> 
-                            </div>
-                            <div class="col text-end align-text-bottom">
-                                <button type="button" class="btn btn-success btnRounded" id="btn-editOK">확인</button>
-                                <button type="button" class="btn btn-primary btnRounded lead" id="btn-edit">수정</button>
-                                <button type="button" class="btn btn-warning btnRounded" id="btn-delete">삭제</button>
-                                <button type="button" class="btn btn-danger btnRounded" id="btn-cancel">취소</button>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="bg-black p-1 form-floating">
-                                <input th:value="${reviewDetail.poster}" type="text" id="poster" name="poster" class="form-control bg-black text-white" autocomplete="off">
-                                <label>포스터 이미지 경로</label>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col bg-black p-1 form-floating ms-1">
-                                    <input th:value="${reviewDetail.title}" type="text" id="title" name="title" class="form-control bg-black text-white" autocomplete="off">
-                                    <label>영화 제목</label>
+            <main class="col-lg-9 bg-black text-white" style="margin-top: 30px;">    
+                <div class="w-100 mt-lg-5 pt-lg-5 mx-2">
+                    <h3 class="text-primary"><b>리뷰 상세 보기</b></h3>
+                    <div class="w-75 mx-auto mt-3">
+                        <form action="#" id="frm" method="post" class="mt-3 p-3">
+                            <input type="hidden" id="idx" name="idx" th:value="${reviewDetail.idx}" readonly><!-- idx 비활성화-->
+                            <div class="row">
+                                <div class="col p-2 ms-2">
+                                    <img th:src="${reviewDetail.poster}" width="200px"> 
                                 </div>
-                                <div class="col bg-black p-1 form-floating me-1">
-                                    <input th:value="${reviewDetail.genres}" type="text" id="genres" name="genres" class="form-control bg-black text-white" autocomplete="off">
-                                    <label>장르</label>
+                                <div class="col text-end align-text-bottom">
+                                    <button type="button" class="btn btn-success btnRounded m-1" id="btn-editOK">확인</button>
+                                    <button type="button" class="btn btn-primary btnRounded m-1" id="btn-edit">수정</button>
+                                    <button type="button" class="btn btn-warning btnRounded m-1" id="btn-delete">삭제</button>
+                                    <button type="button" class="btn btn-danger btnRounded m-1" id="btn-cancel">취소</button>
                                 </div>
                             </div>
-                            <div class="row px-2">
-                                <div class="col bg-black p-1 form-floating ms-1">
-                                    <input th:value="${reviewDetail.actors}" type="text" id="actors" name="actors" class="form-control bg-black text-white" autocomplete="off">
-                                    <label>출연배우</label>
+                            <div>
+                                <div class="bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.poster}" type="text" id="poster" name="poster" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>포스터 이미지 경로</label>
                                 </div>
-                                <div class="col bg-black p-1 form-floating me-1">
-                                    <input th:value="${reviewDetail.releaseDate}" type="text" id="releaseDate" name="releaseDate" class="form-control bg-black text-white" autocomplete="off">
-                                    <label>개봉일</label>
+                                <div class="row p-2">
+                                    <div class="col bg-black p-1 form-floating ms-1">
+                                        <input th:value="${reviewDetail.title}" type="text" id="title" name="title" class="form-control bg-black text-white" autocomplete="off">
+                                        <label>영화 제목</label>
+                                    </div>
+                                    <div class="col bg-black p-1 form-floating me-1">
+                                        <input th:value="${reviewDetail.genres}" type="text" id="genres" name="genres" class="form-control bg-black text-white" autocomplete="off">
+                                        <label>장르</label>
+                                    </div>
+                                </div>
+                                <div class="row px-2">
+                                    <div class="col bg-black p-1 form-floating ms-1">
+                                        <input th:value="${reviewDetail.actors}" type="text" id="actors" name="actors" class="form-control bg-black text-white" autocomplete="off">
+                                        <label>출연배우</label>
+                                    </div>
+                                    <div class="col bg-black p-1 form-floating me-1">
+                                        <input th:value="${reviewDetail.releaseDate}" type="text" id="releaseDate" name="releaseDate" class="form-control bg-black text-white" autocomplete="off">
+                                        <label>개봉일</label>
+                                    </div>
+                                </div>
+                                <div class="bg-black p-1 form-floating">
+                                    <textarea th:text="${reviewDetail.overview}" type="text" id="overview" name="overview" class="form-control bg-black text-white" autocomplete="off"  style="height: 200px;"></textarea>
+                                    <label>줄거리</label>
+                                </div>
+                                <div class="bg-black p-1 form-floating">
+                                    <input th:value="${reviewDetail.tagline}" type="text" id="tagline" name="tagline" class="form-control bg-black text-white" autocomplete="off">
+                                    <label>부제</label>
+                                </div>
+                                <div class="row px-2">
+                                    <div class="col bg-black p-1 form-floating ms-1">
+                                        <input th:value="${reviewDetail.runtime}" type="number" id="runtime" name="runtime" class="form-control bg-black text-white" autocomplete="off">
+                                        <label>상영 시간<small>(분)</small></label>
+                                    </div>
+                                    <div class="col bg-black p-1 form-floating me-1">
+                                        <input th:value="${reviewDetail.rating}" type="number" max="10" id="rating" name="rating" class="form-control bg-black text-white" autocomplete="off">
+                                        <label>개인 평점 <small>(최대 10점 입니다.)</small></label>
+                                    </div>
+                                </div>
+                                <div class="bg-black p-1 form-floating">
+                                    <textarea th:text="${reviewDetail.content}" type="text" id="content" name="content" class="form-control bg-black text-white" autocomplete="off"  style="height: 200px;"></textarea>
+                                    <label>리뷰 내용</label>
                                 </div>
                             </div>
-                            <div class="bg-black p-1 form-floating">
-                                <textarea th:text="${reviewDetail.overview}" type="text" id="overview" name="overview" class="form-control bg-black text-white" autocomplete="off"  style="height: 200px;"></textarea>
-                                <label>줄거리</label>
-                            </div>
-                            <div class="bg-black p-1 form-floating">
-                                <input th:value="${reviewDetail.tagline}" type="text" id="tagline" name="tagline" class="form-control bg-black text-white" autocomplete="off">
-                                <label>부제</label>
-                            </div>
-                            <div class="row px-2">
-                                <div class="col bg-black p-1 form-floating ms-1">
-                                    <input th:value="${reviewDetail.runtime}" type="number" id="runtime" name="runtime" class="form-control bg-black text-white" autocomplete="off">
-                                    <label>상영 시간<small>(분)</small></label>
-                                </div>
-                                <div class="col bg-black p-1 form-floating me-1">
-                                    <input th:value="${reviewDetail.rating}" type="number" max="10" id="rating" name="rating" class="form-control bg-black text-white" autocomplete="off">
-                                    <label>개인 평점 <small>(최대 10점 입니다.)</small></label>
-                                </div>
-                            </div>
-                            <div class="bg-black p-1 form-floating">
-                                <textarea th:text="${reviewDetail.content}" type="text" id="content" name="content" class="form-control bg-black text-white" autocomplete="off"  style="height: 200px;"></textarea>
-                                <label>리뷰 내용</label>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </main>
         </div>

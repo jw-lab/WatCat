@@ -55,10 +55,10 @@
         <header th:include="Header :: header" class="fixed-top px-0 mx-0">
         </header>
         
-        <div class="row bg2ndColor">
+        <div class="row bg2ndColor h-100">
             <!-- 네비게이션 영역 -->
-            <nav th:include="/Mypage/nav :: nav" class="col-lg-3 px-5">
-            </nav>
+                <nav th:include="MyPage/nav :: nav" class="col-lg-3 px-5 min-vh-100" >
+                </nav>
             <!-- 메인영역 -->
             <main class="col-lg-9 bg-black text-white"  style="padding-top: 100px;">    
                 <div th:if="${userList.getList().size()}>0"  class="m-5">
@@ -118,7 +118,7 @@
 						</li>
 					</ul>
 					<section class="navbar">
-					  <form action="/admin/account" method="get" class="ms-auto me-5">
+					  <form action="/admin/account" method="get" class="ms-auto me-5 pb-5">
 					    <div class="input-group">
 					      <input type="text" name="query" class="form-control" placeholder="아이디 검색">
 					      <button type="submit"class="input-group-text btn btn-info" id="search-bar">
