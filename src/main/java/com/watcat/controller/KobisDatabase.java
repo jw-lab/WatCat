@@ -28,7 +28,7 @@ public class KobisDatabase {
 
 	@RequestMapping("kobis/requestInput")
 	public ModelAndView KobisRequestInput() {
-		ModelAndView mv = new ModelAndView("Mypage/KobisRequestInput");
+		ModelAndView mv = new ModelAndView("MyPage/KobisRequestInput");
 		mv.addObject("pageName", "KobisRequestInput");
 		return mv;
 	}
