@@ -43,7 +43,6 @@ public class KobisServiceImpl implements KobisService {
 				urlConn.disconnect();
 			}
 		}
-
 		return itemList;
 	}
 
