@@ -21,5 +21,5 @@
 ![Slide 6](https://github.com/jw-lab/WatCat/blob/master/slides/slide45.PNG)
 
 ## 전체 포트폴리오 보기
-전체 포트폴리오를 확인하려면 [여기](./WatCat.pdf)에서 다운로드하세요.
+전체 포트폴리오를 확인하려면 [여기](https://github.com/jw-lab/WatCat/blob/master/WatCat.pdf)를 클릭하세요
 
