@@ -13,12 +13,12 @@
 
 포트폴리오 PPT 주요 슬라이드 입니다
 
-![Slide 1](./slides/slide33.png)
-![Slide 1](./slides/slide36.png)
-![Slide 1](./slides/slide39.png)
-![Slide 1](./slides/slide43.png)
-![Slide 1](./slides/slide44.png)
-![Slide 1](./slides/slide45.png)
+![Slide 1](https://github.com/jw-lab/WatCat/blob/master/slides/slide33.PNG)
+![Slide 2](https://github.com/jw-lab/WatCat/blob/master/slides/slide36.PNG)
+![Slide 3](https://github.com/jw-lab/WatCat/blob/master/slides/slide39.PNG)
+![Slide 4](https://github.com/jw-lab/WatCat/blob/master/slides/slide43.PNG)
+![Slide 5](https://github.com/jw-lab/WatCat/blob/master/slides/slide44.PNG)
+![Slide 6](https://github.com/jw-lab/WatCat/blob/master/slides/slide45.PNG)
 
 ## 전체 포트폴리오 보기
 전체 포트폴리오를 확인하려면 [여기](./WatCat.pdf)에서 다운로드하세요.
