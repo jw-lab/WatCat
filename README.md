@@ -13,12 +13,12 @@
 
 포트폴리오 PPT 주요 슬라이드 입니다
 
-![Slide 1](./slides/슬라이드33.png)
-![Slide 1](./slides/슬라이드36.png)
-![Slide 1](./slides/슬라이드39.png)
-![Slide 1](./slides/슬라이드43.png)
-![Slide 1](./slides/슬라이드44.png)
-![Slide 1](./slides/슬라이드45.png)
+![Slide 1](./slides/slide33.png)
+![Slide 1](./slides/slide36.png)
+![Slide 1](./slides/slide39.png)
+![Slide 1](./slides/slide43.png)
+![Slide 1](./slides/slide44.png)
+![Slide 1](./slides/slide45.png)
 
 ## 전체 포트폴리오 보기
 전체 포트폴리오를 확인하려면 [여기](./WatCat.pdf)에서 다운로드하세요.
